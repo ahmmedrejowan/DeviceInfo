@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">DeviceInfo</string>
+    <string name="app_name">Device Info</string>
+
+
+    <string name="let_s_start">Let\'s Start</string>
+
+
+    <string name="intro_title_1">Core Insights</string>
+    <string name="intro_sub_title_1">Delve into the heart of your device for a glimpse into its processing prowess</string>
+
+    <string name="intro_title_2">Discover Device Components</string>
+    <string name="intro_sub_title_2">Discover what makes your device tick - from hardware marvels to software wonders</string>
+
+    <string name="intro_title_3">System Overview</string>
+    <string name="intro_sub_title_3">Explore the combined essence of hardware and software, defining your device\'s capabilities</string>
+
+
+
+
 </resources>
