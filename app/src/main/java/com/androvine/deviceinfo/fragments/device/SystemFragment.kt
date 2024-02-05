@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.androvine.deviceinfo.R
 
 
-class DeviceFragment : Fragment() {
+class SystemFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -16,7 +16,7 @@ class DeviceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_device, container, false)
+        return inflater.inflate(R.layout.fragment_system, container, false)
     }
 
 
