@@ -47,16 +47,39 @@
         </RelativeLayout>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+            android:id="@+id/tabLayoutDevice"
             style="@style/RoundedTabLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:visibility="gone" />
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="visible" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutApps"
+            style="@style/RoundedTabLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="visible" />
 
     </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+        android:id="@+id/viewPagerDevice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavView"
+        android:layout_below="@id/toolbarAndTabLayout"
+        android:visibility="gone" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerApps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavView"
