@@ -1,4 +1,4 @@
-package com.androvine.deviceinfo
+package com.androvine.deviceinfo.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

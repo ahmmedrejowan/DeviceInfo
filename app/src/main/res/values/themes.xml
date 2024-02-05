@@ -33,8 +33,6 @@
         <item name="textAllCaps">false</item>
         <item name="android:textStyle">normal</item>
         <item name="fontFamily">sans-serif-medium</item>
-
-
     </style>
 
     <style name="TabLayoutTextAppearanceUnselected" parent="TextAppearance.Design.Tab">
@@ -42,7 +40,6 @@
         <item name="textAllCaps">false</item>
         <item name="android:textStyle">normal</item>
         <item name="fontFamily">sans-serif</item>
-
     </style>
 
 

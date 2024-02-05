@@ -3,11 +3,14 @@ package com.androvine.deviceinfo.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.androvine.deviceinfo.adapter.DeviceFragmentAdapter
 import com.androvine.deviceinfo.R
+import com.androvine.deviceinfo.adapter.AppsFragmentAdapter
 import com.androvine.deviceinfo.databinding.ActivityHomeBinding
 import com.androvine.deviceinfo.fragments.bottomNav.HomeFragment
 import com.androvine.deviceinfo.fragments.bottomNav.ReportFragment
 import com.androvine.deviceinfo.fragments.bottomNav.TestFragment
+import com.google.android.material.tabs.TabLayoutMediator
 
 class Home : AppCompatActivity() {
 
@@ -82,42 +85,13 @@ class Home : AppCompatActivity() {
 
         binding.tabLayoutDevice.visibility = View.GONE
 
-        val cpuTab = binding.tabLayoutDevice.newTab().setText("CPU")
-        val gpuTab = binding.tabLayoutDevice.newTab().setText("GPU")
-        val osTab = binding.tabLayoutDevice.newTab().setText("OS")
-        val systemTab = binding.tabLayoutDevice.newTab().setText("System")
-        val displayTab = binding.tabLayoutDevice.newTab().setText("Display")
-        val ramTab = binding.tabLayoutDevice.newTab().setText("RAM")
-        val storageTab = binding.tabLayoutDevice.newTab().setText("Storage")
-        val batteryTab = binding.tabLayoutDevice.newTab().setText("Battery")
-        val cameraTab = binding.tabLayoutDevice.newTab().setText("Camera")
-        val connectionTab = binding.tabLayoutDevice.newTab().setText("Connection")
-        val networkTab = binding.tabLayoutDevice.newTab().setText("Network")
-        val gsmTab = binding.tabLayoutDevice.newTab().setText("GSM")
-        val sensorTab = binding.tabLayoutDevice.newTab().setText("Sensor")
-        val thermalTab = binding.tabLayoutDevice.newTab().setText("Thermal")
-        val codecTab = binding.tabLayoutDevice.newTab().setText("Codec")
-        val featureTab = binding.tabLayoutDevice.newTab().setText("Feature")
-        val miscTab = binding.tabLayoutDevice.newTab().setText("Misc")
+        val tabList = listOf("CPU", "GPU", "OS", "System", "Display", "RAM", "Storage", "Battery", "Camera", "Connection", "Network", "GSM", "Sensor", "Thermal", "Codec", "Feature", "Misc")
 
-        binding.tabLayoutDevice.addTab(cpuTab)
-        binding.tabLayoutDevice.addTab(gpuTab)
-        binding.tabLayoutDevice.addTab(osTab)
-        binding.tabLayoutDevice.addTab(systemTab)
-        binding.tabLayoutDevice.addTab(displayTab)
-        binding.tabLayoutDevice.addTab(ramTab)
-        binding.tabLayoutDevice.addTab(storageTab)
-        binding.tabLayoutDevice.addTab(batteryTab)
-        binding.tabLayoutDevice.addTab(cameraTab)
-        binding.tabLayoutDevice.addTab(connectionTab)
-        binding.tabLayoutDevice.addTab(networkTab)
-        binding.tabLayoutDevice.addTab(gsmTab)
-        binding.tabLayoutDevice.addTab(sensorTab)
-        binding.tabLayoutDevice.addTab(thermalTab)
-        binding.tabLayoutDevice.addTab(codecTab)
-        binding.tabLayoutDevice.addTab(featureTab)
-        binding.tabLayoutDevice.addTab(miscTab)
+        binding.viewPagerDevice.adapter = DeviceFragmentAdapter(supportFragmentManager,lifecycle)
 
+        TabLayoutMediator(binding.tabLayoutDevice, binding.viewPagerDevice) { tab, position ->
+            tab.text = tabList[position]
+        }.attach()
 
     }
 
@@ -125,15 +99,13 @@ class Home : AppCompatActivity() {
 
         binding.tabLayoutApps.visibility = View.GONE
 
-        val userTab = binding.tabLayoutApps.newTab().setText("User")
-        val systemTab = binding.tabLayoutApps.newTab().setText("System")
-        val permissionTab = binding.tabLayoutApps.newTab().setText("Permission")
-        val analyticsTab = binding.tabLayoutApps.newTab().setText("Analytics")
+        val tabList = listOf("User", "System", "Permission", "Analytics")
 
-        binding.tabLayoutApps.addTab(userTab)
-        binding.tabLayoutApps.addTab(systemTab)
-        binding.tabLayoutApps.addTab(permissionTab)
-        binding.tabLayoutApps.addTab(analyticsTab)
+        binding.viewPagerApps.adapter = AppsFragmentAdapter(supportFragmentManager,lifecycle)
+
+        TabLayoutMediator(binding.tabLayoutApps, binding.viewPagerApps) { tab, position ->
+            tab.text = tabList[position]
+        }.attach()
 
     }
 
