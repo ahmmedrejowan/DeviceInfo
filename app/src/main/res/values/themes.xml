@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="Theme.DeviceInfo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -6,7 +7,7 @@
         <item name="android:textColorHint">@color/textColorSecondary</item>
         <item name="backgroundColor">@color/backgroundColor</item>
         <item name="android:statusBarColor">@color/backgroundColorSecondary</item>
-        <item name="android:windowLightStatusBar" >true</item>
+        <item name="android:windowLightStatusBar">true</item>
 
     </style>
 
@@ -15,5 +16,34 @@
         </item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+
+    <style name="RoundedTabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabBackground">@drawable/tabs_selector</item>
+        <item name="tabIndicator">@null</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/colorSecondary</item>
+        <item name="tabTextAppearance">@style/TabLayoutTextAppearanceUnselected</item>
+        <item name="tabSelectedTextAppearance">@style/TabLayoutTextAppearanceSelected</item>
+        <item name="tabMinWidth">70dp</item>
+        <item name="tabMode">auto</item>
+    </style>
+
+    <style name="TabLayoutTextAppearanceSelected" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">sans-serif-medium</item>
+
+
+    </style>
+
+    <style name="TabLayoutTextAppearanceUnselected" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">sans-serif</item>
+
+    </style>
+
 
 </resources>
