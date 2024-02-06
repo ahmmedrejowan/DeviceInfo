@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="General"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:defaultValue="system_default"
+            android:entries="@array/app_theme_mode"
+            android:entryValues="@array/app_theme_mode_values"
+            android:icon="@drawable/ic_dark_mode"
+            android:key="pref_dark_theme"
+            android:summary="Enable dark theme"
+            android:title="Dark theme" />
+
+
+    </PreferenceCategory>
+
+
+
+</PreferenceScreen>

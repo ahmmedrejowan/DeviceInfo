@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="app_theme_mode">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System default</item>
+    </array>
+
+    <array name="app_theme_mode_values">
+        <item>light_theme</item>
+        <item>dark_theme</item>
+        <item>system_default</item>
+    </array>
+
+
+</resources>

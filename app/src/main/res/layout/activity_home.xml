@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@color/backgroundColorSecondary"
     tools:context=".ui.Home">
 
 
@@ -13,13 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:background="@color/backgroundColor"
         android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_alignParentTop="true">
+            android:layout_height="60dp">
 
             <TextView
                 android:id="@+id/title"
@@ -55,7 +55,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             android:visibility="visible" />
 
         <com.google.android.material.tabs.TabLayout
@@ -66,7 +66,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="15dp"
             android:visibility="visible" />
 
     </LinearLayout>
@@ -87,12 +87,13 @@
         android:layout_below="@id/toolbarAndTabLayout"
         android:visibility="gone" />
 
-    <FrameLayout
-        android:id="@+id/fragmentContainerView"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerBottomNav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavView"
-        android:layout_below="@id/toolbarAndTabLayout" />
+        android:layout_below="@id/toolbarAndTabLayout"
+        android:visibility="gone" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

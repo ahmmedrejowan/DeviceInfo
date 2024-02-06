@@ -7,7 +7,7 @@
         <item name="android:textColorHint">@color/textColorSecondary</item>
         <item name="backgroundColor">@color/backgroundColor</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="android:statusBarColor">@color/backgroundColorSecondary</item>
+        <item name="android:statusBarColor">@color/backgroundColor</item>
         <item name="android:windowLightStatusBar">false</item>
 
     </style>

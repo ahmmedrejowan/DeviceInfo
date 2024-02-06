@@ -1,11 +1,13 @@
 package com.androvine.deviceinfo.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.androvine.deviceinfo.adapter.DeviceFragmentAdapter
 import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsFragmentAdapter
+import com.androvine.deviceinfo.adapter.BottomNavFragmentAdapter
 import com.androvine.deviceinfo.databinding.ActivityHomeBinding
 import com.androvine.deviceinfo.fragments.bottomNav.HomeFragment
 import com.androvine.deviceinfo.fragments.bottomNav.ReportFragment
@@ -27,51 +29,71 @@ class Home : AppCompatActivity() {
 
         setUpAppsTabs()
 
+        setOnclickListeners()
+    }
+
+    private fun setOnclickListeners() {
+
+        binding.settingsImageView.setOnClickListener{
+            startActivity(Intent(this, Settings::class.java))
+        }
+
     }
 
 
     private fun setupBottomNavigation() {
 
+        binding.viewPagerBottomNav.adapter = BottomNavFragmentAdapter(supportFragmentManager, lifecycle)
+
         binding.bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
-                    setUpFragment(HomeFragment())
-                    showHide(navContainer = true, deviceTab = false, appsTab = false)
+                    binding.viewPagerBottomNav.setCurrentItem(0,false)
+                    showHide(bottomNav = true, deviceTab = false, appsTab = false)
+                    changeTitle(getString(R.string.app_name))
                 }
 
                 R.id.nav_device -> {
-                    showHide(navContainer = false, deviceTab = true, appsTab = false)
-
+                    showHide(bottomNav = false, deviceTab = true, appsTab = false)
+                    changeTitle("Details")
                 }
 
                 R.id.nav_test -> {
-                    setUpFragment(TestFragment())
-                    showHide(navContainer = true, deviceTab = false, appsTab = false)
+                    binding.viewPagerBottomNav.setCurrentItem(1,false)
+                    showHide(bottomNav = true, deviceTab = false, appsTab = false)
+                    changeTitle("Testing")
 
                 }
 
                 R.id.nav_apps -> {
-                    showHide(navContainer = false, deviceTab = false, appsTab = true)
+                    showHide(bottomNav = false, deviceTab = false, appsTab = true)
+                    changeTitle("Apps")
 
                 }
 
                 R.id.nav_report -> {
-                    setUpFragment(ReportFragment())
-                    showHide(navContainer = true, deviceTab = false, appsTab = false)
-
+                    binding.viewPagerBottomNav.setCurrentItem(2,false)
+                    showHide(bottomNav = true, deviceTab = false, appsTab = false)
+                    changeTitle("Report")
                 }
             }
             true
         }
 
         binding.bottomNavView.selectedItemId = R.id.nav_home
+        binding.viewPagerBottomNav.currentItem = 0
+        binding.viewPagerBottomNav.isUserInputEnabled = false
 
 
     }
 
-    private fun showHide(navContainer: Boolean, deviceTab: Boolean, appsTab: Boolean) {
+    private fun changeTitle(title: String) {
+        binding.title.text = title
+    }
 
-        binding.fragmentContainerView.visibility = if (navContainer) View.VISIBLE else View.GONE
+    private fun showHide(bottomNav: Boolean, deviceTab: Boolean, appsTab: Boolean) {
+
+        binding.viewPagerBottomNav.visibility = if (bottomNav) View.VISIBLE else View.GONE
         binding.viewPagerDevice.visibility = if (deviceTab) View.VISIBLE else View.GONE
         binding.viewPagerApps.visibility = if (appsTab) View.VISIBLE else View.GONE
 
@@ -109,12 +131,7 @@ class Home : AppCompatActivity() {
 
     }
 
-    private fun setUpFragment(fragment: androidx.fragment.app.Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentContainerView, fragment)
-            commit()
-        }
-    }
+
 
 
 }
