@@ -6,3 +6,4 @@ data class CpuDataModel(
     val fab: String,
     val gpu: String
 )
+
