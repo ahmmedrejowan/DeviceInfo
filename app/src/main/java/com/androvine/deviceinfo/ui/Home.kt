@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.androvine.deviceinfo.adapter.DeviceFragmentAdapter
 import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsFragmentAdapter
@@ -12,7 +13,9 @@ import com.androvine.deviceinfo.databinding.ActivityHomeBinding
 import com.androvine.deviceinfo.fragments.bottomNav.HomeFragment
 import com.androvine.deviceinfo.fragments.bottomNav.ReportFragment
 import com.androvine.deviceinfo.fragments.bottomNav.TestFragment
+import com.androvine.deviceinfo.utils.DeviceListImporter
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
 
 class Home : AppCompatActivity() {
 
@@ -30,6 +33,10 @@ class Home : AppCompatActivity() {
         setUpAppsTabs()
 
         setOnclickListeners()
+
+
+
+
     }
 
     private fun setOnclickListeners() {

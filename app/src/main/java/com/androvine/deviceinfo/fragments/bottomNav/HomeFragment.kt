@@ -2,6 +2,7 @@ package com.androvine.deviceinfo.fragments.bottomNav
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,18 @@ class HomeFragment : Fragment() {
         val release = Build.VERSION.RELEASE
 
 
+        Log.e("TAG", "onViewCreated: \nbrand: " + brand + "\nmodel: " + model + "\ndevice: " + device + "\nproduct: " + product + "\nmanufacturer: " + manufacturer + "\nhardware: " + hardware + "\nboard: " + board + "\nbootloader: " + bootloader + "\ndisplay: " + display + "\nfingerprint: " + fingerprint + "\nhost: " + host + "\nid: " + id + "\ntags: " + tags + "\ntype: " + type + "\nuser: " + user + "\ncodename: " + codename + "\nincremental: " + incremental + "\nrelease: " + release)
+
+        val releaseDate = Build.TIME
+        val sdk = Build.VERSION.SDK_INT
+        val sdkName = Build.VERSION.SDK
+        val sdkVersion = Build.VERSION.SDK_INT
+
+        Log.e("TAG", "onViewCreated: \nreleaseDate: " + releaseDate + "\nsdk: " + sdk + "\nsdkName: " + sdkName + "\nsdkVersion: " + sdkVersion)
+
+
+        val releaseDateToReadable = java.text.SimpleDateFormat("dd/MM/yyyy").format(java.util.Date(releaseDate))
+        Log.e("TAG", "onViewCreated: releaseDateToReadable: $releaseDateToReadable")
 
     }
 

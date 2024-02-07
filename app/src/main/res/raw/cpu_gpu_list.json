@@ -1,0 +1,1430 @@
+[
+  {
+    "model": "MSM8225Q",
+    "name": "Snapdragon 200",
+    "fab": "45 nm (TSMC 45LP)",
+    "gpu": "Adreno 203 400 MHz"
+  },
+  {
+    "model": "MSM8625Q",
+    "name": "Snapdragon 200",
+    "fab": "45 nm (TSMC 45LP)",
+    "gpu": "Adreno 203 400 MHz"
+  },
+  {
+    "model": "MSM8210",
+    "name": "Snapdragon 200",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 302 400 MHz"
+  },
+  {
+    "model": "MSM8610",
+    "name": "Snapdragon 200",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 302 400 MHz"
+  },
+  {
+    "model": "MSM8212",
+    "name": "Snapdragon 200",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 302 400 MHz"
+  },
+  {
+    "model": "MSM8612",
+    "name": "Snapdragon 200",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 302 400 MHz"
+  },
+  {
+    "model": "MSM8905",
+    "name": "Qualcomm 205",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 304"
+  },
+  {
+    "model": "MSM8208",
+    "name": "Snapdragon 208",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 304"
+  },
+  {
+    "model": "MSM8909",
+    "name": "Snapdragon 210",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 304"
+  },
+  {
+    "model": "MSM8909AA",
+    "name": "Snapdragon 212",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 304"
+  },
+  {
+    "model": "QM215",
+    "name": "Qualcomm 215",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 308"
+  },
+  {
+    "model": "APQ8026",
+    "name": "Snapdragon 400",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 305 450 MHz"
+  },
+  {
+    "model": "MSM8226",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8626",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8926",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "APQ8028",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8228",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8628",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8928",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8230",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8630",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8930",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8930AA",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "APQ8030AB",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8230AB",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8630AB",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8930AB",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "APQ8016",
+    "name": "Snapdragon 410",
+    "fab": "28 nm (TSMC 28LP) / 28 nm (SMIC)",
+    "gpu": "Adreno 306 400 MHz"
+  },
+  {
+    "model": "MSM8916",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP) / 28 nm (SMIC)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8916 v2",
+    "name": "Snapdragon 412",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8929",
+    "name": "Snapdragon 415",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 405 465 MHz"
+  },
+  {
+    "model": "MSM8917",
+    "name": "Snapdragon 425",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 308 598 MHz"
+  },
+  {
+    "model": "MSM8920",
+    "name": "Snapdragon 427",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 308 650 MHz"
+  },
+  {
+    "model": "MSM8937",
+    "name": "Snapdragon 430",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 505 450 MHz"
+  },
+  {
+    "model": "MSM8940",
+    "name": "Snapdragon 435",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 505 475 MHz"
+  },
+  {
+    "model": "SDM429",
+    "name": "Snapdragon 429",
+    "fab": "12 nm FinFET",
+    "gpu": "Adreno 504 320 MHz"
+  },
+  {
+    "model": "SDM439",
+    "name": "Snapdragon 439",
+    "fab": "12 nm FinFET",
+    "gpu": "Adreno 505 650 MHz"
+  },
+  {
+    "model": "SDM450",
+    "name": "Snapdragon 450",
+    "fab": "14 nm (Samsung 14LPP)",
+    "gpu": "Adreno 506 600 MHz"
+  },
+  {
+    "model": "SM4250-AA",
+    "name": "Snapdragon 460",
+    "fab": "11 nm (Samsung 11LPP)",
+    "gpu": "Adreno 610 600 MHz"
+  },
+  {
+    "model": "SM4350",
+    "name": "Snapdragon 480",
+    "fab": "8 nm (Samsung 8LPP)",
+    "gpu": "Adreno 619 650 MHz"
+  },
+  {
+    "model": "SM4350-AC",
+    "name": "Snapdragon 480+",
+    "fab": "",
+    "gpu": ""
+  },
+  {
+    "model": "SM4375",
+    "name": "Snapdragon 4 Gen 1",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Adreno 619 700 MHz"
+  },
+  {
+    "model": "SM4450",
+    "name": "Snapdragon 4 Gen 2",
+    "fab": "4 nm (Samsung 4LPX)",
+    "gpu": "Adreno 613 955 MHz"
+  },
+  {
+    "model": "APQ8064-1AA (DEB/FLO) Advertised as S4 Pro",
+    "name": "Snapdragon 600",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 320 400 MHz"
+  },
+  {
+    "model": "APQ8064M",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "APQ8064T",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "APQ8064AB",
+    "name": "",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 320 450 MHz"
+  },
+  {
+    "model": "MSM8936",
+    "name": "Snapdragon 610",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": "Adreno 405 550 MHz"
+  },
+  {
+    "model": "MSM8939",
+    "name": "Snapdragon 615",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8939 v2",
+    "name": "Snapdragon 616",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8952",
+    "name": "Snapdragon 617",
+    "fab": "28 nm (TSMC 28LP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8953",
+    "name": "Snapdragon 625",
+    "fab": "14 nm (Samsung 14LPP)",
+    "gpu": "Adreno 506 650 MHz"
+  },
+  {
+    "model": "MSM8953 Pro",
+    "name": "Snapdragon 626",
+    "fab": "14 nm (Samsung 14LPP)",
+    "gpu": ""
+  },
+  {
+    "model": "SDM630",
+    "name": "Snapdragon 630",
+    "fab": "14 nm (Samsung 14LPP)",
+    "gpu": "Adreno 508 700 MHz"
+  },
+  {
+    "model": "SDM632",
+    "name": "Snapdragon 632",
+    "fab": "14 nm (Samsung 14LPP)",
+    "gpu": "Adreno 506 725 MHz"
+  },
+  {
+    "model": "SDM636",
+    "name": "Snapdragon 636",
+    "fab": "14 nm (Samsung 14LPP)",
+    "gpu": "Adreno 509 430 MHz"
+  },
+  {
+    "model": "MSM8956",
+    "name": "Snapdragon 650",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": "Adreno 510 600 MHz"
+  },
+  {
+    "model": "MSM8976",
+    "name": "Snapdragon 652",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8976 Pro",
+    "name": "Snapdragon 653",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": "Adreno 510 621 MHz"
+  },
+  {
+    "model": "SDM660",
+    "name": "Snapdragon 660",
+    "fab": "14 nm (Samsung 14LPP)",
+    "gpu": "Adreno 512 647 MHz"
+  },
+  {
+    "model": "SDA660",
+    "name": "",
+    "fab": "14 nm (Samsung 14LPP)",
+    "gpu": ""
+  },
+  {
+    "model": "SM6115",
+    "name": "Snapdragon 662",
+    "fab": "11 nm (Samsung 11LPP)",
+    "gpu": "Adreno 610 950 MHz"
+  },
+  {
+    "model": "SM6125",
+    "name": "Snapdragon 665",
+    "fab": "11 nm (Samsung 11LPP)",
+    "gpu": ""
+  },
+  {
+    "model": "SDM670",
+    "name": "Snapdragon 670",
+    "fab": "10 nm (Samsung 10LPP)",
+    "gpu": "Adreno 615 430 MHz"
+  },
+  {
+    "model": "SM6150",
+    "name": "Snapdragon 675",
+    "fab": "11 nm (Samsung 11LPP)",
+    "gpu": "Adreno 612 845 MHz"
+  },
+  {
+    "model": "SM6150-AC",
+    "name": "Snapdragon 678",
+    "fab": "11 nm (Samsung 11LPP)",
+    "gpu": "Adreno 612 895 MHz"
+  },
+  {
+    "model": "SM6225",
+    "name": "Snapdragon 680",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Adreno 610 1114 MHz"
+  },
+  {
+    "model": "SM6225-AD",
+    "name": "Snapdragon 685",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Adreno 610 1260 MHz"
+  },
+  {
+    "model": "SM6350",
+    "name": "Snapdragon 690",
+    "fab": "8 nm (Samsung 8LPP)",
+    "gpu": "Adreno 619L 565 MHz"
+  },
+  {
+    "model": "SM6375",
+    "name": "Snapdragon 695",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Adreno 619 840 MHz"
+  },
+  {
+    "model": "SM6450",
+    "name": "Snapdragon 6 Gen 1",
+    "fab": "4 nm (Samsung 4LPE)",
+    "gpu": "Adreno 710"
+  },
+  {
+    "model": "SDM710",
+    "name": "Snapdragon 710",
+    "fab": "10 nm (Samsung 10LPP)",
+    "gpu": "Adreno 616 504 MHz"
+  },
+  {
+    "model": "SDM712",
+    "name": "Snapdragon 712",
+    "fab": "10 nm (Samsung 10LPP)",
+    "gpu": "Adreno 616 610 MHz"
+  },
+  {
+    "model": "SM7125",
+    "name": "Snapdragon 720G",
+    "fab": "8 nm (Samsung 8LPP)",
+    "gpu": "Adreno 618 750 MHz"
+  },
+  {
+    "model": "SM7150-AA, SM7150-AB",
+    "name": "Snapdragon 730, Snapdragon 730G",
+    "fab": "8 nm (Samsung 8LPP)",
+    "gpu": "Adreno 618 610 MHz {730}, 700 MHz {730G}"
+  },
+  {
+    "model": "SM7150-AC",
+    "name": "Snapdragon 732G",
+    "fab": "8 nm (Samsung 8LPP)",
+    "gpu": "Adreno 618 800 MHz"
+  },
+  {
+    "model": "SM7225",
+    "name": "Snapdragon 750G",
+    "fab": "8 nm (Samsung 8LPP)",
+    "gpu": "Adreno 619 800 MHz"
+  },
+  {
+    "model": "SM7250-AA, SM7250-AB",
+    "name": "Snapdragon 765, Snapdragon 765G",
+    "fab": "7 nm (Samsung 7LPP)",
+    "gpu": "Adreno 620 540 MHz {765}, 625 MHz {765G}"
+  },
+  {
+    "model": "SM7250-AC",
+    "name": "Snapdragon 768G",
+    "fab": "7 nm (Samsung 7LPP)",
+    "gpu": "Adreno 620 750 MHz"
+  },
+  {
+    "model": "SM7325",
+    "name": "Snapdragon 778G",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Adreno 642L 550 MHz"
+  },
+  {
+    "model": "SM7325-AE",
+    "name": "Snapdragon 778G+",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Adreno 642L 608 MHz"
+  },
+  {
+    "model": "SM7350-AB",
+    "name": "Snapdragon 780G",
+    "fab": "5 nm (Samsung 5LPE)",
+    "gpu": "Adreno 642 490 MHz"
+  },
+  {
+    "model": "SM7325-AF",
+    "name": "Snapdragon 782G",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Adreno 642L 700 MHz"
+  },
+  {
+    "model": "SM7450-AB",
+    "name": "Snapdragon 7 Gen 1",
+    "fab": "4 nm (Samsung 4LPE)",
+    "gpu": "Adreno 644 443 MHz"
+  },
+  {
+    "model": "SM7435-AB",
+    "name": "Snapdragon 7s Gen 2",
+    "fab": "4 nm (Samsung 4LPE)",
+    "gpu": "Adreno 710 940 MHz"
+  },
+  {
+    "model": "SM7475-AB",
+    "name": "Snapdragon 7+ Gen 2",
+    "fab": "4 nm (TSMC N4)",
+    "gpu": "Adreno 725 580 MHz (1781.7 GFLOPS in FP32)"
+  },
+  {
+    "model": "SM7550-AB",
+    "name": "Snapdragon 7 Gen 3",
+    "fab": "4 nm (TSMC N4)",
+    "gpu": "Adreno 720"
+  },
+  {
+    "model": "APQ8074AA",
+    "name": "Snapdragon 800",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": "Adreno 330 450 MHz"
+  },
+  {
+    "model": "MSM8274AA",
+    "name": "",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8674AA",
+    "name": "",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8974AA",
+    "name": "",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8974AA v3",
+    "name": "Snapdragon 801",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "APQ8074AB v3",
+    "name": "",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": "Adreno 330 578 MHz"
+  },
+  {
+    "model": "MSM8274AB",
+    "name": "Snapdragon 800",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8674AB v3",
+    "name": "Snapdragon 801",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8974AB v3",
+    "name": "",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8274AC v3",
+    "name": "",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8974AC v3",
+    "name": "",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": ""
+  },
+  {
+    "model": "APQ8084",
+    "name": "Snapdragon 805",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": "Adreno 420 600 MHz"
+  },
+  {
+    "model": "MSM8992",
+    "name": "Snapdragon 808",
+    "fab": "20 nm",
+    "gpu": "Adreno 418 600 MHz"
+  },
+  {
+    "model": "MSM8994",
+    "name": "Snapdragon 810",
+    "fab": "20 nm",
+    "gpu": "Adreno 430 600 MHz"
+  },
+  {
+    "model": "MSM8994v2",
+    "name": "",
+    "fab": "20 nm",
+    "gpu": "Adreno 430 630 MHz"
+  },
+  {
+    "model": "MSM8994v2.1",
+    "name": "",
+    "fab": "20 nm",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8996\n Lite",
+    "name": "Snapdragon 820",
+    "fab": "14 nm FinFET (Samsung 14LPP)",
+    "gpu": "Adreno 530 510 MHz (407.4 GFLOPS)"
+  },
+  {
+    "model": "MSM8996",
+    "name": "",
+    "fab": "14 nm FinFET (Samsung 14LPP)",
+    "gpu": "Adreno 530 624 MHz (498.5 GFLOPS)"
+  },
+  {
+    "model": "MSM8996\n Pro-AB",
+    "name": "Snapdragon 821",
+    "fab": "14 nm FinFET (Samsung 14LPP)",
+    "gpu": ""
+  },
+  {
+    "model": "MSM8996\n Pro-AC",
+    "name": "",
+    "fab": "14 nm FinFET (Samsung 14LPP)",
+    "gpu": "Adreno 530 653 MHz (519.2 GFLOPS)"
+  },
+  {
+    "model": "MSM8998",
+    "name": "Snapdragon 835",
+    "fab": "10 nm FinFET (Samsung 10LPE)",
+    "gpu": "Adreno 540 710/670 MHz (737/686 GFLOPS)"
+  },
+  {
+    "model": "SDM845",
+    "name": "Snapdragon 845",
+    "fab": "10 nm\n FinFET (Samsung 10LPP)",
+    "gpu": "Adreno 630 710 MHz (737 GFLOPS)"
+  },
+  {
+    "model": "SM8150",
+    "name": "Snapdragon 855",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Adreno 640 585 MHz (954.7 GFLOPS)"
+  },
+  {
+    "model": "SM8150-AC",
+    "name": "Snapdragon 855+",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Adreno 640 675 MHz (1037 GFLOPS)"
+  },
+  {
+    "model": "",
+    "name": "Snapdragon 860",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": ""
+  },
+  {
+    "model": "SM8150P",
+    "name": "Snapdragon 855+",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": ""
+  },
+  {
+    "model": "SM8250",
+    "name": "Snapdragon 865",
+    "fab": "7 nm (TSMC N7P)",
+    "gpu": "Adreno 650 587 MHz (1202.1 GFLOPs in FP-32)"
+  },
+  {
+    "model": "SM8250-AB",
+    "name": "Snapdragon 865+",
+    "fab": "7 nm (TSMC N7P)",
+    "gpu": "Adreno 650 670 MHz (1372.1 GFLOPs in FP-32)"
+  },
+  {
+    "model": "SM8250-AC",
+    "name": "Snapdragon 870",
+    "fab": "7 nm (TSMC N7P)",
+    "gpu": ""
+  },
+  {
+    "model": "SM8350",
+    "name": "Snapdragon 888",
+    "fab": "5 nm (Samsung 5LPE)",
+    "gpu": "Adreno 660 840 MHz (1720.3 GFLOPs in FP32)"
+  },
+  {
+    "model": "SM8350-AC",
+    "name": "Snapdragon 888+",
+    "fab": "5 nm (Samsung 5LPE)",
+    "gpu": ""
+  },
+  {
+    "model": "SM8450",
+    "name": "Snapdragon 8 Gen 1",
+    "fab": "4 nm (Samsung 4LPX)",
+    "gpu": "Adreno 730 818 MHz (2236.1 GFLOPs in FP-32)"
+  },
+  {
+    "model": "SM8475",
+    "name": "Snapdragon 8+ Gen 1",
+    "fab": "4 nm (TSMC N4)",
+    "gpu": "Adreno 730 900 MHz (2764.8 GFLOPS in FP32)"
+  },
+  {
+    "model": "SM8550-AB",
+    "name": "Snapdragon 8 Gen 2",
+    "fab": "4 nm (TSMC N4)",
+    "gpu": "Adreno 740 680 MHz (3481.6 GFLOPS in FP32)"
+  },
+  {
+    "model": "SM8550-AC",
+    "name": "Snapdragon 8 Gen 2 for Galaxy",
+    "fab": "4 nm (TSMC N4)",
+    "gpu": "Adreno 740 719 MHz (3681.28 GFLOPS in FP32)"
+  },
+  {
+    "model": "SM8650-AB",
+    "name": "Snapdragon 8 Gen 3",
+    "fab": "4 nm (TSMC N4P)",
+    "gpu": "Adreno 750 770-903 MHz (4435.2 - 5201.2 GFLOPS in FP32)"
+  },
+  {
+    "model": "SM8650-AC",
+    "name": "Snapdragon 8 Gen 3 for Galaxy",
+    "fab": "4 nm (TSMC N4P)",
+    "gpu": "Adreno 750 770-1000 MHz (4435.2 - 5760.0 GFLOPS in FP32)"
+  },
+  {
+    "model": "MT6795M",
+    "name": "Helio X10",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": "PowerVR G6200 @ 550 MHz"
+  },
+  {
+    "model": "MT6795",
+    "name": "Helio X10",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": "PowerVR G6200 @ 550 MHz"
+  },
+  {
+    "model": "MT6795T",
+    "name": "Helio X10",
+    "fab": "28 nm (TSMC 28HPM)",
+    "gpu": "PowerVR G6200 @ 700 MHz"
+  },
+  {
+    "model": "MT6797",
+    "name": "Helio X20",
+    "fab": "20 nm (TSMC 20SoC)",
+    "gpu": "Mali-T880 MP4 @ 780 MHz"
+  },
+  {
+    "model": "MT6797D",
+    "name": "Helio X23",
+    "fab": "20 nm (TSMC 20SoC)",
+    "gpu": "Mali-T880 MP4 @ 800 MHz"
+  },
+  {
+    "model": "MT6797T",
+    "name": "Helio X25",
+    "fab": "20 nm (TSMC 20SoC)",
+    "gpu": "Mali-T880 MP4 @ 800 MHz"
+  },
+  {
+    "model": "MT6797X",
+    "name": "Helio X27",
+    "fab": "20 nm (TSMC 20SoC)",
+    "gpu": "Mali-T880 MP4 @ 875 MHz"
+  },
+  {
+    "model": "MT6799",
+    "name": "Helio X30",
+    "fab": "10 nm (TSMC 10FF)",
+    "gpu": "PowerVR 7XTP-MT4 @ 850 MHz"
+  },
+  {
+    "model": "MT6761V",
+    "name": "Helio A20",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GE8300 @ 550 MHz"
+  },
+  {
+    "model": "MT6761V",
+    "name": "Helio A22",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GE8300 @ 660 MHz"
+  },
+  {
+    "model": "MT6761V",
+    "name": "Helio A22",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GE8300 @ 660 MHz"
+  },
+  {
+    "model": "MT6762V",
+    "name": "Helio A25",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GE8320 @ 600 MHz"
+  },
+  {
+    "model": "MT6762V",
+    "name": "Helio A25",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GE8320 @ 600 MHz"
+  },
+  {
+    "model": "MT6755",
+    "name": "Helio P10",
+    "fab": "28 nm (TSMC 28HPC+)",
+    "gpu": "Mali-T860 MP2 @ 700 MHz"
+  },
+  {
+    "model": "MT6755T",
+    "name": "Helio P15",
+    "fab": "28 nm (TSMC 28HPC+)",
+    "gpu": "Mali-T860 MP2 @ 700 MHz"
+  },
+  {
+    "model": "MT6755S",
+    "name": "Helio P18",
+    "fab": "28 nm (TSMC 28HPC+)",
+    "gpu": "Mali-T860 MP2 @ 800 MHz"
+  },
+  {
+    "model": "MT6757",
+    "name": "Helio P20",
+    "fab": "16 nm (TSMC 16FF+)",
+    "gpu": "Mali-T880 MP2 @ 900 MHz"
+  },
+  {
+    "model": "MT6757CD",
+    "name": "Helio P25",
+    "fab": "16 nm (TSMC 16FF+)",
+    "gpu": "Mali-T880 MP2 @ 1.0 GHz"
+  },
+  {
+    "model": "MT6762",
+    "name": "Helio P22",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GE8320 @ 650 MHz"
+  },
+  {
+    "model": "MT6763",
+    "name": "Helio P23",
+    "fab": "16 nm (TSMC 16FF+)",
+    "gpu": "Mali-G71 MP2 @ 770 MHz"
+  },
+  {
+    "model": "MT6758",
+    "name": "Helio P30",
+    "fab": "16 nm (TSMC 16FF+)",
+    "gpu": "Mali-G71 MP2 @ 950 MHz + VPU"
+  },
+  {
+    "model": "MT6765",
+    "name": "Helio P35",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GE8320 @ 680 MHz"
+  },
+  {
+    "model": "MT6771",
+    "name": "Helio P60",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali-G72 MP3 @ 800 MHz"
+  },
+  {
+    "model": "MT6768",
+    "name": "Helio P65",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali-G52 MC2 @ 820 MHz"
+  },
+  {
+    "model": "MT6771V",
+    "name": "Helio P70",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali-G72 MP3 @ 900 MHz"
+  },
+  {
+    "model": "MT6779V",
+    "name": "Helio P90",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GM9446 @ 970 MHz"
+  },
+  {
+    "model": "MT6779V",
+    "name": "Helio P95",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GM9446 @ 970 MHz"
+  },
+  {
+    "model": "Helio G25",
+    "name": "MT6762G",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GE8320 @ 650 MHz"
+  },
+  {
+    "model": "Helio G35",
+    "name": "MT6765G",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "PowerVR GE8320 @ 680 MHz"
+  },
+  {
+    "model": "Helio G37",
+    "name": "MT6765H",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Unknown"
+  },
+  {
+    "model": "Helio G70",
+    "name": "MT6769V/CB",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali G52 MC2 @ 820 MHz"
+  },
+  {
+    "model": "Helio G80",
+    "name": "MT6769T",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali-G52 MC2 @ 950 MHz"
+  },
+  {
+    "model": "Helio G85",
+    "name": "MT6769Z",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali-G52 MC2 @ 1.0 GHz"
+  },
+  {
+    "model": "Helio G88",
+    "name": "MT6769H",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Unknown"
+  },
+  {
+    "model": "Helio G90",
+    "name": "MT6785V/CD",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali-G76 MC4 @ 720 MHz"
+  },
+  {
+    "model": "Helio G90T",
+    "name": "MT6785V/CC",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali-G76 MC4 @ 800 MHz"
+  },
+  {
+    "model": "Helio G95",
+    "name": "MT6785V/CD",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali-G76 MC4 @ 900 MHz"
+  },
+  {
+    "model": "Helio G96",
+    "name": "MT6781 MT6781V/CD",
+    "fab": "12 nm (TSMC 12FFC)",
+    "gpu": "Mali-G57 MC2 @ 950 MHz"
+  },
+  {
+    "model": "Helio G99",
+    "name": "MT6789",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1.1 GHz"
+  },
+  {
+    "model": "Helio G99",
+    "name": "MT6789G",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1.1 GHz"
+  },
+  {
+    "model": "Helio G99",
+    "name": "MT6789V/CD",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1.1 GHz"
+  },
+  {
+    "model": "Helio G99",
+    "name": "MT8781V/CA",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1.1 GHz"
+  },
+  {
+    "model": "Helio G99",
+    "name": "MT8781V/NA",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1.1 GHz"
+  },
+  {
+    "model": "MT6833",
+    "name": "Dimensity 700",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC2 @ 950 MHz"
+  },
+  {
+    "model": "MT6833V/ZA",
+    "name": "Dimensity 700",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC2 @ 950 MHz"
+  },
+  {
+    "model": "MT6833V/NZA",
+    "name": "Dimensity 700",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC2 @ 950 MHz"
+  },
+  {
+    "model": "MT6853V/ZA",
+    "name": "Dimensity 720",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC3 @ 730 MHz"
+  },
+  {
+    "model": "MT6853V/NZA",
+    "name": "Dimensity 720",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC3 @ 730 MHz"
+  },
+  {
+    "model": "MT6853V/TNZA",
+    "name": "Dimensity 800U",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC3 @ 950 MHz"
+  },
+  {
+    "model": "MT6853T",
+    "name": "Dimensity 800U",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC3 @ 950 MHz"
+  },
+  {
+    "model": "MT6873",
+    "name": "Dimensity 800",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC4 @ 748 MHz"
+  },
+  {
+    "model": "MT6833",
+    "name": "Dimensity 810",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1068 MHz"
+  },
+  {
+    "model": "MT6833GP",
+    "name": "Dimensity 810",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1068 MHz"
+  },
+  {
+    "model": "MT6833P",
+    "name": "Dimensity 810",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1068 MHz"
+  },
+  {
+    "model": "MT6833V/PNZA",
+    "name": "Dimensity 810",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1068 MHz"
+  },
+  {
+    "model": "MT6875",
+    "name": "Dimensity 820",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC5 @ 900 MHz"
+  },
+  {
+    "model": "MT6877",
+    "name": "Dimensity 900",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G68 MC4 @ 900 MHz"
+  },
+  {
+    "model": "MT6877V/ZA",
+    "name": "Dimensity 900",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G68 MC4 @ 900 MHz"
+  },
+  {
+    "model": "MT6877",
+    "name": "Dimensity 920",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G68 MC4 @ 950 MHz"
+  },
+  {
+    "model": "MT6877T",
+    "name": "Dimensity 920",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G68 MC4 @ 950 MHz"
+  },
+  {
+    "model": "MT6877V/TZA",
+    "name": "Dimensity 920",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G68 MC4 @ 950 MHz"
+  },
+  {
+    "model": "MT6855",
+    "name": "Dimensity 930",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "IMG BXM-8-256"
+  },
+  {
+    "model": "MT6855V/AZA",
+    "name": "Dimensity 930",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "IMG BXM-8-256"
+  },
+  {
+    "model": "MT6883Z/CZA",
+    "name": "Dimensity 1000C",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC5 @ 654 MHz"
+  },
+  {
+    "model": "MT6885Z/CZA",
+    "name": "Dimensity 1000L",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G77 MC9 @ 695 MHz"
+  },
+  {
+    "model": "MT6889",
+    "name": "Dimensity 1000",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G77 MC9 @ 836 MHz"
+  },
+  {
+    "model": "MT6889Z/CZA",
+    "name": "Dimensity 1000+",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G77 MC9 @ 836 MHz"
+  },
+  {
+    "model": "MT6879",
+    "name": "Dimensity 1050",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G610 MC3 @ 1.0 GHz"
+  },
+  {
+    "model": "MT6879V/ZA",
+    "name": "Dimensity 1050",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G610 MC3 @ 1.0 GHz"
+  },
+  {
+    "model": "MT6877",
+    "name": "Dimensity 1080",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G68 MC4 @ 950 MHz"
+  },
+  {
+    "model": "MT6877V/TTZA",
+    "name": "Dimensity 1080",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G68 MC4 @ 950 MHz"
+  },
+  {
+    "model": "MT6877V_T/TTZA",
+    "name": "Dimensity 1080",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G68 MC4 @ 950 MHz"
+  },
+  {
+    "model": "MT6891",
+    "name": "Dimensity 1100",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G77 MC9 @ 836 MHz"
+  },
+  {
+    "model": "MT6891Z/CZA",
+    "name": "Dimensity 1100",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G77 MC9 @ 836 MHz"
+  },
+  {
+    "model": "MT6891Z_Z/CZA",
+    "name": "Dimensity 1100",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G77 MC9 @ 836 MHz"
+  },
+  {
+    "model": "MT6893",
+    "name": "Dimensity 1200",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G77 MC9 @ 886 MHz"
+  },
+  {
+    "model": "MT6893",
+    "name": "Dimensity 1300",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G77 MC9 @ 866 MHz"
+  },
+  {
+    "model": "MT6893Z",
+    "name": "Dimensity 1300",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G77 MC9 @ 866 MHz"
+  },
+  {
+    "model": "MT6893Z_T/CZA",
+    "name": "Dimensity 1300",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G77 MC9 @ 866 MHz"
+  },
+  {
+    "model": "Dimensity 700 renamed",
+    "name": "Dimensity 6020",
+    "fab": "7 nm (TSMC N7)",
+    "gpu": "Mali-G57 MC2 @ 950 MHz"
+  },
+  {
+    "model": "Dimensity 810 renamed",
+    "name": "Dimensity 6080",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2"
+  },
+  {
+    "model": "MT6835",
+    "name": "Dimensity 6100+",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G57 MC2 @ 1.1 GHz"
+  },
+  {
+    "model": "Dimensity 930 renamed",
+    "name": "Dimensity 7020",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "IMG BXM-8-256"
+  },
+  {
+    "model": "Dimensity 1050 renamed",
+    "name": "Dimensity 7030",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G610 MC3"
+  },
+  {
+    "model": "Dimensity 1080 renamed",
+    "name": "Dimensity 7050",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G68 MC4"
+  },
+  {
+    "model": "MT6886",
+    "name": "Dimensity 7200",
+    "fab": "4 nm (TSMC N4P)",
+    "gpu": "Mali-G610 MC4 @ 1.13 GHz"
+  },
+  {
+    "model": "MT6895",
+    "name": "Dimensity 8000",
+    "fab": "5 nm (TSMC N5P)",
+    "gpu": "Mali-G610 MC6 @ 700 MHz"
+  },
+  {
+    "model": "Dimensity 1100 renamed",
+    "name": "Dimensity 8020",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G77 MC9"
+  },
+  {
+    "model": "Dimensity 1300 renamed",
+    "name": "Dimensity 8050",
+    "fab": "6 nm (TSMC N6)",
+    "gpu": "Mali-G77 MC9"
+  },
+  {
+    "model": "MT6895Z",
+    "name": "Dimensity 8100",
+    "fab": "5 nm (TSMC N5P)",
+    "gpu": "Mali-G610 MC6 @ 860 MHz"
+  },
+  {
+    "model": "MT6896",
+    "name": "Dimensity 8200",
+    "fab": "4 nm (TSMC N4)",
+    "gpu": "Mali-G610 MC6 @ 950 MHz"
+  },
+  {
+    "model": "MT6896",
+    "name": "Dimensity 8300",
+    "fab": "4 nm (TSMC N4P)",
+    "gpu": "Mali-G615 MC6 @ 1400 MHz"
+  },
+  {
+    "model": "MT6983",
+    "name": "Dimensity 9000",
+    "fab": "4 nm (TSMC N4)",
+    "gpu": "Mali-G710 MC10 @ 848 MHz"
+  },
+  {
+    "model": "MT6983",
+    "name": "Dimensity 9000+",
+    "fab": "4 nm (TSMC N4)",
+    "gpu": "Mali-G710 MC10 @ 932.8 MHz"
+  },
+  {
+    "model": "MT6985",
+    "name": "Dimensity 9200",
+    "fab": "4 nm (TSMC N4P)",
+    "gpu": "Immortalis-G715 MC11 @ 995 MHz"
+  },
+  {
+    "model": "MT6985",
+    "name": "Dimensity 9200+",
+    "fab": "4 nm (TSMC N4P)",
+    "gpu": "Immortalis-G715 MC11 @ 1164.15 MHz"
+  },
+  {
+    "model": "MT6989",
+    "name": "Dimensity 9300",
+    "fab": "4 nm (TSMC N4X)",
+    "gpu": "Immortalis-G720 MC12 @ 1300 MHz"
+  },
+  {
+    "model": "S5E3830",
+    "name": "Exynos 850",
+    "fab": "8 nm LPP",
+    "gpu": "Mali-G52 MP1"
+  },
+  {
+    "model": "S5E8805",
+    "name": "Exynos 880",
+    "fab": "8 nm LPP",
+    "gpu": "Mali-G76 MP5"
+  },
+  {
+    "model": "S5E9630",
+    "name": "Exynos 980",
+    "fab": "8 nm LPP",
+    "gpu": "Mali-G76 MP5"
+  },
+  {
+    "model": "S5E9830",
+    "name": "Exynos 990",
+    "fab": "7 nm LPP (EUV)",
+    "gpu": "Mali-G77 MP11"
+  },
+  {
+    "model": "S5E9815",
+    "name": "Exynos 1080",
+    "fab": "5 nm LPE (EUV)",
+    "gpu": "Mali-G78 MP10"
+  },
+  {
+    "model": "S5E8825",
+    "name": "Exynos 1280",
+    "fab": "5 nm LPE (EUV)",
+    "gpu": "Mali-G68 MP4"
+  },
+  {
+    "model": "S5E8535",
+    "name": "Exynos 1330",
+    "fab": "5 nm LPE (EUV)",
+    "gpu": "Mali-G68 MP2"
+  },
+  {
+    "model": "S5E8835",
+    "name": "Exynos 1380",
+    "fab": "5 nm LPE (EUV)",
+    "gpu": "Mali-G68 MP5"
+  },
+  {
+    "model": "S5E9840",
+    "name": "Exynos 2100",
+    "fab": "5 nm LPE (EUV)",
+    "gpu": "Mali-G78 MP14"
+  },
+  {
+    "model": "S5E9925",
+    "name": "Exynos 2200",
+    "fab": "4 nm (4LPE) (EUV)",
+    "gpu": "Xclipse 920 (RDNA 2, 384:24:24:6, 3 WGP)"
+  },
+  {
+    "model": "S5E9945",
+    "name": "Exynos 2400",
+    "fab": "4 nm (4LPP+) (EUV)",
+    "gpu": "Xclipse 940 (RDNA 3, 768:48:32:12, 6 WGP)"
+  },
+  {
+    "model": "S5P9845",
+    "name": "Tensor Original",
+    "fab": "5 nm LPE",
+    "gpu": "Mali-G78 MP20"
+  },
+  {
+    "model": "S5P9855",
+    "name": "Tensor G2",
+    "fab": "5 nm",
+    "gpu": "Mali-G710 MP7"
+  },
+  {
+    "model": "Unknown",
+    "name": "Tensor G3",
+    "fab": "4 nm",
+    "gpu": "Mali-G715"
+  },
+  {
+    "model": "Whitechapel",
+    "name": "Tensor Original",
+    "fab": "5 nm LPE",
+    "gpu": "Mali-G78 MP20"
+  },
+  {
+    "model": "Cloudripper",
+    "name": "Tensor G2",
+    "fab": "5 nm",
+    "gpu": "Mali-G710 MP7"
+  },
+  {
+    "model": "Zuma",
+    "name": "Tensor G3",
+    "fab": "4 nm",
+    "gpu": "Mali-G715"
+  }
+]

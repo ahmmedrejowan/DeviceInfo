@@ -58,4 +58,7 @@ dependencies {
     // shared preferences
     implementation("androidx.preference:preference-ktx:1.2.1")
 
+    // koin
+    implementation("io.insert-koin:koin-android:3.5.0")
+
 }
