@@ -20,7 +20,6 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        System.getProperty()
 
         setupBottomNavigation()
 

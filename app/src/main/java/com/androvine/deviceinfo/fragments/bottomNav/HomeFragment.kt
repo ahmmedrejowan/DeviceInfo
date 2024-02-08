@@ -38,6 +38,7 @@ class HomeFragment : Fragment() {
                     binding.brandImage.setImageResource(brandImage)
                 }
                 binding.brandName.text = it.brand
+                binding.deviceName.text = it.name
             }
         }
 

@@ -66,7 +66,6 @@ class DeviceDetailsRepository(private val context: Context) {
                 manufacturer = Build.MANUFACTURER,
                 hardware = Build.HARDWARE,
                 board = Build.BOARD,
-                bootloader = Build.BOOTLOADER,
                 radio = Build.getRadioVersion()
             )
             _systemDataModel.postValue(systemData)

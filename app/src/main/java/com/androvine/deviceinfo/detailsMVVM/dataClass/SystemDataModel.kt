@@ -9,7 +9,6 @@ data class SystemDataModel(
     val manufacturer: String?,
     val hardware: String?,
     val board: String?,
-    val bootloader: String?,
     val radio: String?
 
 )
