@@ -33,6 +33,12 @@ class DatabaseViewModel(private val repository: DatabaseRepository) : ViewModel(
         }
     }
 
+    fun getAllBrandList() {
+        viewModelScope.launch {
+            repository.getAllBrandList()
+        }
+    }
+
 
 
 }

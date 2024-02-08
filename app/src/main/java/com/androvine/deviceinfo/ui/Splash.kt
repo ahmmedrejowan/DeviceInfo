@@ -36,6 +36,7 @@ class Splash : AppCompatActivity() {
         }
 
         databaseViewModel.copyDatabaseFromAssets()
+        databaseViewModel.getAllBrandList()
 
         Handler(Looper.getMainLooper()).postDelayed({
             val introUtils = IntroRepository(this@Splash)

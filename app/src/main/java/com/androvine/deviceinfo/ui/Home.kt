@@ -24,6 +24,7 @@ class Home : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
         setupBottomNavigation()
 
         setUpDeviceTabs()

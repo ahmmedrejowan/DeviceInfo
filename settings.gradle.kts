@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "DeviceInfo"
 include(":app")
+include(":icons")

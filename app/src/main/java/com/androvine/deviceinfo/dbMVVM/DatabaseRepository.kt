@@ -1,6 +1,7 @@
 package com.androvine.deviceinfo.dbMVVM
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.androvine.deviceinfo.dataClasses.CpuDataModel
@@ -51,6 +52,16 @@ class DatabaseRepository(private val context: Context) {
             _deviceDataModel.postValue(deviceData)
         }
     }
+
+    suspend fun getAllBrandList() {
+        return withContext(Dispatchers.IO) {
+          val brands =  deviceDatabaseHelper.getAllBrand()
+            for (brand in brands) {
+                Log.e("TAG", "Brand: " + brand)
+            }
+        }
+    }
+
 
 
 }
