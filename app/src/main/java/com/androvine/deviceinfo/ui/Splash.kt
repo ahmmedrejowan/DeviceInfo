@@ -10,18 +10,19 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.androvine.deviceinfo.R
-import com.androvine.deviceinfo.dbMVVM.DatabaseViewModel
-import com.androvine.deviceinfo.dbMVVM.databaseModule
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
 import com.androvine.deviceinfo.utils.IntroRepository
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Splash : AppCompatActivity() {
 
-    private val databaseViewModel : DatabaseViewModel by viewModel()
+    private val deviceDetailsViewModel: DeviceDetailsViewModel by viewModel()
+    private lateinit var introUtils : IntroRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        introUtils = IntroRepository(this)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.let {
@@ -35,12 +36,14 @@ class Splash : AppCompatActivity() {
             )
         }
 
-        databaseViewModel.copyDatabaseFromAssets()
-        databaseViewModel.getAllBrandList()
+        deviceDetailsViewModel.copyDatabaseFromAssets()
+        if (!introUtils.isFirstTimeLaunch()) {
+            deviceDetailsViewModel.getSystemData()
+        }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val introUtils = IntroRepository(this@Splash)
             if (introUtils.isFirstTimeLaunch()) {
+                deviceDetailsViewModel.getSystemData()
                 startActivity(Intent(this@Splash, Intro::class.java))
                 finish()
             } else {
@@ -48,7 +51,6 @@ class Splash : AppCompatActivity() {
                 finish()
             }
         }, 2000)
-
 
 
     }

@@ -2,7 +2,6 @@ package com.androvine.deviceinfo.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.androvine.deviceinfo.R
@@ -10,20 +9,18 @@ import com.androvine.deviceinfo.adapter.AppsFragmentAdapter
 import com.androvine.deviceinfo.adapter.BottomNavFragmentAdapter
 import com.androvine.deviceinfo.adapter.DeviceFragmentAdapter
 import com.androvine.deviceinfo.databinding.ActivityHomeBinding
-import com.androvine.deviceinfo.dbMVVM.DatabaseViewModel
+import com.androvine.icons.AndroidVersionIcon
 import com.google.android.material.tabs.TabLayoutMediator
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home : AppCompatActivity() {
 
     private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
-    private val databaseViewModel: DatabaseViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
+        System.getProperty()
 
         setupBottomNavigation()
 
@@ -32,21 +29,6 @@ class Home : AppCompatActivity() {
         setUpAppsTabs()
 
         setOnclickListeners()
-
-
-
-        databaseViewModel.getCpuDataByModel("SM7325")
-        databaseViewModel.cpuDataModel.observe(this) {
-            val cpu = it
-            Log.e("TAG", "CPU: " + cpu?.model + " " + cpu?.name + " " + cpu?.fab + " " + cpu?.gpu)
-        }
-
-
-        databaseViewModel.getDeviceDataByModel("RMX3363")
-        databaseViewModel.deviceDataModel.observe(this) {
-            val device = it
-            Log.e("TAG", "Device: " + device?.branding + " " + device?.name + " " + device?.device + " " + device?.model)
-        }
 
 
     }

@@ -143,33 +143,5 @@ class DeviceDatabaseHelper(context: Context) :
         return deviceDataModel
     }
 
-    fun getAllBrand(): List<String> {
-        val db = readableDatabase
-        val cursor = db.query(
-            TABLE_NAME,
-            arrayOf(COLUMN_BRAND),
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        )
-
-        val brandList = mutableSetOf<String>()
-
-        cursor.use {
-            while (it.moveToNext()) {
-                val brandIndex = it.getColumnIndex(COLUMN_BRAND)
-                val sBrand = it.getString(brandIndex)
-                brandList.add(sBrand)
-            }
-        }
-
-        cursor.close()
-        db.close()
-
-        return brandList.toList()
-    }
 
 }

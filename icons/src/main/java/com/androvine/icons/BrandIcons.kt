@@ -2,7 +2,7 @@ package com.androvine.icons
 
 import android.content.Context
 
-class BrandIcons(private val context: Context) {
+class BrandIcons() {
 
     private val brandIconList = mutableListOf<BrandIconModel>()
 
@@ -59,13 +59,13 @@ class BrandIcons(private val context: Context) {
         return brandIconList
     }
 
-    fun getBrandIconByName(name: String): Int {
+    fun getBrandIconByName(name: String): Int? {
         for (brand in brandIconList) {
-            if (brand.name == name) {
+            if (brand.name.lowercase().trim() == name.lowercase().trim()) {
                 return brand.icon
             }
         }
-        return R.drawable.ic_nothing
+        return null
     }
 
 

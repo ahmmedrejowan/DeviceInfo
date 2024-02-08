@@ -3,7 +3,7 @@ package com.androvine.deviceinfo
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
-import com.androvine.deviceinfo.dbMVVM.databaseModule
+import com.androvine.deviceinfo.detailsMVVM.deviceDetailsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -15,7 +15,7 @@ class MyApplication : Application() {
 
         startKoin {
             androidContext(this@MyApplication)
-            modules(listOf(databaseModule))
+            modules(listOf(deviceDetailsModule))
         }
 
         // set app dark or light mode based on user preference
@@ -27,9 +27,11 @@ class MyApplication : Application() {
             "light_theme" -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
+
             "dark_theme" -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
+
             else -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             }
