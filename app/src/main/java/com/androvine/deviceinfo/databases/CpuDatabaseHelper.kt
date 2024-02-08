@@ -3,6 +3,7 @@ package com.androvine.deviceinfo.databases
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.androvine.deviceinfo.dataClasses.CpuDataModel
 import java.io.FileOutputStream
 import java.io.IOException
@@ -57,6 +58,7 @@ class CpuDatabaseHelper(context: Context) :
 
            inputStream.close()
            outputStream.close()
+           Log.e("TAG", "CPU Database copied from assets")
        } catch (e: IOException) {
            e.printStackTrace()
        }

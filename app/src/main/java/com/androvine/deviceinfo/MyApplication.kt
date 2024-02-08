@@ -3,12 +3,20 @@ package com.androvine.deviceinfo
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
+import com.androvine.deviceinfo.dbMVVM.databaseModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
+
+        startKoin {
+            androidContext(this@MyApplication)
+            modules(listOf(databaseModule))
+        }
 
         // set app dark or light mode based on user preference
         val themeMode = PreferenceManager.getDefaultSharedPreferences(this)

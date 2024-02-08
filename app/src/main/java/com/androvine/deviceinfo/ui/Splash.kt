@@ -10,9 +10,14 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.androvine.deviceinfo.R
+import com.androvine.deviceinfo.dbMVVM.DatabaseViewModel
+import com.androvine.deviceinfo.dbMVVM.databaseModule
 import com.androvine.deviceinfo.utils.IntroRepository
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Splash : AppCompatActivity() {
+
+    private val databaseViewModel : DatabaseViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +34,8 @@ class Splash : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        databaseViewModel.copyDatabaseFromAssets()
 
         Handler(Looper.getMainLooper()).postDelayed({
             val introUtils = IntroRepository(this@Splash)

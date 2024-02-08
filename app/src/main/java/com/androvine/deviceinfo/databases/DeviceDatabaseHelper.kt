@@ -3,6 +3,7 @@ package com.androvine.deviceinfo.databases
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.androvine.deviceinfo.dataClasses.DeviceDataModel
 import java.io.FileOutputStream
 import java.io.IOException
@@ -60,6 +61,7 @@ class DeviceDatabaseHelper(context: Context) :
 
             inputStream.close()
             outputStream.close()
+            Log.e("TAG", "Device Database copied from assets")
         } catch (e: IOException) {
             e.printStackTrace()
         }

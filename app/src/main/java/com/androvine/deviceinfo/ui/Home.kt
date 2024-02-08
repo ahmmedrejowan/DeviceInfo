@@ -35,27 +35,27 @@ class Home : AppCompatActivity() {
 
         setOnclickListeners()
 
-        val cpuDatabaseHelper = CpuDatabaseHelper(this)
-        lifecycleScope.launch {
-            // dispatchers.io
-            withContext(Dispatchers.IO) {
-                cpuDatabaseHelper.copyDatabaseFromAssets(this@Home)
-            }
-        }
+//        val cpuDatabaseHelper = CpuDatabaseHelper(this)
+//        lifecycleScope.launch {
+//            // dispatchers.io
+//            withContext(Dispatchers.IO) {
+//                cpuDatabaseHelper.copyDatabaseFromAssets(this@Home)
+//            }
+//        }
 
-        val cpu = cpuDatabaseHelper.getCpuDataByModel("SM7325")
-        Log.e("TAG", "CPU: " + cpu?.model + " " + cpu?.name + " " + cpu?.fab + " " + cpu?.gpu)
+//        val cpu = cpuDatabaseHelper.getCpuDataByModel("SM7325")
+//        Log.e("TAG", "CPU: " + cpu?.model + " " + cpu?.name + " " + cpu?.fab + " " + cpu?.gpu)
 
-        val deviceDatabaseHelper = DeviceDatabaseHelper(this)
-        lifecycleScope.launch {
-            // dispatchers.io
-            withContext(Dispatchers.IO) {
-                deviceDatabaseHelper.copyDatabaseFromAssets(this@Home)
-            }
-        }
+//        val deviceDatabaseHelper = DeviceDatabaseHelper(this)
+//        lifecycleScope.launch {
+//            // dispatchers.io
+//            withContext(Dispatchers.IO) {
+//                deviceDatabaseHelper.copyDatabaseFromAssets(this@Home)
+//            }
+//        }
 
-        val mDevice = deviceDatabaseHelper.getDeviceByModel("RMX3363")
-        Log.e("TAG", "Device: " + mDevice?.branding + " " + mDevice?.name + " " + mDevice?.device + " " + mDevice?.model)
+//        val mDevice = deviceDatabaseHelper.getDeviceByModel("RMX3363")
+//        Log.e("TAG", "Device: " + mDevice?.branding + " " + mDevice?.name + " " + mDevice?.device + " " + mDevice?.model)
 
     }
 
