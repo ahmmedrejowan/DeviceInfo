@@ -37,13 +37,14 @@ class Splash : AppCompatActivity() {
         }
 
         deviceDetailsViewModel.copyDatabaseFromAssets()
+
         if (!introUtils.isFirstTimeLaunch()) {
             deviceDetailsViewModel.getSystemData()
+            deviceDetailsViewModel.getOsData()
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (introUtils.isFirstTimeLaunch()) {
-                deviceDetailsViewModel.getSystemData()
                 startActivity(Intent(this@Splash, Intro::class.java))
                 finish()
             } else {

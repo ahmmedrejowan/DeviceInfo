@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : ViewModel() {
 
     val systemDataModel = repository.systemDataModel
+    val osDataModel = repository.osDataModel
 
     fun copyDatabaseFromAssets() {
         viewModelScope.launch {
@@ -17,6 +18,12 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
     fun getSystemData() {
         viewModelScope.launch {
             repository.getSystemData()
+        }
+    }
+
+    fun getOsData() {
+        viewModelScope.launch {
+            repository.getOsData()
         }
     }
 }

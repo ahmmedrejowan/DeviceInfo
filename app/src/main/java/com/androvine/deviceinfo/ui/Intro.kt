@@ -15,7 +15,9 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.databinding.ActivityIntroBinding
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
 import com.androvine.deviceinfo.utils.IntroRepository
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Intro : AppCompatActivity() {
 
@@ -27,12 +29,17 @@ class Intro : AppCompatActivity() {
 
     private lateinit var introUtils: IntroRepository
 
+    private val deviceDetailsViewModel: DeviceDetailsViewModel by viewModel()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         introUtils = IntroRepository(this)
+
+        deviceDetailsViewModel.getSystemData()
+        deviceDetailsViewModel.getOsData()
 
         setupWindow()
 

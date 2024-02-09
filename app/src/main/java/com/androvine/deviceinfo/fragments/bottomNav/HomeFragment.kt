@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.databinding.FragmentHomeBinding
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
+import com.androvine.icons.AndroidVersionIcon
 import com.androvine.icons.BrandIcons
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import kotlin.math.log
 
 
 class HomeFragment : Fragment() {
@@ -36,9 +39,18 @@ class HomeFragment : Fragment() {
                 val brandImage = BrandIcons().getBrandIconByName(it.brand!!)
                 if (brandImage != null) {
                     binding.brandImage.setImageResource(brandImage)
+                } else {
+                    binding.brandImage.setImageResource(R.drawable.ic_android_partner)
                 }
                 binding.brandName.text = it.brand
                 binding.deviceName.text = it.name
+            }
+        }
+
+        deviceDetailsViewModel.osDataModel.observe(viewLifecycleOwner){
+            if (it!=null){
+                binding.androidVersion.text = it.versionName
+                binding.androidIcon.setImageResource(AndroidVersionIcon().getVersionByApiLevel(it.apiLevel)!!.image)
             }
         }
 

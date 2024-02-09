@@ -37,7 +37,6 @@
                     android:layout_margin="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
-                    android:text="realme GT Master Edition"
                     android:textColor="@color/colorPrimary"
                     android:textSize="25sp" />
 
@@ -66,16 +65,15 @@
                             android:id="@+id/androidIcon"
                             android:layout_width="wrap_content"
                             android:layout_height="26dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/ic_android_12" />
+                            android:layout_marginBottom="10dp" />
 
                         <TextView
+                            android:id="@+id/androidVersion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="15dp"
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center"
-                            android:text="Android 12"
                             android:textColor="@color/textColor"
                             android:textSize="14sp" />
 

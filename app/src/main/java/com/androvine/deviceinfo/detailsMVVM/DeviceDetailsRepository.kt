@@ -1,16 +1,36 @@
 package com.androvine.deviceinfo.detailsMVVM
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.androvine.deviceinfo.dataClasses.CpuDataModel
 import com.androvine.deviceinfo.dataClasses.DeviceDataModel
 import com.androvine.deviceinfo.databases.CpuDatabaseHelper
 import com.androvine.deviceinfo.databases.DeviceDatabaseHelper
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getBuildDateFormatted
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getFormattedUptime
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getGooglePlayServicesVersion
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getOpenGLES
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getSecurityPatchFormatted
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isDeviceRooted
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isSeamlessUpdateSupported
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleEnabled
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleSupported
+import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.SystemDataModel
+import com.androvine.icons.AndroidVersionIcon
+import com.google.android.gms.common.GoogleApiAvailability
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import java.io.BufferedReader
+import java.io.File
+import java.io.InputStreamReader
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 class DeviceDetailsRepository(private val context: Context) {
 
@@ -19,6 +39,9 @@ class DeviceDetailsRepository(private val context: Context) {
 
     private val _systemDataModel = MutableLiveData<SystemDataModel?>()
     val systemDataModel get() = _systemDataModel
+
+    private val _osDataModel = MutableLiveData<OsDataModel?>()
+    val osDataModel get() = _osDataModel
 
     suspend fun copyDatabaseFromAssets() {
 
@@ -51,10 +74,12 @@ class DeviceDetailsRepository(private val context: Context) {
 
         withContext(Dispatchers.IO) {
 
+            Log.e("TAG", "getSystemData: " + getCpuDataByModel("SM7325"))
+
             val deferredDeviceData = async { getDeviceDataByModel(Build.MODEL) }
             var name = deferredDeviceData.await()?.name
-            if (name== null){
-                name= Build.MODEL
+            if (name == null) {
+                name = Build.MODEL
             }
 
             val systemData = SystemDataModel(
@@ -72,5 +97,49 @@ class DeviceDetailsRepository(private val context: Context) {
         }
 
     }
+
+    suspend fun getOsData() {
+        withContext(Dispatchers.IO) {
+
+            val deferredVersionData = async { AndroidVersionIcon().getVersionByApiLevel(Build.VERSION.SDK_INT) }
+            val versionData = deferredVersionData.await()
+
+            val deferredIsRooted = async { isDeviceRooted() }
+            val isRooted = deferredIsRooted.await()
+
+            val deferredGlesVersion = async { withContext(Dispatchers.Main) { getOpenGLES(context) } }
+            val openGlVersion = deferredGlesVersion.await()
+
+            val osData = OsDataModel(
+                apiLevel = Build.VERSION.SDK_INT,
+                version = versionData?.version,
+                codeName = versionData?.codeName,
+                versionName = versionData?.name,
+                bootloader = Build.BOOTLOADER,
+                securityPatch = getSecurityPatchFormatted(Build.VERSION.SECURITY_PATCH),
+                build = Build.DISPLAY,
+                buildDate = getBuildDateFormatted(Build.TIME),
+                fingerprint = Build.FINGERPRINT,
+                architecture = System.getProperty("os.arch"),
+                abis = Build.SUPPORTED_ABIS.toList(),
+                abis32 = Build.SUPPORTED_32_BIT_ABIS.toList(),
+                abis64 = Build.SUPPORTED_64_BIT_ABIS.toList(),
+                kernelVersion = System.getProperty("os.version"),
+                isRooted = isRooted,
+                javaVm = System.getProperty("java.vm.name"),
+                incremental = Build.VERSION.INCREMENTAL,
+                googlePlayServicesVersion = getGooglePlayServicesVersion(context),
+                uptime = getFormattedUptime(android.os.SystemClock.uptimeMillis()),
+                timeZone = TimeZone.getDefault().displayName,
+                openGlVersion = openGlVersion,
+                trebleSupported = isTrebleSupported(),
+                trebleEnabled = isTrebleEnabled(),
+                seamlessSupported = isSeamlessUpdateSupported(context)
+                )
+            _osDataModel.postValue(osData)
+        }
+    }
+
+
 
 }

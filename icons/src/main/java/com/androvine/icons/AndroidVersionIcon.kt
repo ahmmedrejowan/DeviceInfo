@@ -254,9 +254,9 @@ class AndroidVersionIcon {
     }
 
     fun getVersionByApiLevel(apiLevel: Int): AndroidVersionModel? {
-        for (version in versionList) {
-            if (version.apiLevel == apiLevel) {
-                return version
+        for (item in versionList) {
+            if (item.apiLevel == apiLevel) {
+                return item
             }
         }
         return null

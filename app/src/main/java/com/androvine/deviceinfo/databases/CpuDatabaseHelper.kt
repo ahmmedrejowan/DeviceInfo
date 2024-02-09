@@ -20,16 +20,18 @@ class CpuDatabaseHelper(context: Context) :
         private const val COLUMN_NAME = "name"
         private const val COLUMN_FAB = "fab"
         private const val COLUMN_GPU = "gpu"
+        private const val COLUMN_CORE = "core"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
         // Create table if not exists
         val createTableQuery = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
-                "$COLUMN_MODEL TEXT," +
-                "$COLUMN_NAME TEXT," +
-                "$COLUMN_FAB TEXT," +
-                "$COLUMN_GPU TEXT" +
-                ")"
+                "$COLUMN_MODEL TEXT PRIMARY KEY, " +
+                "$COLUMN_NAME TEXT, " +
+                "$COLUMN_FAB TEXT, " +
+                "$COLUMN_GPU TEXT, " +
+                "$COLUMN_CORE TEXT)"
+
         db.execSQL(createTableQuery)
     }
 
@@ -70,7 +72,7 @@ class CpuDatabaseHelper(context: Context) :
         val db = readableDatabase
         val cursor = db.query(
             TABLE_NAME,
-            arrayOf(COLUMN_MODEL, COLUMN_NAME, COLUMN_FAB, COLUMN_GPU),
+            arrayOf(COLUMN_MODEL, COLUMN_NAME, COLUMN_FAB, COLUMN_GPU, COLUMN_CORE),
             "$COLUMN_MODEL=?",
             arrayOf(model),
             null,
@@ -86,12 +88,14 @@ class CpuDatabaseHelper(context: Context) :
                 val nameIndex = it.getColumnIndex(COLUMN_NAME)
                 val fabIndex = it.getColumnIndex(COLUMN_FAB)
                 val gpuIndex = it.getColumnIndex(COLUMN_GPU)
+                val coreIndex = it.getColumnIndex(COLUMN_CORE)
 
                 val name = it.getString(nameIndex)
                 val fab = it.getString(fabIndex)
                 val gpu = it.getString(gpuIndex)
+                val core = it.getString(coreIndex)
 
-                cpuData = CpuDataModel(model, name, fab, gpu)
+                cpuData = CpuDataModel(model, name, fab, gpu, core)
             }
         }
 

@@ -4,6 +4,7 @@ data class CpuDataModel(
     val model: String,
     val name: String,
     val fab: String,
-    val gpu: String
+    val gpu: String,
+    val core: String
 )
 
