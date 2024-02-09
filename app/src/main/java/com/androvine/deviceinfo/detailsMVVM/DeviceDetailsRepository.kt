@@ -16,7 +16,6 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getOpen
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getSecurityPatchFormatted
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isDeviceRooted
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isSeamlessUpdateSupported
-import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleEnabled
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleSupported
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.SystemDataModel
@@ -74,7 +73,6 @@ class DeviceDetailsRepository(private val context: Context) {
 
         withContext(Dispatchers.IO) {
 
-            Log.e("TAG", "getSystemData: " + getCpuDataByModel("SM7325"))
 
             val deferredDeviceData = async { getDeviceDataByModel(Build.MODEL) }
             var name = deferredDeviceData.await()?.name
@@ -110,6 +108,8 @@ class DeviceDetailsRepository(private val context: Context) {
             val deferredGlesVersion = async { withContext(Dispatchers.Main) { getOpenGLES(context) } }
             val openGlVersion = deferredGlesVersion.await()
 
+
+
             val osData = OsDataModel(
                 apiLevel = Build.VERSION.SDK_INT,
                 version = versionData?.version,
@@ -127,13 +127,13 @@ class DeviceDetailsRepository(private val context: Context) {
                 kernelVersion = System.getProperty("os.version"),
                 isRooted = isRooted,
                 javaVm = System.getProperty("java.vm.name"),
+                javaVmVersion = System.getProperty("java.vm.version"),
                 incremental = Build.VERSION.INCREMENTAL,
                 googlePlayServicesVersion = getGooglePlayServicesVersion(context),
-                uptime = getFormattedUptime(android.os.SystemClock.uptimeMillis()),
-                timeZone = TimeZone.getDefault().displayName,
+                uptime = getFormattedUptime(android.os.SystemClock.elapsedRealtime()),
+                timeZone = TimeZone.getDefault().id + " - " + TimeZone.getDefault().displayName,
                 openGlVersion = openGlVersion,
                 trebleSupported = isTrebleSupported(),
-                trebleEnabled = isTrebleEnabled(),
                 seamlessSupported = isSeamlessUpdateSupported(context)
                 )
             _osDataModel.postValue(osData)

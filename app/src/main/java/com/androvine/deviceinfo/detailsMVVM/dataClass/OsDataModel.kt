@@ -17,12 +17,12 @@ data class OsDataModel(
     val kernelVersion: String?,
     val isRooted: Boolean,
     val javaVm: String?,
+    val javaVmVersion: String?,
     val incremental: String?,
     val googlePlayServicesVersion: String?,
     val uptime: String?,
     val timeZone: String?,
     val openGlVersion: String?,
     val trebleSupported: Boolean,
-    val trebleEnabled: Boolean,
     val seamlessSupported: Boolean,
 )

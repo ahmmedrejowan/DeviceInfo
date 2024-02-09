@@ -1,14 +1,803 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.device.OsFragment">
+    android:background="@color/backgroundColorSecondary"
+    tools:context=".fragments.bottomNav.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorSecondary">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Operating System"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <LinearLayout
+                    android:id="@+id/parentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:id="@+id/osIcon"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="10dp" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/versionName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:textColor="@color/colorPrimary"
+                                android:textIsSelectable="true"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/apiLevelName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:textColor="@color/textColor"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="API Level"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/apiLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Version"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Version Name"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/versionNameDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Code Name"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/codeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Bootloader"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/bootloader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Security Patch Level"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/securityPatchLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Build Number"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/buildNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Build Date"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/buildDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Fingerprint"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/fingerprint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Architecture"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/architecture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="ABIs"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/abis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="ABIs 32"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/abis32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="ABIs 64"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/abis64"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Kernel Version"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/kernelVersion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Root Access"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/rootAccess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Java VM Name"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/javaVMName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Java VM Version"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/javaVMVersion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Incremental Version"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/incrementalVersion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Google Play Services Version"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/googlePlayServicesVersion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Uptime"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/uptime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Time Zone"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/timeZone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="openGL ES Version"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/openGLVersion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Treble Support"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/trebleSupport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Seamless System Updates"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/seamlessSystemUpdates"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

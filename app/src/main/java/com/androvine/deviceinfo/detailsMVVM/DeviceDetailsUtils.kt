@@ -35,29 +35,26 @@ class DeviceDetailsUtils {
             }
         }
 
-        fun isTrebleEnabled(): Boolean {
-            return try {
-                val controlPrivAppPermissions = System.getProperty("ro.control_privapp_permissions")
-                controlPrivAppPermissions != null && controlPrivAppPermissions.toBoolean()
-            } catch (e: Exception) {
-                false
-            }
-        }
 
-        fun getFormattedUptime(uptimeMillis: Long): String? {
-            // 1 day 2 hours 3 minutes 4 seconds
+
+        fun getFormattedUptime(uptimeMillis: Long): String {
             val days = uptimeMillis / (1000 * 60 * 60 * 24)
             val hours = uptimeMillis / (1000 * 60 * 60) % 24
             val minutes = uptimeMillis / (1000 * 60) % 60
             val seconds = uptimeMillis / 1000 % 60
-            return "$days days $hours hours $minutes minutes $seconds seconds"
+            return when {
+                days > 0 -> "$days days $hours hours $minutes minutes $seconds seconds"
+                hours > 0 -> "$hours hours $minutes minutes $seconds seconds"
+                minutes > 0 -> "$minutes minutes $seconds seconds"
+                else -> "$seconds seconds"
+            }
         }
 
 
         fun getBuildDateFormatted(time: Long): String? {
             // 10:10:10 AM Sunday, 1 January 2000
             val date = java.util.Date(time)
-            val format = SimpleDateFormat("HH:mm:ss a EEEE, d MMMM yyyy", Locale.getDefault())
+            val format = SimpleDateFormat("hh:mm:ss a EEEE, d MMMM yyyy", Locale.getDefault())
             return format.format(date)
         }
 
@@ -66,7 +63,25 @@ class DeviceDetailsUtils {
             val year = parts[0]
             val month = parts[1]
             val day = parts[2]
-            return "$day $month $year"
+
+            // month number to name
+            val monthName = when (month) {
+                "01" -> "January"
+                "02" -> "February"
+                "03" -> "March"
+                "04" -> "April"
+                "05" -> "May"
+                "06" -> "June"
+                "07" -> "July"
+                "08" -> "August"
+                "09" -> "September"
+                "10" -> "October"
+                "11" -> "November"
+                "12" -> "December"
+                else -> "N/A"
+            }
+
+            return "$day $monthName $year"
 
         }
 

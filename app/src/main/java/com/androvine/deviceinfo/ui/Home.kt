@@ -2,6 +2,7 @@ package com.androvine.deviceinfo.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.androvine.deviceinfo.R
@@ -11,10 +12,13 @@ import com.androvine.deviceinfo.adapter.DeviceFragmentAdapter
 import com.androvine.deviceinfo.databinding.ActivityHomeBinding
 import com.androvine.icons.AndroidVersionIcon
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlin.math.log
 
 class Home : AppCompatActivity() {
 
     private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
+
+    private var currentState = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,23 +56,27 @@ class Home : AppCompatActivity() {
                     binding.viewPagerBottomNav.setCurrentItem(0, false)
                     showHide(bottomNav = true, deviceTab = false, appsTab = false)
                     changeTitle(getString(R.string.app_name))
+                    currentState = 0
                 }
 
                 R.id.nav_device -> {
                     showHide(bottomNav = false, deviceTab = true, appsTab = false)
                     changeTitle("Details")
+                    currentState = 1
                 }
 
                 R.id.nav_test -> {
                     binding.viewPagerBottomNav.setCurrentItem(1, false)
                     showHide(bottomNav = true, deviceTab = false, appsTab = false)
                     changeTitle("Testing")
+                    currentState = 2
 
                 }
 
                 R.id.nav_apps -> {
                     showHide(bottomNav = false, deviceTab = false, appsTab = true)
                     changeTitle("Apps")
+                    currentState = 3
 
                 }
 
@@ -76,6 +84,7 @@ class Home : AppCompatActivity() {
                     binding.viewPagerBottomNav.setCurrentItem(2, false)
                     showHide(bottomNav = true, deviceTab = false, appsTab = false)
                     changeTitle("Report")
+                    currentState = 4
                 }
             }
             true
@@ -87,6 +96,55 @@ class Home : AppCompatActivity() {
 
 
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        Log.e("TAG", "onResume: currentState $currentState")
+        switchToState(currentState)
+
+    }
+
+    private fun switchToState(cState: Int) {
+        when (cState) {
+            0 -> {
+                binding.bottomNavView.selectedItemId = R.id.nav_home
+                binding.viewPagerBottomNav.setCurrentItem(0, false)
+                showHide(bottomNav = true, deviceTab = false, appsTab = false)
+                changeTitle(getString(R.string.app_name))
+            }
+
+            1 -> {
+                binding.bottomNavView.selectedItemId = R.id.nav_device
+                showHide(bottomNav = false, deviceTab = true, appsTab = false)
+                changeTitle("Details")
+            }
+
+            2 -> {
+                binding.bottomNavView.selectedItemId = R.id.nav_test
+                binding.viewPagerBottomNav.setCurrentItem(1, false)
+                showHide(bottomNav = true, deviceTab = false, appsTab = false)
+                changeTitle("Testing")
+
+            }
+
+            3 -> {
+                binding.bottomNavView.selectedItemId = R.id.nav_apps
+                showHide(bottomNav = false, deviceTab = false, appsTab = true)
+                changeTitle("Apps")
+
+            }
+
+            4 -> {
+                binding.bottomNavView.selectedItemId = R.id.nav_report
+                binding.viewPagerBottomNav.setCurrentItem(2, false)
+                showHide(bottomNav = true, deviceTab = false, appsTab = false)
+                changeTitle("Report")
+            }
+        }
+
+    }
+
 
     private fun changeTitle(title: String) {
         binding.title.text = title
