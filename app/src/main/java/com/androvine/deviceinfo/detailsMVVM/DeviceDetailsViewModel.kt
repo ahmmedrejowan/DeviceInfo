@@ -8,6 +8,7 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
 
     val systemDataModel = repository.systemDataModel
     val osDataModel = repository.osDataModel
+    val cpuDataModel = repository.cpuDataModel
 
     fun copyDatabaseFromAssets() {
         viewModelScope.launch {

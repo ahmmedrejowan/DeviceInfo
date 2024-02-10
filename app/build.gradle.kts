@@ -64,5 +64,7 @@ dependencies {
     // koin
     implementation("io.insert-koin:koin-android:3.5.0")
 
+    // gson
+    implementation("com.google.code.gson:gson:2.10")
 
 }

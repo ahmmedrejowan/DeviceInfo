@@ -158,16 +158,18 @@ class HomeFragment : Fragment() {
             Log.e("HomeFragment", "Soc Manufacturer: $socManufacturer")
 
 
-            val socModel = Build.SOC_MODEL
-            Log.e("HomeFragment", "Soc Model: $socModel")
 
 
             val skuOfHardware = Build.SKU
             Log.e("HomeFragment", "SKU of Hardware: $skuOfHardware")
 
-
+            val socModel = Build.SOC_MODEL
+            Log.e("HomeFragment", "Soc Model: $socModel")
 
         }
+
+
+
         val radioVersion = Build.getRadioVersion()
         Log.e("HomeFragment", "Radio Version: $radioVersion")
 

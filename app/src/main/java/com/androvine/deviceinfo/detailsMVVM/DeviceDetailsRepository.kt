@@ -18,14 +18,14 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isSeaml
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleSupported
 import com.androvine.deviceinfo.detailsMVVM.dataClass.CpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
+import com.androvine.deviceinfo.detailsMVVM.dataClass.ProcModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.SystemDataModel
 import com.androvine.icons.AndroidVersionIcon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.io.FileReader
-import java.io.IOException
-import java.io.InputStream
 import java.util.TimeZone
 
 
@@ -147,42 +147,183 @@ class DeviceDetailsRepository(private val context: Context) {
     suspend fun getCpuData() {
         withContext(Dispatchers.IO) {
 
-            // read proc/cpuinfo to get cpu data
-
             val fileReader = FileReader("/proc/cpuinfo")
             val bufferedReader = fileReader.buffered()
-            val cpuData = bufferedReader.readText()
-            Log.e("CpuData", cpuData)
+
+            val deferredCpuProcInfo = async { bufferedReader.readText() }
+            val cpuProcInfo = deferredCpuProcInfo.await()
+
+
+            var processorModel = ""
+            var processorModelAll = ""
+            var processorModelAbove31 = ""
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                processorModelAbove31 = Build.SOC_MODEL
+
+            }
+
+            val hardwareLine = cpuProcInfo.lines().find { it.trim().startsWith("Hardware") }
+            val hardwareText = hardwareLine?.substringAfter(":")?.trim()
+
+            processorModelAll = if (hardwareText!!.contains("Qualcomm Technologies, Inc")){
+                val lastlineTemp = hardwareText.trim().removePrefix("Qualcomm Technologies, Inc")
+                lastlineTemp
+            } else {
+                hardwareText
+            }
+
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+
+                processorModel =
+                    if (processorModelAll.trim().lowercase() == processorModelAbove31.trim()
+                            .lowercase()
+                    ) {
+                        processorModelAll
+                    } else {
+
+
+                        if (processorModelAll.trim().lowercase()
+                                .contains(processorModelAbove31.trim().lowercase())
+                        ) {
+                            processorModelAll
+                        } else if (processorModelAbove31.trim().lowercase()
+                                .contains(processorModelAll.trim().lowercase())
+                        ) {
+                            processorModelAbove31
+
+
+                        } else {
+                            processorModelAbove31
+                        }
+                    }
+            } else {
+
+                processorModel = processorModelAll
+            }
+
+
+
+            var cpuDBModel: CpuDBModel? = null
+
+            val deferredCpuData = async { getCpuDataByModel(processorModel) }
+            cpuDBModel = deferredCpuData.await()
+
+            if (cpuDBModel == null) {
+                if (processorModel == processorModelAll) {
+                    processorModel = processorModelAbove31
+                    val deferredCpuDataAbove31 = async { getCpuDataByModel(processorModel) }
+                    cpuDBModel = deferredCpuDataAbove31.await()
+                }
+            }
+
+            if (cpuDBModel == null) {
+                cpuDBModel = CpuDBModel(
+                    model = processorModel, name = "", fab = "", gpu = "", core = "", vendor = ""
+                )
+            }
+
+
+            val procList = parseProcModels(cpuProcInfo)
             bufferedReader.close()
             fileReader.close()
 
 
+            val cpuData = CpuDataModel(
+                model = processorModel,
+                name = cpuDBModel.name,
+                manufacturer = cpuDBModel.vendor,
+                architecture = System.getProperty("os.arch"),
+                fab = cpuDBModel.fab,
+                coreCount = procList.size.toString(),
+                coreDetail = cpuDBModel.core,
+                frequency = getCpuMaxFrequency().toString() + " MHz",
+                governor = getCPUGovernor(),
+                cpuBit = if (Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()) "64" else "32",
+                cpuFeatures = procList[0].features,
+                cpuImplementer = procList[0].implementer,
+                cpuPart = procList[0].part,
+                cpuRevision = procList[0].revision,
+                cpuVariant = procList[0].variant,
+                procInfo = procList
+            )
 
+            _cpuDBModel.postValue(cpuData)
 
         }
     }
 
-    fun getCpuInformation(): String? {
-        var processBuilder: ProcessBuilder
-        var process: Process
-        var DATA = arrayOf("/system/bin/cat", "/proc/cpuinfo")
-        var inputStream: InputStream
-        var byteArray: ByteArray
-        val Holder = StringBuilder()
-        processBuilder = ProcessBuilder(*DATA)
-        byteArray = ByteArray(1024)
-        return try {
-            process = processBuilder.start()
-            inputStream = process.inputStream
-            while (inputStream.read(byteArray) != -1) {
-                Holder.append(byteArray.toString())
+    fun getCpuMaxFrequency(): Long {
+        val cpuFreqDir = File("/sys/devices/system/cpu/")
+        val cpuFreqFiles = cpuFreqDir.listFiles { file -> file.isDirectory && file.name.startsWith("cpu") }
+
+        var maxFrequency = Long.MIN_VALUE
+
+        cpuFreqFiles?.forEach { cpuDir ->
+            val maxFreqFile = File(cpuDir, "cpufreq/cpuinfo_max_freq")
+            if (maxFreqFile.exists()) {
+                val maxFreqString = maxFreqFile.readText().trim()
+                val currentFrequency = maxFreqString.toLong()
+                if (currentFrequency > maxFrequency) {
+                    maxFrequency = currentFrequency
+                }
             }
-            inputStream.close()
-            Holder.toString()
-        } catch (e: IOException) {
-            e.printStackTrace()
-            "Exception Occurred"
         }
+
+        if (maxFrequency != Long.MIN_VALUE) {
+            // Convert to MHz
+            return maxFrequency / 1000
+        } else {
+            // Return a default value if no frequency is found
+            return -1
+        }
+    }
+
+    fun getCPUGovernor(): String {
+        return try {
+            val governorFile = File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor")
+            governorFile.readText().trim()
+        } catch (e: Exception) {
+            "N/A"
+        }
+    }
+
+    fun parseProcModels(input: String): List<ProcModel> {
+        val procModels = mutableListOf<ProcModel>()
+
+        val processorSections = input.trim().split("\n\n")
+        for (section in processorSections.dropLast(1)) {
+            val lines = section.trim().split("\n")
+            val processorNumber = lines[0].trim().split(":")[1].trim().toInt()
+            val bogoMIPS = lines[1].trim().split(":")[1].trim()
+            val features = lines[2].trim().split(":")[1].trim()
+            val implementer = lines[3].trim().split(":")[1].trim()
+            val architecture = lines[4].trim().split(":")[1].trim()
+            val variant = lines[5].trim().split(":")[1].trim()
+            val part = lines[6].trim().split(":")[1].trim()
+            val revision = lines[7].trim().split(":")[1].trim()
+
+            Log.e(
+                "TAG",
+                "processorSections: " + processorNumber + " " + bogoMIPS + " " + features + " " + implementer + " " + architecture + " " + variant + " " + part + " " + revision
+            )
+
+            val procModel = ProcModel(
+                processorNumber,
+                bogoMIPS,
+                features,
+                implementer,
+                architecture,
+                variant,
+                part,
+                revision
+            )
+            procModels.add(procModel)
+        }
+
+        return procModels
     }
 
 

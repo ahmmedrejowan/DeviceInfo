@@ -1,5 +1,6 @@
 package com.androvine.deviceinfo.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +10,14 @@ import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsFragmentAdapter
 import com.androvine.deviceinfo.adapter.BottomNavFragmentAdapter
 import com.androvine.deviceinfo.adapter.DeviceFragmentAdapter
+import com.androvine.deviceinfo.dataClasses.CpuDBModel
+import com.androvine.deviceinfo.databases.CpuDatabaseHelper
 import com.androvine.deviceinfo.databinding.ActivityHomeBinding
 import com.androvine.icons.AndroidVersionIcon
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.Gson
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import kotlin.math.log
 
 class Home : AppCompatActivity() {
@@ -34,7 +40,48 @@ class Home : AppCompatActivity() {
         setOnclickListeners()
 
 
+
     }
+
+
+//    private fun testMethod() {
+//
+//        val cpuDatabaseHelper = CpuDatabaseHelper(this)
+//
+//        val processorsMap = parseProcessors(this)
+//
+//        processorsMap.forEach { (modelName, processor) ->
+//            println("Model: $modelName")
+//            println("Vendor: ${processor.VENDOR}")
+//            println("Name: ${processor.NAME}")
+//            println("Fab: ${processor.FAB}")
+//            println("CPU: ${processor.CPU}")
+//            println("Memory: ${processor.MEMORY}")
+//            println("Bandwidth: ${processor.BANDWIDTH}")
+//            println("Channels: ${processor.CHANNELS}")
+//            println()
+//            val cpuDBModel = CpuDBModel(
+//                model = modelName,
+//                name = processor.NAME,
+//                fab = processor.FAB,
+//                gpu = "",
+//                core = processor.CPU,
+//                vendor = processor.VENDOR
+//            )
+//
+//            cpuDatabaseHelper.addCpuData(cpuDBModel)
+//        }
+//
+//    }
+
+//    fun parseProcessors(context: Context): Map<String, Processor> {
+//        val inputStream = context.resources.openRawResource(R.raw.aa)
+//        val reader = BufferedReader(InputStreamReader(inputStream))
+//        val gson = Gson()
+//        val processors: Map<String, Processor> = gson.fromJson(reader, object : com.google.gson.reflect.TypeToken<Map<String, Processor>>() {}.type)
+//        inputStream.close()
+//        return processors
+//    }
 
     private fun setOnclickListeners() {
 

@@ -40,6 +40,7 @@ class Intro : AppCompatActivity() {
 
         deviceDetailsViewModel.getSystemData()
         deviceDetailsViewModel.getOsData()
+        deviceDetailsViewModel.getCpuData()
 
         setupWindow()
 

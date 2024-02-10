@@ -5,6 +5,7 @@ data class CpuDBModel(
     val name: String,
     val fab: String,
     val gpu: String,
-    val core: String
+    val core: String,
+    val vendor: String
 )
 
