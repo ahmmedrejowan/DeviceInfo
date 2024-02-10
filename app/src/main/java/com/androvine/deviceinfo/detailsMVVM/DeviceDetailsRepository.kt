@@ -1,9 +1,7 @@
 package com.androvine.deviceinfo.detailsMVVM
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.androvine.deviceinfo.dataClasses.CpuDataModel
 import com.androvine.deviceinfo.dataClasses.DeviceDataModel
@@ -20,15 +18,9 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebl
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.SystemDataModel
 import com.androvine.icons.AndroidVersionIcon
-import com.google.android.gms.common.GoogleApiAvailability
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import java.io.BufferedReader
-import java.io.File
-import java.io.InputStreamReader
-import java.text.SimpleDateFormat
-import java.util.Locale
 import java.util.TimeZone
 
 class DeviceDetailsRepository(private val context: Context) {
@@ -77,6 +69,9 @@ class DeviceDetailsRepository(private val context: Context) {
             val deferredDeviceData = async { getDeviceDataByModel(Build.MODEL) }
             var name = deferredDeviceData.await()?.name
             if (name == null) {
+                name = getDeviceDataByDevice(Build.DEVICE)?.name
+            }
+            if (name == null) {
                 name = Build.MODEL
             }
 
@@ -99,15 +94,16 @@ class DeviceDetailsRepository(private val context: Context) {
     suspend fun getOsData() {
         withContext(Dispatchers.IO) {
 
-            val deferredVersionData = async { AndroidVersionIcon().getVersionByApiLevel(Build.VERSION.SDK_INT) }
+            val deferredVersionData =
+                async { AndroidVersionIcon().getVersionByApiLevel(Build.VERSION.SDK_INT) }
             val versionData = deferredVersionData.await()
 
             val deferredIsRooted = async { isDeviceRooted() }
             val isRooted = deferredIsRooted.await()
 
-            val deferredGlesVersion = async { withContext(Dispatchers.Main) { getOpenGLES(context) } }
+            val deferredGlesVersion =
+                async { withContext(Dispatchers.Main) { getOpenGLES(context) } }
             val openGlVersion = deferredGlesVersion.await()
-
 
 
             val osData = OsDataModel(
@@ -135,11 +131,10 @@ class DeviceDetailsRepository(private val context: Context) {
                 openGlVersion = openGlVersion,
                 trebleSupported = isTrebleSupported(),
                 seamlessSupported = isSeamlessUpdateSupported(context)
-                )
+            )
             _osDataModel.postValue(osData)
         }
     }
-
 
 
 }
