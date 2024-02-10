@@ -1,6 +1,6 @@
 package com.androvine.deviceinfo.dataClasses
 
-data class CpuDataModel(
+data class CpuDBModel(
     val model: String,
     val name: String,
     val fab: String,

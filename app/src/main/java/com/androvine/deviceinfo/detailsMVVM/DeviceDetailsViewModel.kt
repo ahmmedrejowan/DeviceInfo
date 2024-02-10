@@ -26,4 +26,10 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
             repository.getOsData()
         }
     }
+
+    fun getCpuData() {
+        viewModelScope.launch {
+            repository.getCpuData()
+        }
+    }
 }

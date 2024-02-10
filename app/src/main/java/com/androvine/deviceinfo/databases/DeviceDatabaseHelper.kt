@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.androvine.deviceinfo.dataClasses.DeviceDataModel
+import com.androvine.deviceinfo.dataClasses.DeviceDBModel
 import java.io.FileOutputStream
 import java.io.IOException
 
@@ -69,7 +69,7 @@ class DeviceDatabaseHelper(context: Context) :
 
     }
 
-    fun getDeviceByModel(model: String): DeviceDataModel? {
+    fun getDeviceByModel(model: String): DeviceDBModel? {
         val db = readableDatabase
         val cursor = db.query(
             TABLE_NAME,
@@ -82,7 +82,7 @@ class DeviceDatabaseHelper(context: Context) :
             null
         )
 
-        var deviceDataModel: DeviceDataModel? = null
+        var deviceDBModel: DeviceDBModel? = null
 
         cursor.use {
             if (it.moveToFirst()) {
@@ -96,17 +96,17 @@ class DeviceDatabaseHelper(context: Context) :
                 val sDevice = it.getString(deviceIndex)
                 val sModel = it.getString(modelIndex)
 
-                deviceDataModel = DeviceDataModel(sBrand, sName, sDevice, sModel)
+                deviceDBModel = DeviceDBModel(sBrand, sName, sDevice, sModel)
             }
         }
 
         cursor.close()
         db.close()
 
-        return deviceDataModel
+        return deviceDBModel
     }
 
-    fun getDeviceByDevice(device: String): DeviceDataModel? {
+    fun getDeviceByDevice(device: String): DeviceDBModel? {
         val db = readableDatabase
         val cursor = db.query(
             TABLE_NAME,
@@ -119,7 +119,7 @@ class DeviceDatabaseHelper(context: Context) :
             null
         )
 
-        var deviceDataModel: DeviceDataModel? = null
+        var deviceDBModel: DeviceDBModel? = null
 
         cursor.use {
             if (it.moveToFirst()) {
@@ -133,14 +133,14 @@ class DeviceDatabaseHelper(context: Context) :
                 val sDevice = it.getString(deviceIndex)
                 val sModel = it.getString(modelIndex)
 
-                deviceDataModel = DeviceDataModel(sBrand, sName, sDevice, sModel)
+                deviceDBModel = DeviceDBModel(sBrand, sName, sDevice, sModel)
             }
         }
 
         cursor.close()
         db.close()
 
-        return deviceDataModel
+        return deviceDBModel
     }
 
 

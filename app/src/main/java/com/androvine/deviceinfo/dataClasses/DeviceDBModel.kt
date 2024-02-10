@@ -1,6 +1,6 @@
 package com.androvine.deviceinfo.dataClasses
 
-data class DeviceDataModel(
+data class DeviceDBModel(
     val branding: String,
     val name: String,
     val device: String,

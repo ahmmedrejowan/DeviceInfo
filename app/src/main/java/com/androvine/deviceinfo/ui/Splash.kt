@@ -41,6 +41,7 @@ class Splash : AppCompatActivity() {
         if (!introUtils.isFirstTimeLaunch()) {
             deviceDetailsViewModel.getSystemData()
             deviceDetailsViewModel.getOsData()
+            deviceDetailsViewModel.getCpuData()
         }
 
         Handler(Looper.getMainLooper()).postDelayed({

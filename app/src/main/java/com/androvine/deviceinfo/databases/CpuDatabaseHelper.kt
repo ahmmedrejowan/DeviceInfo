@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.androvine.deviceinfo.dataClasses.CpuDataModel
+import com.androvine.deviceinfo.dataClasses.CpuDBModel
 import java.io.FileOutputStream
 import java.io.IOException
 
@@ -68,7 +68,7 @@ class CpuDatabaseHelper(context: Context) :
 
     }
 
-    fun getCpuDataByModel(model: String): CpuDataModel? {
+    fun getCpuDataByModel(model: String): CpuDBModel? {
         val db = readableDatabase
         val cursor = db.query(
             TABLE_NAME,
@@ -81,7 +81,7 @@ class CpuDatabaseHelper(context: Context) :
             null
         )
 
-        var cpuData: CpuDataModel? = null
+        var cpuData: CpuDBModel? = null
 
         cursor.use {
             if (it.moveToFirst()) {
@@ -95,7 +95,7 @@ class CpuDatabaseHelper(context: Context) :
                 val gpu = it.getString(gpuIndex)
                 val core = it.getString(coreIndex)
 
-                cpuData = CpuDataModel(model, name, fab, gpu, core)
+                cpuData = CpuDBModel(model, name, fab, gpu, core)
             }
         }
 

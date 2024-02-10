@@ -2,9 +2,10 @@ package com.androvine.deviceinfo.detailsMVVM
 
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.androvine.deviceinfo.dataClasses.CpuDataModel
-import com.androvine.deviceinfo.dataClasses.DeviceDataModel
+import com.androvine.deviceinfo.dataClasses.CpuDBModel
+import com.androvine.deviceinfo.dataClasses.DeviceDBModel
 import com.androvine.deviceinfo.databases.CpuDatabaseHelper
 import com.androvine.deviceinfo.databases.DeviceDatabaseHelper
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getBuildDateFormatted
@@ -15,13 +16,18 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getSecu
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isDeviceRooted
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isSeamlessUpdateSupported
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleSupported
+import com.androvine.deviceinfo.detailsMVVM.dataClass.CpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.SystemDataModel
 import com.androvine.icons.AndroidVersionIcon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import java.io.FileReader
+import java.io.IOException
+import java.io.InputStream
 import java.util.TimeZone
+
 
 class DeviceDetailsRepository(private val context: Context) {
 
@@ -34,6 +40,9 @@ class DeviceDetailsRepository(private val context: Context) {
     private val _osDataModel = MutableLiveData<OsDataModel?>()
     val osDataModel get() = _osDataModel
 
+    private val _cpuDBModel = MutableLiveData<CpuDataModel?>()
+    val cpuDataModel get() = _cpuDBModel
+
     suspend fun copyDatabaseFromAssets() {
 
         withContext(Dispatchers.IO) {
@@ -43,18 +52,17 @@ class DeviceDetailsRepository(private val context: Context) {
 
     }
 
-    suspend fun getCpuDataByModel(model: String): CpuDataModel? = withContext(Dispatchers.IO) {
+    suspend fun getCpuDataByModel(model: String): CpuDBModel? = withContext(Dispatchers.IO) {
         val cpuData = cpuDatabaseHelper.getCpuDataByModel(model)
         cpuData
     }
 
-    suspend fun getDeviceDataByModel(model: String): DeviceDataModel? =
-        withContext(Dispatchers.IO) {
-            val deviceData = deviceDatabaseHelper.getDeviceByModel(model)
-            deviceData
-        }
+    suspend fun getDeviceDataByModel(model: String): DeviceDBModel? = withContext(Dispatchers.IO) {
+        val deviceData = deviceDatabaseHelper.getDeviceByModel(model)
+        deviceData
+    }
 
-    suspend fun getDeviceDataByDevice(device: String): DeviceDataModel? =
+    suspend fun getDeviceDataByDevice(device: String): DeviceDBModel? =
         withContext(Dispatchers.IO) {
             val deviceData = deviceDatabaseHelper.getDeviceByDevice(device)
             deviceData
@@ -133,6 +141,47 @@ class DeviceDetailsRepository(private val context: Context) {
                 seamlessSupported = isSeamlessUpdateSupported(context)
             )
             _osDataModel.postValue(osData)
+        }
+    }
+
+    suspend fun getCpuData() {
+        withContext(Dispatchers.IO) {
+
+            // read proc/cpuinfo to get cpu data
+
+            val fileReader = FileReader("/proc/cpuinfo")
+            val bufferedReader = fileReader.buffered()
+            val cpuData = bufferedReader.readText()
+            Log.e("CpuData", cpuData)
+            bufferedReader.close()
+            fileReader.close()
+
+
+
+
+        }
+    }
+
+    fun getCpuInformation(): String? {
+        var processBuilder: ProcessBuilder
+        var process: Process
+        var DATA = arrayOf("/system/bin/cat", "/proc/cpuinfo")
+        var inputStream: InputStream
+        var byteArray: ByteArray
+        val Holder = StringBuilder()
+        processBuilder = ProcessBuilder(*DATA)
+        byteArray = ByteArray(1024)
+        return try {
+            process = processBuilder.start()
+            inputStream = process.inputStream
+            while (inputStream.read(byteArray) != -1) {
+                Holder.append(byteArray.toString())
+            }
+            inputStream.close()
+            Holder.toString()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            "Exception Occurred"
         }
     }
 
