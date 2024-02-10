@@ -2,6 +2,8 @@ package com.androvine.deviceinfo.detailsMVVM
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
+import com.androvine.deviceinfo.detailsMVVM.dataClass.ProcModel
 import com.google.android.gms.common.GoogleApiAvailability
 import java.io.BufferedReader
 import java.io.File
@@ -35,6 +37,128 @@ class DeviceDetailsUtils {
             }
         }
 
+        fun getCpuMaxFrequency(): Long {
+            val cpuFreqDir = File("/sys/devices/system/cpu/")
+            val cpuFreqFiles = cpuFreqDir.listFiles { file -> file.isDirectory && file.name.startsWith("cpu") }
+
+            var maxFrequency = Long.MIN_VALUE
+
+            cpuFreqFiles?.forEach { cpuDir ->
+                val maxFreqFile = File(cpuDir, "cpufreq/cpuinfo_max_freq")
+                if (maxFreqFile.exists()) {
+                    val maxFreqString = maxFreqFile.readText().trim()
+                    val currentFrequency = maxFreqString.toLong()
+                    if (currentFrequency > maxFrequency) {
+                        maxFrequency = currentFrequency
+                    }
+                }
+            }
+
+            return if (maxFrequency != Long.MIN_VALUE) {
+                // Convert to MHz
+                maxFrequency / 1000
+            } else {
+                // Return a default value if no frequency is found
+                -1
+            }
+        }
+
+        fun getCPUGovernor(): String {
+            return try {
+                val governorFile = File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor")
+                governorFile.readText().trim()
+            } catch (e: Exception) {
+                "N/A"
+            }
+        }
+
+//        fun parseProcModels(input: String): List<ProcModel> {
+//            val procModels = mutableListOf<ProcModel>()
+//
+//            val processorSections = input.trim().split("\n\n")
+//            for (section in processorSections.dropLast(1)) {
+//                val lines = section.trim().split("\n")
+//                val processorNumber = lines[0].trim().split(":")[1].trim().toInt()
+//                val bogoMIPS = lines[1].trim().split(":")[1].trim()
+//                val features = lines[2].trim().split(":")[1].trim()
+//                val implementer = lines[3].trim().split(":")[1].trim()
+//                val architecture = lines[4].trim().split(":")[1].trim()
+//                val variant = lines[5].trim().split(":")[1].trim()
+//                val part = lines[6].trim().split(":")[1].trim()
+//                val revision = lines[7].trim().split(":")[1].trim()
+//
+//                Log.e(
+//                    "TAG",
+//                    "processorSections: " + processorNumber + " " + bogoMIPS + " " + features + " " + implementer + " " + architecture + " " + variant + " " + part + " " + revision
+//                )
+//
+//                val procModel = ProcModel(
+//                    processorNumber,
+//                    bogoMIPS,
+//                    features,
+//                    implementer,
+//                    architecture,
+//                    variant,
+//                    part,
+//                    revision
+//                )
+//                procModels.add(procModel)
+//            }
+//
+//            return procModels
+//        }
+
+        fun parseProcModels(input: String): List<ProcModel> {
+            val procModels = mutableListOf<ProcModel>()
+
+            val processorSections = input.trim().split("\n\n")
+            for (section in processorSections) {
+                val lines = section.trim().split("\n")
+                var processorNumber = -1
+                var bogoMIPS = ""
+                var features = ""
+                var implementer = ""
+                var architecture = ""
+                var variant = ""
+                var part = ""
+                var revision = ""
+
+                for (line in lines) {
+                    val tokens = line.trim().split(":")
+                    if (tokens.size == 2) {
+                        val key = tokens[0].trim()
+                        val value = tokens[1].trim()
+
+                        when (key) {
+                            "processor" -> processorNumber = value.toInt()
+                            "BogoMIPS" -> bogoMIPS = value
+                            "Features" -> features = value
+                            "CPU implementer" -> implementer = value
+                            "CPU architecture" -> architecture = value
+                            "CPU variant" -> variant = value
+                            "CPU part" -> part = value
+                            "CPU revision" -> revision = value
+                        }
+                    }
+                }
+
+                if (processorNumber != -1) {
+                    val procModel = ProcModel(
+                        processorNumber,
+                        bogoMIPS,
+                        features,
+                        implementer,
+                        architecture,
+                        variant,
+                        part,
+                        revision
+                    )
+                    procModels.add(procModel)
+                }
+            }
+
+            return procModels
+        }
 
 
         fun getFormattedUptime(uptimeMillis: Long): String {

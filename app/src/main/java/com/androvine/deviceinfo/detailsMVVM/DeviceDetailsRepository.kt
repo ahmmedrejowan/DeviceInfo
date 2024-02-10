@@ -9,6 +9,8 @@ import com.androvine.deviceinfo.dataClasses.DeviceDBModel
 import com.androvine.deviceinfo.databases.CpuDatabaseHelper
 import com.androvine.deviceinfo.databases.DeviceDatabaseHelper
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getBuildDateFormatted
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getCPUGovernor
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getCpuMaxFrequency
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getFormattedUptime
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getGooglePlayServicesVersion
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getOpenGLES
@@ -16,6 +18,7 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getSecu
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isDeviceRooted
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isSeamlessUpdateSupported
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleSupported
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.parseProcModels
 import com.androvine.deviceinfo.detailsMVVM.dataClass.CpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.ProcModel
@@ -168,9 +171,9 @@ class DeviceDetailsRepository(private val context: Context) {
 
             processorModelAll = if (hardwareText!!.contains("Qualcomm Technologies, Inc")){
                 val lastlineTemp = hardwareText.trim().removePrefix("Qualcomm Technologies, Inc")
-                lastlineTemp
+                lastlineTemp.trim()
             } else {
-                hardwareText
+                hardwareText.trim()
             }
 
 
@@ -204,6 +207,7 @@ class DeviceDetailsRepository(private val context: Context) {
                 processorModel = processorModelAll
             }
 
+            Log.e("TAG", "processorModel: $processorModel")
 
 
             var cpuDBModel: CpuDBModel? = null
@@ -255,76 +259,6 @@ class DeviceDetailsRepository(private val context: Context) {
         }
     }
 
-    fun getCpuMaxFrequency(): Long {
-        val cpuFreqDir = File("/sys/devices/system/cpu/")
-        val cpuFreqFiles = cpuFreqDir.listFiles { file -> file.isDirectory && file.name.startsWith("cpu") }
-
-        var maxFrequency = Long.MIN_VALUE
-
-        cpuFreqFiles?.forEach { cpuDir ->
-            val maxFreqFile = File(cpuDir, "cpufreq/cpuinfo_max_freq")
-            if (maxFreqFile.exists()) {
-                val maxFreqString = maxFreqFile.readText().trim()
-                val currentFrequency = maxFreqString.toLong()
-                if (currentFrequency > maxFrequency) {
-                    maxFrequency = currentFrequency
-                }
-            }
-        }
-
-        if (maxFrequency != Long.MIN_VALUE) {
-            // Convert to MHz
-            return maxFrequency / 1000
-        } else {
-            // Return a default value if no frequency is found
-            return -1
-        }
-    }
-
-    fun getCPUGovernor(): String {
-        return try {
-            val governorFile = File("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor")
-            governorFile.readText().trim()
-        } catch (e: Exception) {
-            "N/A"
-        }
-    }
-
-    fun parseProcModels(input: String): List<ProcModel> {
-        val procModels = mutableListOf<ProcModel>()
-
-        val processorSections = input.trim().split("\n\n")
-        for (section in processorSections.dropLast(1)) {
-            val lines = section.trim().split("\n")
-            val processorNumber = lines[0].trim().split(":")[1].trim().toInt()
-            val bogoMIPS = lines[1].trim().split(":")[1].trim()
-            val features = lines[2].trim().split(":")[1].trim()
-            val implementer = lines[3].trim().split(":")[1].trim()
-            val architecture = lines[4].trim().split(":")[1].trim()
-            val variant = lines[5].trim().split(":")[1].trim()
-            val part = lines[6].trim().split(":")[1].trim()
-            val revision = lines[7].trim().split(":")[1].trim()
-
-            Log.e(
-                "TAG",
-                "processorSections: " + processorNumber + " " + bogoMIPS + " " + features + " " + implementer + " " + architecture + " " + variant + " " + part + " " + revision
-            )
-
-            val procModel = ProcModel(
-                processorNumber,
-                bogoMIPS,
-                features,
-                implementer,
-                architecture,
-                variant,
-                part,
-                revision
-            )
-            procModels.add(procModel)
-        }
-
-        return procModels
-    }
 
 
 }
