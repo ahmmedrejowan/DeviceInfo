@@ -9,6 +9,7 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
     val systemDataModel = repository.systemDataModel
     val osDataModel = repository.osDataModel
     val cpuDataModel = repository.cpuDataModel
+    val gpuDataModel = repository.gpuDataModel
 
     fun copyDatabaseFromAssets() {
         viewModelScope.launch {
@@ -32,5 +33,12 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
         viewModelScope.launch {
             repository.getCpuData()
         }
+    }
+
+    fun getGpuData(vendor: String?, renderer: String?, version: String?, shaderVersion: String?,  extensions: String?) {
+        viewModelScope.launch {
+            repository.getGpuData(vendor, renderer, version, shaderVersion, extensions)
+        }
+
     }
 }

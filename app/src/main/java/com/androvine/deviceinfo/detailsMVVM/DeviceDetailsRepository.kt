@@ -20,14 +20,13 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isSeaml
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleSupported
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.parseProcModels
 import com.androvine.deviceinfo.detailsMVVM.dataClass.CpuDataModel
+import com.androvine.deviceinfo.detailsMVVM.dataClass.GpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
-import com.androvine.deviceinfo.detailsMVVM.dataClass.ProcModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.SystemDataModel
 import com.androvine.icons.AndroidVersionIcon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.io.FileReader
 import java.util.TimeZone
 
@@ -45,6 +44,9 @@ class DeviceDetailsRepository(private val context: Context) {
 
     private val _cpuDBModel = MutableLiveData<CpuDataModel?>()
     val cpuDataModel get() = _cpuDBModel
+
+    private val _gpuDataModel = MutableLiveData<GpuDataModel?>()
+    val gpuDataModel get() = _gpuDataModel
 
     suspend fun copyDatabaseFromAssets() {
 
@@ -156,7 +158,6 @@ class DeviceDetailsRepository(private val context: Context) {
             val deferredCpuProcInfo = async { bufferedReader.readText() }
             val cpuProcInfo = deferredCpuProcInfo.await()
 
-
             var processorModel = ""
             var processorModelAll = ""
             var processorModelAbove31 = ""
@@ -169,7 +170,7 @@ class DeviceDetailsRepository(private val context: Context) {
             val hardwareLine = cpuProcInfo.lines().find { it.trim().startsWith("Hardware") }
             val hardwareText = hardwareLine?.substringAfter(":")?.trim()
 
-            processorModelAll = if (hardwareText!!.contains("Qualcomm Technologies, Inc")){
+            processorModelAll = if (hardwareText!!.contains("Qualcomm Technologies, Inc")) {
                 val lastlineTemp = hardwareText.trim().removePrefix("Qualcomm Technologies, Inc")
                 lastlineTemp.trim()
             } else {
@@ -259,6 +260,34 @@ class DeviceDetailsRepository(private val context: Context) {
         }
     }
 
+
+    suspend fun getGpuData(
+        vendor: String?,
+        renderer: String?,
+        version: String?,
+        shaderVersion: String?,
+        extensions: String?
+    ) {
+        withContext(Dispatchers.IO) {
+
+            val deferredGlesVersion =
+                async { withContext(Dispatchers.Main) { getOpenGLES(context) } }
+            val openGlVersion = deferredGlesVersion.await()
+
+            val gpuDataModel = GpuDataModel(
+                name = getCpuDataByModel(cpuDataModel.value?.model!!)?.gpu ?: "N/A",
+                vendor = vendor ?: "N/A",
+                renderer = renderer ?: "N/A",
+                version = version ?: "N/A",
+                glEsVersion = openGlVersion,
+                shaderVersion = shaderVersion ?: "N/A",
+                extensions = extensions ?: "N/A"
+            )
+            _gpuDataModel.postValue(gpuDataModel)
+
+        }
+
+    }
 
 
 }

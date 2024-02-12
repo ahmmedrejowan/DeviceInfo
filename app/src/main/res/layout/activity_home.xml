@@ -7,6 +7,10 @@
     android:background="@color/backgroundColorSecondary"
     tools:context=".ui.Home">
 
+    <com.androvine.deviceinfo.utils.MyGLSurfaceView
+        android:id="@+id/glSurfaceView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/toolbarAndTabLayout"

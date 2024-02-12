@@ -1,6 +1,5 @@
 package com.androvine.deviceinfo.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,19 +9,16 @@ import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsFragmentAdapter
 import com.androvine.deviceinfo.adapter.BottomNavFragmentAdapter
 import com.androvine.deviceinfo.adapter.DeviceFragmentAdapter
-import com.androvine.deviceinfo.dataClasses.CpuDBModel
-import com.androvine.deviceinfo.databases.CpuDatabaseHelper
 import com.androvine.deviceinfo.databinding.ActivityHomeBinding
-import com.androvine.icons.AndroidVersionIcon
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
+import com.androvine.deviceinfo.utils.OpenGLInfoListener
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.Gson
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import kotlin.math.log
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home : AppCompatActivity() {
 
     private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
+    private val deviceDetailsViewModel: DeviceDetailsViewModel by viewModel()
 
     private var currentState = 0
 
@@ -40,11 +36,26 @@ class Home : AppCompatActivity() {
         setOnclickListeners()
 
 
-        val cpuDatabaseHelper = CpuDatabaseHelper(this)
-        Log.e("TAG", "onCreate: ${cpuDatabaseHelper.getCpuDataByModel("TRINKET")}")
+        val myGLSurfaceView = binding.glSurfaceView
+        val openGLInfoListener = object : OpenGLInfoListener {
+            override fun onOpenGLInfoReceived(
+                vendor: String?,
+                renderer: String?,
+                version: String?,
+                shaderVersion: String?,
+                extensions: String?
+            ) {
+                deviceDetailsViewModel.getGpuData(vendor, renderer, version, shaderVersion, extensions)
+            }
+        }
+        myGLSurfaceView.setOpenGLInfoListener(openGLInfoListener)
+
+
+
+
+
 
     }
-
 
 
     private fun setOnclickListeners() {
