@@ -31,15 +31,15 @@ class DisplayFragment : Fragment() {
         deviceDetailsViewModel.displayDataModel.observe(viewLifecycleOwner) {
             if (it != null) {
 
-                binding.resolution.text = it.resolution
-                binding.resolution2.text = it.resolution
+                binding.resolution.text = it.resolution + " px"
+                binding.resolution2.text = it.resolution + " (WxH) pixels"
                 binding.refreshRate.text = it.refreshRate
                 binding.refreshRate2.text = it.refreshRate
                 binding.size.text = it.size
                 binding.size2.text = it.size
-                binding.absoluteResolution.text = it.absoluteResolution
-                binding.screenDensity.text = it.screenDensity
-                binding.densityDpi.text = it.densityDpi
+                binding.absoluteResolution.text = it.absoluteResolution + " (WxH) pixels"
+                binding.screenDensity.text = it.screenDensity + " ppi"
+                binding.densityDpi.text = it.densityDpi + " dpi"
                 binding.densityScale.text = it.density
                 binding.supportedRefreshRates.text = it.supportedRefreshRates
                 binding.hdr.text = it.hdr
