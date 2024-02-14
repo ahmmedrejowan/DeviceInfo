@@ -1,5 +1,6 @@
 package com.androvine.deviceinfo.detailsMVVM
 
+import android.view.Display
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
@@ -10,6 +11,7 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
     val osDataModel = repository.osDataModel
     val cpuDataModel = repository.cpuDataModel
     val gpuDataModel = repository.gpuDataModel
+    val displayDataModel = repository.displayDataModel
 
     fun copyDatabaseFromAssets() {
         viewModelScope.launch {
@@ -40,5 +42,11 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
             repository.getGpuData(vendor, renderer, version, shaderVersion, extensions)
         }
 
+    }
+
+    fun getDisplayData(display: Display?) {
+        viewModelScope.launch {
+            repository.getDisplayData(display)
+        }
     }
 }

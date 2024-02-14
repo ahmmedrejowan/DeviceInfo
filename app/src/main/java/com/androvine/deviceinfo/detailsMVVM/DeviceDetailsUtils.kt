@@ -2,12 +2,13 @@ package com.androvine.deviceinfo.detailsMVVM
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.util.Log
+import android.view.Display
 import com.androvine.deviceinfo.detailsMVVM.dataClass.ProcModel
 import com.google.android.gms.common.GoogleApiAvailability
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
+import java.lang.Math.sqrt
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -262,6 +263,55 @@ class DeviceDetailsUtils {
         }
 
 
+        @Suppress("DEPRECATION")
+        fun getHDRCapabilities(display: Display): String {
+            val ints = display.hdrCapabilities.supportedHdrTypes
+            val hdrString = StringBuilder()
+            for (i in ints.indices) {
+                hdrString.append(getHDRType(ints[i]))
+                if (i < ints.size - 1) hdrString.append(", ")
+            }
+            return hdrString.toString()
+        }
+
+        fun getHDRType(type: Int): String {
+            return when (type) {
+                1 -> "Dolby Vision"
+                2 -> "HDR10"
+                3 -> "Hybrid Log-Gamma"
+                4 -> "HDR10+"
+                else -> "N/A"
+            }
+        }
+
+
+        fun calculateAspectRatio(width: Int, height: Int): String {
+            // Find the greatest common divisor
+            fun gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
+
+            // Calculate the gcd of width and height
+            val divisor = gcd(width, height)
+
+            // Calculate aspect ratio
+            val aspectWidth = width / divisor
+            val aspectHeight = height / divisor
+
+            // Return aspect ratio as a string
+            return "$aspectWidth:$aspectHeight"
+        }
+
+
+        fun calculateScreenSizeInches(widthPixels: Int, heightPixels: Int, screenDPI: Int): String {
+            // Calculate the diagonal screen size in inches
+            val widthInches = widthPixels / screenDPI.toDouble()
+            val heightInches = heightPixels / screenDPI.toDouble()
+
+            val screenSizeInches = kotlin.math.sqrt((widthInches * widthInches) + (heightInches * heightInches))
+
+            // 2 decimal places
+            return String.format("%.2f", screenSizeInches)
+
+        }
 
     }
 }

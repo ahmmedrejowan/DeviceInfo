@@ -1,18 +1,24 @@
 package com.androvine.deviceinfo.detailsMVVM
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Build
+import android.provider.Settings
 import android.util.Log
+import android.view.Display
 import androidx.lifecycle.MutableLiveData
 import com.androvine.deviceinfo.dataClasses.CpuDBModel
 import com.androvine.deviceinfo.dataClasses.DeviceDBModel
 import com.androvine.deviceinfo.databases.CpuDatabaseHelper
 import com.androvine.deviceinfo.databases.DeviceDatabaseHelper
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.calculateAspectRatio
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.calculateScreenSizeInches
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getBuildDateFormatted
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getCPUGovernor
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getCpuMaxFrequency
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getFormattedUptime
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getGooglePlayServicesVersion
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getHDRCapabilities
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getOpenGLES
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getSecurityPatchFormatted
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isDeviceRooted
@@ -20,6 +26,7 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isSeaml
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleSupported
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.parseProcModels
 import com.androvine.deviceinfo.detailsMVVM.dataClass.CpuDataModel
+import com.androvine.deviceinfo.detailsMVVM.dataClass.DisplayDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.GpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.SystemDataModel
@@ -47,6 +54,9 @@ class DeviceDetailsRepository(private val context: Context) {
 
     private val _gpuDataModel = MutableLiveData<GpuDataModel?>()
     val gpuDataModel get() = _gpuDataModel
+
+    private val _displayDataModel = MutableLiveData<DisplayDataModel?>()
+    val displayDataModel get() = _displayDataModel
 
     suspend fun copyDatabaseFromAssets() {
 
@@ -260,7 +270,6 @@ class DeviceDetailsRepository(private val context: Context) {
         }
     }
 
-
     suspend fun getGpuData(
         vendor: String?,
         renderer: String?,
@@ -287,6 +296,99 @@ class DeviceDetailsRepository(private val context: Context) {
 
         }
 
+    }
+
+    suspend fun getDisplayData(display: Display?) {
+        withContext(Dispatchers.IO) {
+
+            val mode = display!!.mode
+            val refreshRate = mode.refreshRate.toInt()
+            val width = mode.physicalWidth
+            val height = mode.physicalHeight
+            val widthPx: Int
+            val heightPx: Int
+
+            val absoluteResolution = context.resources.displayMetrics.run {
+                widthPx = widthPixels
+                heightPx = heightPixels
+            }
+
+            val xdpi = context.resources.displayMetrics.xdpi
+            val ydpi = context.resources.displayMetrics.ydpi
+            val density = context.resources.displayMetrics.density.toString()
+            val densityDpi = context.resources.displayMetrics.densityDpi.toString()
+            val aspectRatio = calculateAspectRatio(width, height)
+            val supportedRefreshRates = display.supportedModes.map { it.refreshRate.toInt() }
+            val refreshRatesString =
+                supportedRefreshRates.joinToString(separator = " Hz, ") { it.toString() } + " Hz"
+
+            val hdrCaps = getHDRCapabilities(display)
+            val isHdrSupported = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                display.isHdr
+            } else {
+                false
+            }
+
+            val colorGamut = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                display.isWideColorGamut
+            } else {
+                false
+            }
+
+            val brightnessMode = Settings.System.getInt(
+                context.contentResolver,
+                Settings.System.SCREEN_BRIGHTNESS_MODE
+            )
+
+            val brightnessValue =
+                Settings.System.getInt(context.contentResolver, Settings.System.SCREEN_BRIGHTNESS)
+
+            val orientation = when (context.resources.configuration.orientation) {
+                Configuration.ORIENTATION_LANDSCAPE -> "Landscape"
+                Configuration.ORIENTATION_PORTRAIT -> "Portrait"
+                else -> "Unknown"
+            }
+
+            val displayData = DisplayDataModel(
+                resolution = "$width x $height",
+                screenDensity = xdpi.toInt().toString(),
+                density = density,
+                densityDpi = densityDpi,
+                size = calculateScreenSizeInches(width, height, xdpi.toInt()) + " inches",
+                aspectRatio = aspectRatio,
+                refreshRate = "$refreshRate Hz",
+                supportedRefreshRates = refreshRatesString,
+                hdr = if (isHdrSupported) "Supported" else "Not Supported",
+                hdrCaps = hdrCaps,
+                colorGamut = if (colorGamut) "Supported" else "Not Supported",
+                absoluteResolution = "$widthPx x $heightPx",
+                brightness = brightnessValue.toString(),
+                brightnessMode = if (brightnessMode == 0) "Manual" else "Automatic",
+                orientation = orientation
+            )
+
+
+            Log.e("TAG", "refreshRate: $refreshRate")
+            Log.e("TAG", "width: $width")
+            Log.e("TAG", "height: $height")
+            Log.e("TAG", "widthPx: $widthPx")
+            Log.e("TAG", "heightPx: $heightPx")
+            Log.e("TAG", "xdpi: $xdpi")
+            Log.e("TAG", "ydpi: $ydpi")
+            Log.e("TAG", "density: $density")
+            Log.e("TAG", "densityDpi: $densityDpi")
+            Log.e("TAG", "aspectRatio: $aspectRatio")
+            Log.e("TAG", "supportedRefreshRates: $supportedRefreshRates")
+            Log.e("TAG", "hdr: $hdrCaps")
+            Log.e("TAG", "colorGamut: $colorGamut")
+            Log.e("TAG", "brightnessMode: $brightnessMode")
+            Log.e("TAG", "brightnessValue: $brightnessValue")
+            Log.e("TAG", "orientation: $orientation")
+
+
+            _displayDataModel.postValue(displayData)
+
+        }
     }
 
 

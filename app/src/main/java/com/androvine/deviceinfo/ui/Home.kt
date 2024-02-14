@@ -1,9 +1,12 @@
 package com.androvine.deviceinfo.ui
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsFragmentAdapter
@@ -51,6 +54,13 @@ class Home : AppCompatActivity() {
         myGLSurfaceView.setOpenGLInfoListener(openGLInfoListener)
 
 
+        val display = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            display
+        } else {
+            (getSystemService(Context.WINDOW_SERVICE) as WindowManager?)!!.defaultDisplay
+        }
+
+        deviceDetailsViewModel.getDisplayData(display)
 
 
 
