@@ -606,11 +606,10 @@ class DeviceDetailsRepository(private val context: Context) {
 
                 }
             } else {
-                volumeName = storageVolume.uuid!!.lowercase(Locale.US)
+                volumeName = storageVolume.uuid.toString()
                 totalStorageSpace = file.totalSpace
                 freeStorageSpace = file.freeSpace
                 path = file.absolutePath
-                val storageVolume
 
 
             }
