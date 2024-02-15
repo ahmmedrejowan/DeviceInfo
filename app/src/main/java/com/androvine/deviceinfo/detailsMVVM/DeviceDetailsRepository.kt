@@ -396,6 +396,11 @@ class DeviceDetailsRepository(private val context: Context) {
             val availMemory = memInfo.availMem
             val threshold = memInfo.threshold
             val lowMemory = memInfo.lowMemory
+
+            Log.e("TAG", "totalMemory: $totalMemory")
+            Log.e("TAG", "availMemory: $availMemory")
+
+
             val usedMemory = totalMemory - availMemory
             val usedMemoryPercentage =
                 ((usedMemory.toDouble() / totalMemory.toDouble()) * 100).toInt()
@@ -510,7 +515,6 @@ class DeviceDetailsRepository(private val context: Context) {
                     if (separatorIndex != -1) fsType?.substring(0, separatorIndex) else fsType
                 Log.e("TAG", "fsTypeFormatted: $fsTypeFormatted")
 
-                val uid = storage.uuid.toString()
 
                 // mount options
 
@@ -531,11 +535,21 @@ class DeviceDetailsRepository(private val context: Context) {
 
                 val description = storage.getDescription(context)
 
+
+                val file = File(directory)
+                val totalSpace = file.totalSpace
+                val freeSpace = file.freeSpace
+                val usedSpace = totalSpace - freeSpace
+                Log.e("TAG", "totalSpace: ${bytesToHuman(totalSpace)}")
+                Log.e("TAG", "freeSpace: ${bytesToHuman(freeSpace)}")
+                Log.e("TAG", "usedSpace: ${bytesToHuman(usedSpace)}")
+
+
+
                 Log.e("TAG", "isPrimary: $isPrimary")
                 Log.e("TAG", "isEmulated: $isEmulated")
                 Log.e("TAG", "isRemovable: $isRemovable")
                 Log.e("TAG", "directory: $directory")
-                Log.e("TAG", "uid: $uid")
                 Log.e("TAG", "mediaStoreVolumeName: $mediaStoreVolumeName")
                 Log.e("TAG", "owner: $owner")
                 Log.e("TAG", "state: $state")
@@ -561,7 +575,6 @@ class DeviceDetailsRepository(private val context: Context) {
 
     }
 
-    @SuppressLint("NewApi")
     private fun getVolumeStorageStats(context: Context) {
         val externalDirs = context.getExternalFilesDirs(null)
         val storageManager =
@@ -571,30 +584,41 @@ class DeviceDetailsRepository(private val context: Context) {
             val volumeName: String
             val totalStorageSpace: Long
             val freeStorageSpace: Long
+            val isRemovable: Boolean
             val storageVolume = storageManager.getStorageVolume(file) ?: return
+            val path : String
             if (storageVolume.isPrimary) {
                 // internal storage
-                volumeName = "external_primary"
+                volumeName = "Internal Storage"
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     val storageStatsManager =
                         context.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
                     val uuid = StorageManager.UUID_DEFAULT
                     totalStorageSpace = storageStatsManager.getTotalBytes(uuid)
                     freeStorageSpace = storageStatsManager.getFreeBytes(uuid)
+                    path = "N/A"
+
+
                 } else {
                     totalStorageSpace = file.totalSpace
                     freeStorageSpace = file.freeSpace
+                    path = file.absolutePath
+
                 }
             } else {
                 volumeName = storageVolume.uuid!!.lowercase(Locale.US)
                 totalStorageSpace = file.totalSpace
                 freeStorageSpace = file.freeSpace
+                path = file.absolutePath
+                val storageVolume
+
 
             }
 
-            Log.e("TAG", "getVolumeStorageStats: $volumeName")
-            Log.e("TAG", "getVolumeStorageStats: $totalStorageSpace")
-            Log.e("TAG", "getVolumeStorageStats: $freeStorageSpace")
+            Log.e("TAG", "getVolumeStorageStats name: $volumeName")
+            Log.e("TAG", "getVolumeStorageStats total: ${bytesToHuman(totalStorageSpace)}")
+            Log.e("TAG", "getVolumeStorageStats free: ${bytesToHuman(freeStorageSpace)}")
+            Log.e("TAG", "getVolumeStorageStats path: $path")
 
 
         }

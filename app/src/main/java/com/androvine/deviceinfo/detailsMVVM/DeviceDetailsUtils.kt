@@ -318,12 +318,12 @@ class DeviceDetailsUtils {
         }
 
         fun bytesToHuman(size: Long): String {
-            val Kb: Long = 1024
-            val Mb = Kb * 1024
-            val Gb = Mb * 1024
-            val Tb = Gb * 1024
-            val Pb = Tb * 1024
-            val Eb = Pb * 1024
+            val Kb: Long = 1000
+            val Mb = Kb * 1000
+            val Gb = Mb * 1000
+            val Tb = Gb * 1000
+            val Pb = Tb * 1000
+            val Eb = Pb * 1000
             if (size < Kb) return floatForm(size.toDouble()) + " byte"
             if (size in Kb..<Mb) return floatForm(size.toDouble() / Kb) + " KB"
             if (size in Mb..<Gb) return floatForm(size.toDouble() / Mb) + " MB"
@@ -335,17 +335,17 @@ class DeviceDetailsUtils {
 
         fun roundUpMemorySize(memorySizeBytes: Long): Long {
             // Convert bytes to gigabytes
-            val memorySizeGB = memorySizeBytes / (1024 * 1024 * 1024)
+            val memorySizeGB = memorySizeBytes / (1000 * 1000 * 1000)
 
             // Round up to the nearest whole number
-            val roundedMemorySizeGB = if (memorySizeBytes % (1024 * 1024 * 1024) != 0L) {
+            val roundedMemorySizeGB = if (memorySizeBytes % (1000 * 1000 * 1000) != 0L) {
                 memorySizeGB + 1
             } else {
                 memorySizeGB
             }
 
             // Convert back to bytes
-            return roundedMemorySizeGB * (1024 * 1024 * 1024)
+            return roundedMemorySizeGB * (1000 * 1000 * 1000)
         }
 
     }
