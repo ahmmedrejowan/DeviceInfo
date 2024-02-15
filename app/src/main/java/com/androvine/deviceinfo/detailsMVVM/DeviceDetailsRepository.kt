@@ -1,5 +1,6 @@
 package com.androvine.deviceinfo.detailsMVVM
 
+import android.app.ActivityManager
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
@@ -11,6 +12,7 @@ import com.androvine.deviceinfo.dataClasses.CpuDBModel
 import com.androvine.deviceinfo.dataClasses.DeviceDBModel
 import com.androvine.deviceinfo.databases.CpuDatabaseHelper
 import com.androvine.deviceinfo.databases.DeviceDatabaseHelper
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.bytesToHuman
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.calculateAspectRatio
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.calculateScreenSizeInches
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getBuildDateFormatted
@@ -25,9 +27,11 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isDevic
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isSeamlessUpdateSupported
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleSupported
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.parseProcModels
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.roundUpMemorySize
 import com.androvine.deviceinfo.detailsMVVM.dataClass.CpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.DisplayDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.GpuDataModel
+import com.androvine.deviceinfo.detailsMVVM.dataClass.MemoryDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.SystemDataModel
 import com.androvine.icons.AndroidVersionIcon
@@ -35,6 +39,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import java.io.FileReader
+import java.util.Locale
 import java.util.TimeZone
 
 
@@ -57,6 +62,9 @@ class DeviceDetailsRepository(private val context: Context) {
 
     private val _displayDataModel = MutableLiveData<DisplayDataModel?>()
     val displayDataModel get() = _displayDataModel
+
+    private val _memoryDataModel = MutableLiveData<MemoryDataModel?>()
+    val memoryDataModel get() = _memoryDataModel
 
     suspend fun copyDatabaseFromAssets() {
 
@@ -308,7 +316,7 @@ class DeviceDetailsRepository(private val context: Context) {
             val widthPx: Int
             val heightPx: Int
 
-            val absoluteResolution = context.resources.displayMetrics.run {
+            context.resources.displayMetrics.run {
                 widthPx = widthPixels
                 heightPx = heightPixels
             }
@@ -367,29 +375,44 @@ class DeviceDetailsRepository(private val context: Context) {
                 orientation = orientation
             )
 
-
-            Log.e("TAG", "refreshRate: $refreshRate")
-            Log.e("TAG", "width: $width")
-            Log.e("TAG", "height: $height")
-            Log.e("TAG", "widthPx: $widthPx")
-            Log.e("TAG", "heightPx: $heightPx")
-            Log.e("TAG", "xdpi: $xdpi")
-            Log.e("TAG", "ydpi: $ydpi")
-            Log.e("TAG", "density: $density")
-            Log.e("TAG", "densityDpi: $densityDpi")
-            Log.e("TAG", "aspectRatio: $aspectRatio")
-            Log.e("TAG", "supportedRefreshRates: $supportedRefreshRates")
-            Log.e("TAG", "hdr: $hdrCaps")
-            Log.e("TAG", "colorGamut: $colorGamut")
-            Log.e("TAG", "brightnessMode: $brightnessMode")
-            Log.e("TAG", "brightnessValue: $brightnessValue")
-            Log.e("TAG", "orientation: $orientation")
-
-
             _displayDataModel.postValue(displayData)
 
         }
     }
+
+    suspend fun getMemoryData(){
+        withContext(Dispatchers.IO){
+
+            val actManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val memInfo = ActivityManager.MemoryInfo()
+            actManager.getMemoryInfo(memInfo)
+            val totalMemory = memInfo.totalMem
+            val availMemory = memInfo.availMem
+            val threshold = memInfo.threshold
+            val lowMemory = memInfo.lowMemory
+            val usedMemory = totalMemory - availMemory
+            val usedMemoryPercentage = ((usedMemory.toDouble() / totalMemory.toDouble()) * 100).toInt()
+
+            val totalMemoryString = bytesToHuman(totalMemory)
+            val availMemoryString = bytesToHuman(availMemory)
+            val usedMemoryString = bytesToHuman(usedMemory)
+
+            val memoryData = MemoryDataModel(
+                advertisedMemory = bytesToHuman(roundUpMemorySize(totalMemory)),
+                totalMemory = totalMemoryString,
+                availableMemory = availMemoryString,
+                usedMemory = usedMemoryString,
+                usagePercent = usedMemoryPercentage,
+                threshold = bytesToHuman(threshold),
+                lowMemory = if (lowMemory) "Yes" else "No"
+            )
+
+            _memoryDataModel.postValue(memoryData)
+
+        }
+    }
+
+
 
 
 }

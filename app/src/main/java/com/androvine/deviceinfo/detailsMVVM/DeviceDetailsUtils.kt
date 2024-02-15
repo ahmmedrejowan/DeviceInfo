@@ -313,5 +313,40 @@ class DeviceDetailsUtils {
 
         }
 
+        private fun floatForm(d: Double): String {
+            return String.format(Locale.US, "%.2f", d)
+        }
+
+        fun bytesToHuman(size: Long): String {
+            val Kb: Long = 1024
+            val Mb = Kb * 1024
+            val Gb = Mb * 1024
+            val Tb = Gb * 1024
+            val Pb = Tb * 1024
+            val Eb = Pb * 1024
+            if (size < Kb) return floatForm(size.toDouble()) + " byte"
+            if (size in Kb..<Mb) return floatForm(size.toDouble() / Kb) + " KB"
+            if (size in Mb..<Gb) return floatForm(size.toDouble() / Mb) + " MB"
+            if (size in Gb..<Tb) return floatForm(size.toDouble() / Gb) + " GB"
+            if (size in Tb..<Pb) return floatForm(size.toDouble() / Tb) + " TB"
+            if (size in Pb..<Eb) return floatForm(size.toDouble() / Pb) + " Pb"
+            return if (size >= Eb) floatForm(size.toDouble() / Eb) + " Eb" else "0"
+        }
+
+        fun roundUpMemorySize(memorySizeBytes: Long): Long {
+            // Convert bytes to gigabytes
+            val memorySizeGB = memorySizeBytes / (1024 * 1024 * 1024)
+
+            // Round up to the nearest whole number
+            val roundedMemorySizeGB = if (memorySizeBytes % (1024 * 1024 * 1024) != 0L) {
+                memorySizeGB + 1
+            } else {
+                memorySizeGB
+            }
+
+            // Convert back to bytes
+            return roundedMemorySizeGB * (1024 * 1024 * 1024)
+        }
+
     }
 }
