@@ -1,14 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.device.BatteryFragment">
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundColorSecondary"
+    tools:ignore="HardcodedText,ContentDescription">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorSecondary">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Battery Information"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <LinearLayout
+                    android:id="@+id/parentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:id="@+id/brandIcon"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/ic_storage_hold" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/totalSize"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:textColor="@color/colorPrimary"
+                                android:textIsSelectable="true"
+                                android:textSize="20sp" />
+
+
+                            <TextView
+                                android:id="@+id/usedSize"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:textColor="@color/textColor"
+                                android:textIsSelectable="true"
+                                android:textSize="16sp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Usage"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/usagePercent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/progressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:max="100"
+                        app:indicatorColor="@color/colorPrimary"
+                        app:trackColor="@color/backgroundColorSecondary"
+                        app:trackCornerRadius="20dp"
+                        app:trackThickness="10dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Rom Size"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/romSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Storage Used"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/usedRom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="5dp"
+                        android:background="@color/grey" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Storage Free"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/freeRom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textColor"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
