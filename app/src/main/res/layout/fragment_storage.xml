@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/backgroundColorSecondary"
     tools:ignore="HardcodedText,ContentDescription">
 
@@ -70,7 +70,7 @@
                             android:layout_height="80dp"
                             android:layout_gravity="start"
                             android:layout_marginStart="10dp"
-                            android:src="@drawable/ic_ram" />
+                            android:src="@drawable/ic_storage_hold" />
 
 
                         <LinearLayout
@@ -83,7 +83,7 @@
 
 
                             <TextView
-                                android:id="@+id/advertisedRamSize"
+                                android:id="@+id/totalSize"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -95,14 +95,13 @@
 
 
                             <TextView
-                                android:id="@+id/refreshRate"
+                                android:id="@+id/usedSize"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="sans-serif-medium"
                                 android:gravity="center"
-                                android:text="(Estimated)"
                                 android:textColor="@color/textColor"
                                 android:textIsSelectable="true"
                                 android:textSize="16sp" />
@@ -136,7 +135,7 @@
                             android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/usage"
+                            android:id="@+id/usagePercent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -176,12 +175,12 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Advertised RAM Size"
+                        android:text="Rom Size"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/advertisedRamSize2"
+                        android:id="@+id/romSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -205,12 +204,12 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Available RAM"
+                        android:text="Storage Used"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/availableRam"
+                        android:id="@+id/usedRom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -234,12 +233,12 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Used RAM"
+                        android:text="Storage Free"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/usedRam"
+                        android:id="@+id/freeRom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -257,87 +256,15 @@
                         android:background="@color/grey" />
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Free RAM"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/freeRam"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/textColor"
-                        android:textIsSelectable="true"
-                        android:textSize="16sp" />
-
-                    <View
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/storageRecyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="5dp"
-                        android:background="@color/grey" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Threshold"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/threshold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        tools:listitem="@layout/item_storage"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/textColor"
-                        android:textIsSelectable="true"
-                        android:textSize="16sp" />
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="5dp"
-                        android:background="@color/grey" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Is Low Memory?"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/isLowMemory"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/textColor"
-                        android:textIsSelectable="true"
-                        android:textSize="16sp" />
-
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp" />
 
 
                 </LinearLayout>
@@ -352,4 +279,4 @@
     </LinearLayout>
 
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

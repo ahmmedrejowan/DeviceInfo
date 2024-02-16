@@ -13,6 +13,7 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
     val gpuDataModel = repository.gpuDataModel
     val displayDataModel = repository.displayDataModel
     val memoryDataModel = repository.memoryDataModel
+    val storageDataModel = repository.storageDataModel
 
     fun copyDatabaseFromAssets() {
         viewModelScope.launch {

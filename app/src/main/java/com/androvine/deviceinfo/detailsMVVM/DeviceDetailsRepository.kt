@@ -1,6 +1,5 @@
 package com.androvine.deviceinfo.detailsMVVM
 
-import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.usage.StorageStatsManager
 import android.content.Context
@@ -38,7 +37,9 @@ import com.androvine.deviceinfo.detailsMVVM.dataClass.CpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.DisplayDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.GpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.MemoryDataModel
+import com.androvine.deviceinfo.detailsMVVM.dataClass.MiniStorageModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
+import com.androvine.deviceinfo.detailsMVVM.dataClass.StorageDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.SystemDataModel
 import com.androvine.icons.AndroidVersionIcon
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +47,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileReader
-import java.util.Locale
 import java.util.TimeZone
 
 
@@ -72,6 +72,9 @@ class DeviceDetailsRepository(private val context: Context) {
 
     private val _memoryDataModel = MutableLiveData<MemoryDataModel?>()
     val memoryDataModel get() = _memoryDataModel
+
+    private val _storageDataModel = MutableLiveData<StorageDataModel?>()
+    val storageDataModel get() = _storageDataModel
 
     suspend fun copyDatabaseFromAssets() {
 
@@ -397,8 +400,6 @@ class DeviceDetailsRepository(private val context: Context) {
             val threshold = memInfo.threshold
             val lowMemory = memInfo.lowMemory
 
-            Log.e("TAG", "totalMemory: $totalMemory")
-            Log.e("TAG", "availMemory: $availMemory")
 
 
             val usedMemory = totalMemory - availMemory
@@ -427,201 +428,101 @@ class DeviceDetailsRepository(private val context: Context) {
     suspend fun getStorageData() {
         withContext(Dispatchers.IO) {
 
-//            val fileReader = FileReader("/proc/self/mountinfo")
-//            val bufferedReader = fileReader.buffered()
-//
-//            val deferredStorageInfo = async { bufferedReader.readText() }
-//            val storageInfo = deferredStorageInfo.await()
-//
-//            Log.e("TAG", "getStorageData1: $storageInfo")
 
-//            val fileReader2 = FileReader("/proc/mounts")
-//            val bufferedReader2 = fileReader2.buffered()
-//
-//            val deferredStorageInfo2 = async { bufferedReader2.readText() }
-//            val storageInfo2 = deferredStorageInfo2.await()
-//
-//            Log.e("TAG", "getStorageData2: $storageInfo2")
+            val listOfStorage = mutableListOf<MiniStorageModel>()
 
+            var romSize: Long = 0
+            var romFreeSize: Long = 0
+            var romUsedSize: Long = 0
 
-            val internalStoragePath = Environment.getDataDirectory().absolutePath
-            val rootStoragePath = Environment.getRootDirectory().absolutePath
-            val externalStoragePath = Environment.getExternalStorageDirectory().absolutePath
-
-            val system = "/"
-
-            val systemStatFs = StatFs(system)
-            val blockSizeSystem = systemStatFs.blockSizeLong
-            val totalSizeSystem = systemStatFs.blockCountLong * blockSizeSystem
-            val freeSizeSystem = systemStatFs.availableBlocksLong * blockSizeSystem
-            val usedSizeSystem = totalSizeSystem - freeSizeSystem
-
-
-            val internalStatFs = StatFs(internalStoragePath)
-            val externalStatFs = StatFs(externalStoragePath)
-            val rootStatFs = StatFs(rootStoragePath)
-
-            val blockSize = internalStatFs.blockSizeLong
-            val totalSize = internalStatFs.blockCountLong * blockSize
-            val freeSize = internalStatFs.availableBlocksLong * blockSize
-            val usedSize = totalSize - freeSize
-
-            val externalBlockSize = externalStatFs.blockSizeLong
-            val externalTotalSize = externalStatFs.blockCountLong * externalBlockSize
-            val externalFreeSize = externalStatFs.availableBlocksLong * externalBlockSize
-            val externalUsedSize = externalTotalSize - externalFreeSize
-
-            val rootblockSize = rootStatFs.blockSizeLong
-            val rootTotalSize = rootStatFs.blockCountLong * rootblockSize
-            val rootFreeSize = rootStatFs.availableBlocksLong * rootblockSize
-            val rootUsedSize = rootTotalSize - rootFreeSize
-
-            Log.e("TAG", "totalSize: ${bytesToHuman(totalSize)}")
-            Log.e("TAG", "freeSize: ${bytesToHuman(freeSize)}")
-            Log.e("TAG", "usedSize: ${bytesToHuman(usedSize)}")
-
-            Log.e("TAG", "externalTotalSize: ${bytesToHuman(externalTotalSize)}")
-            Log.e("TAG", "externalFreeSize: ${bytesToHuman(externalFreeSize)}")
-            Log.e("TAG", "externalUsedSize: ${bytesToHuman(externalUsedSize)}")
-
-            Log.e("TAG", "rootTotalSize: ${bytesToHuman(rootTotalSize)}")
-            Log.e("TAG", "rootFreeSize: ${bytesToHuman(rootFreeSize)}")
-            Log.e("TAG", "rootUsedSize: ${bytesToHuman(rootUsedSize)}")
-
-            Log.e("TAG", "systemTotalSize: ${bytesToHuman(totalSizeSystem)}")
-            Log.e("TAG", "systemFreeSize: ${bytesToHuman(freeSizeSystem)}")
-            Log.e("TAG", "systemUsedSize: ${bytesToHuman(usedSizeSystem)}")
-
-
+            val externalDirs = context.getExternalFilesDirs(null)
             val storageManager =
-                context.getSystemService(Context.STORAGE_SERVICE) as android.os.storage.StorageManager
-            val storageVolumes = storageManager.storageVolumes
-            for (storage in storageVolumes) {
+                context.getSystemService(AppCompatActivity.STORAGE_SERVICE) as StorageManager
 
-                Log.e("TAG", "getStorageData: $storage")
+            externalDirs.forEach { file ->
+                //   val volumeName: String
+                val totalStorageSpace: Long
+                val freeStorageSpace: Long
+                val storageVolume = storageManager.getStorageVolume(file) ?: return@forEach
+                //   val path : String
+                if (storageVolume.isPrimary) {
 
-                val isPrimary = storage.isPrimary
-                val isEmulated = storage.isEmulated
-                val isRemovable = storage.isRemovable
-                val directory = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    storage.directory!!.absolutePath
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        val storageStatsManager =
+                            context.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
+                        val uuid = StorageManager.UUID_DEFAULT
+                        romSize = storageStatsManager.getTotalBytes(uuid)
+                        romFreeSize = storageStatsManager.getFreeBytes(uuid)
+                        romUsedSize = romSize - romFreeSize
+
+                        val name = "Internal Storage"
+                        val storagePath = "/storage/emulated/0"
+
+                        val totalSpace = file.totalSpace
+                        val freeSpace = file.freeSpace
+                        val usedSpace = totalSpace - freeSpace
+
+                        val miniStorageModel = MiniStorageModel(
+                            totalSize = totalSpace,
+                            usedSize = usedSpace,
+                            freeSize = freeSpace,
+                            storageName = name,
+                            storagePath = storagePath
+                        )
+                        listOfStorage.add(miniStorageModel)
+
+
+                    } else {
+                        romSize = file.totalSpace
+                        romFreeSize = file.freeSpace
+                        romUsedSize = romSize - romFreeSize
+
+                        val miniStorageModel = MiniStorageModel(
+                            totalSize = file.totalSpace,
+                            usedSize = file.totalSpace - file.freeSpace,
+                            freeSize = file.freeSpace,
+                            storageName = "Internal Storage",
+                            storagePath = file.path
+                        )
+                        listOfStorage.add(miniStorageModel)
+
+
+                    }
                 } else {
-                    "N/A"
-                }
-                val fsType = runCatching { File(directory).canonicalFile }.getOrNull()
-                    ?.toString() // Get the canonical path of the filesystem
-                val separatorIndex = fsType?.indexOf(" ") ?: -1
-                val fsTypeFormatted =
-                    if (separatorIndex != -1) fsType?.substring(0, separatorIndex) else fsType
-                Log.e("TAG", "fsTypeFormatted: $fsTypeFormatted")
 
-
-                // mount options
-
-
-                val mediaStoreVolumeName = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    storage.mediaStoreVolumeName
-                } else {
-                    "N/A"
-                }
-
-                val owner = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    storage.owner
-                } else {
-                    "N/A"
-                }
-
-                val state = storage.state
-
-                val description = storage.getDescription(context)
-
-
-                val file = File(directory)
-                val totalSpace = file.totalSpace
-                val freeSpace = file.freeSpace
-                val usedSpace = totalSpace - freeSpace
-                Log.e("TAG", "totalSpace: ${bytesToHuman(totalSpace)}")
-                Log.e("TAG", "freeSpace: ${bytesToHuman(freeSpace)}")
-                Log.e("TAG", "usedSpace: ${bytesToHuman(usedSpace)}")
-
-
-
-                Log.e("TAG", "isPrimary: $isPrimary")
-                Log.e("TAG", "isEmulated: $isEmulated")
-                Log.e("TAG", "isRemovable: $isRemovable")
-                Log.e("TAG", "directory: $directory")
-                Log.e("TAG", "mediaStoreVolumeName: $mediaStoreVolumeName")
-                Log.e("TAG", "owner: $owner")
-                Log.e("TAG", "state: $state")
-                Log.e("TAG", "description: $description")
-
-
-            }
-
-
-            getVolumeStorageStats(context)
-
-
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                val storageStatsManager =
-//                    context.getSystemService(Context.STORAGE_STATS_SERVICE) as android.app.usage.StorageStatsManager
-//                total
-//
-//
-//            }
-
-
-        }
-
-    }
-
-    private fun getVolumeStorageStats(context: Context) {
-        val externalDirs = context.getExternalFilesDirs(null)
-        val storageManager =
-            context.getSystemService(AppCompatActivity.STORAGE_SERVICE) as StorageManager
-
-        externalDirs.forEach { file ->
-            val volumeName: String
-            val totalStorageSpace: Long
-            val freeStorageSpace: Long
-            val isRemovable: Boolean
-            val storageVolume = storageManager.getStorageVolume(file) ?: return
-            val path : String
-            if (storageVolume.isPrimary) {
-                // internal storage
-                volumeName = "Internal Storage"
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    val storageStatsManager =
-                        context.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
-                    val uuid = StorageManager.UUID_DEFAULT
-                    totalStorageSpace = storageStatsManager.getTotalBytes(uuid)
-                    freeStorageSpace = storageStatsManager.getFreeBytes(uuid)
-                    path = "N/A"
-
-
-                } else {
+                    val name = storageVolume.uuid.toString()
                     totalStorageSpace = file.totalSpace
                     freeStorageSpace = file.freeSpace
-                    path = file.absolutePath
+                    val path = "/storage/$name"
+
+                    val miniStorageModel = MiniStorageModel(
+                        totalSize = totalStorageSpace,
+                        usedSize = totalStorageSpace - freeStorageSpace,
+                        freeSize = freeStorageSpace,
+                        storageName = "Removable Storage",
+                        storagePath = path
+                    )
+                    listOfStorage.add(miniStorageModel)
 
                 }
-            } else {
-                volumeName = storageVolume.uuid.toString()
-                totalStorageSpace = file.totalSpace
-                freeStorageSpace = file.freeSpace
-                path = file.absolutePath
+
 
 
             }
 
-            Log.e("TAG", "getVolumeStorageStats name: $volumeName")
-            Log.e("TAG", "getVolumeStorageStats total: ${bytesToHuman(totalStorageSpace)}")
-            Log.e("TAG", "getVolumeStorageStats free: ${bytesToHuman(freeStorageSpace)}")
-            Log.e("TAG", "getVolumeStorageStats path: $path")
+            val storageData = StorageDataModel(
+                totalSize = romSize,
+                usedSize = romUsedSize,
+                freeSize = romFreeSize,
+                list = listOfStorage
+            )
 
+            _storageDataModel.postValue(storageData)
 
         }
+
     }
+
 
 
 }
