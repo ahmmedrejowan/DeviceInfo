@@ -86,6 +86,9 @@ class StorageFragment : Fragment() {
             false
         }
 
+        requireActivity().registerReceiver(
+            storageBroadcastReceiver, IntentFilter(Intent.ACTION_MEDIA_MOUNTED)
+        )
 
     }
 

@@ -158,6 +158,10 @@ class BatteryFragment : Fragment() {
             handler.postDelayed(runnable, 2000)
         }
 
+        requireActivity().registerReceiver(
+            batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        )
+
     }
 
     private fun updateCharging() {
