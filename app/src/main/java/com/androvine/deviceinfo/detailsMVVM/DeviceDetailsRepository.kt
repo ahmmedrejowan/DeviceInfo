@@ -4,11 +4,10 @@ import android.app.ActivityManager
 import android.app.usage.StorageStatsManager
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.ImageFormat
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.os.Build
-import android.os.Environment
-import android.os.StatFs
 import android.os.storage.StorageManager
 import android.provider.Settings
 import android.util.Log
@@ -22,6 +21,10 @@ import com.androvine.deviceinfo.databases.DeviceDatabaseHelper
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.bytesToHuman
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.calculateAspectRatio
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.calculateScreenSizeInches
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getAllAntiBandingModes
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getAllExposerModes
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getAllFocusModes
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getAllWhiteBalanceModes
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getBuildDateFormatted
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getCPUGovernor
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getCpuMaxFrequency
@@ -30,15 +33,18 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getGoog
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getHDRCapabilities
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getOpenGLES
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getSecurityPatchFormatted
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getShutterSpeedRange
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isDeviceRooted
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isSeamlessUpdateSupported
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.isTrebleSupported
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.parseProcModels
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.roundUpMemorySize
+import com.androvine.deviceinfo.detailsMVVM.dataClass.CameraDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.CpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.DisplayDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.GpuDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.MemoryDataModel
+import com.androvine.deviceinfo.detailsMVVM.dataClass.MiniCameraModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.MiniStorageModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.OsDataModel
 import com.androvine.deviceinfo.detailsMVVM.dataClass.StorageDataModel
@@ -47,7 +53,6 @@ import com.androvine.icons.AndroidVersionIcon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.io.FileReader
 import java.util.TimeZone
 
@@ -78,6 +83,9 @@ class DeviceDetailsRepository(private val context: Context) {
     private val _storageDataModel = MutableLiveData<StorageDataModel?>()
     val storageDataModel get() = _storageDataModel
 
+    private val _cameraDataModel = MutableLiveData<CameraDataModel?>()
+    val cameraDataModel get() = _cameraDataModel
+
     suspend fun copyDatabaseFromAssets() {
 
         withContext(Dispatchers.IO) {
@@ -87,17 +95,19 @@ class DeviceDetailsRepository(private val context: Context) {
 
     }
 
-    suspend fun getCpuDataByModel(model: String): CpuDBModel? = withContext(Dispatchers.IO) {
-        val cpuData = cpuDatabaseHelper.getCpuDataByModel(model)
-        cpuData
-    }
+    private suspend fun getCpuDataByModel(model: String): CpuDBModel? =
+        withContext(Dispatchers.IO) {
+            val cpuData = cpuDatabaseHelper.getCpuDataByModel(model)
+            cpuData
+        }
 
-    suspend fun getDeviceDataByModel(model: String): DeviceDBModel? = withContext(Dispatchers.IO) {
-        val deviceData = deviceDatabaseHelper.getDeviceByModel(model)
-        deviceData
-    }
+    private suspend fun getDeviceDataByModel(model: String): DeviceDBModel? =
+        withContext(Dispatchers.IO) {
+            val deviceData = deviceDatabaseHelper.getDeviceByModel(model)
+            deviceData
+        }
 
-    suspend fun getDeviceDataByDevice(device: String): DeviceDBModel? =
+    private suspend fun getDeviceDataByDevice(device: String): DeviceDBModel? =
         withContext(Dispatchers.IO) {
             val deviceData = deviceDatabaseHelper.getDeviceByDevice(device)
             deviceData
@@ -403,7 +413,6 @@ class DeviceDetailsRepository(private val context: Context) {
             val lowMemory = memInfo.lowMemory
 
 
-
             val usedMemory = totalMemory - availMemory
             val usedMemoryPercentage =
                 ((usedMemory.toDouble() / totalMemory.toDouble()) * 100).toInt()
@@ -509,7 +518,6 @@ class DeviceDetailsRepository(private val context: Context) {
                 }
 
 
-
             }
 
             val storageData = StorageDataModel(
@@ -528,8 +536,14 @@ class DeviceDetailsRepository(private val context: Context) {
     suspend fun getCameraData() {
         withContext(Dispatchers.IO) {
 
+            val miniCameraModelList = mutableListOf<MiniCameraModel>()
+
             val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
             val cameraIds = cameraManager.cameraIdList
+
+            for (i in cameraIds) {
+                Log.e("TAG", "cameraId: $i")
+            }
 
             val backCamera = cameraIds.find {
                 val characteristics = cameraManager.getCameraCharacteristics(it)
@@ -544,85 +558,138 @@ class DeviceDetailsRepository(private val context: Context) {
             }
 
             if (!backCamera.isNullOrEmpty()) {
-                val characteristics = cameraManager.getCameraCharacteristics(backCamera)
-                val sensorOrientation =
-                    characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)
-                val lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
-                val sensorArraySize =
-                    characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
-                val sensorSize =
-                    characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE)
-                val lensInfo =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_APERTURES)
-                val lensFocalLength =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
-                val lensFocusDistance =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
-                val lensOpticalStabilization =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION)
-                val lensIntrinsic =
-                    characteristics.get(CameraCharacteristics.LENS_INTRINSIC_CALIBRATION)
-                val lensPose = characteristics.get(CameraCharacteristics.LENS_POSE_ROTATION)
-                val lensPoseTranslation =
-                    characteristics.get(CameraCharacteristics.LENS_POSE_TRANSLATION)
-                val lensFocusRange =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
-                val lensFocusDistanceCalibration =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
-                val lensFocusRangeCalibration =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_HYPERFOCAL_DISTANCE)
-                val lensFocusRangeStabilization =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
-                val lensFocusRangeStabilizationCalibration =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
-                val lensFocusRangeStabilizationCalibrationMode =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
-                val lensFocusRangeStabilizationCalibrationModeState =
-                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
-
-                Log.e("TAG", "back Camera sensorOrientation: $sensorOrientation")
-                Log.e("TAG", "back Camera lensFacing: $lensFacing")
-                Log.e("TAG", "back Camera sensorArraySize: $sensorArraySize")
-                Log.e("TAG", "back Camera sensorSize: $sensorSize")
-                for (i in lensInfo!!) {
-                    Log.e("TAG", "back Camera lensInfo: $i")
-                }
-
-                for (i in lensFocalLength!!) {
-                    Log.e("TAG", "back Camera lensFocalLength: $i")
-                }
-                Log.e("TAG", "back Camera lensFocusDistance: $lensFocusDistance")
-                Log.e("TAG", "back Camera lensOpticalStabilization: $lensOpticalStabilization")
-                Log.e("TAG", "back Camera lensIntrinsic: $lensIntrinsic")
-                Log.e("TAG", "back Camera lensPose: $lensPose")
-                Log.e("TAG", "back Camera lensPoseTranslation: $lensPoseTranslation")
-                Log.e("TAG", "back Camera lensFocusRange: $lensFocusRange")
-                Log.e("TAG", "back Camera lensFocusDistanceCalibration: $lensFocusDistanceCalibration")
-                Log.e("TAG", "back Camera lensFocusRangeCalibration: $lensFocusRangeCalibration")
-                Log.e(
-                    "TAG",
-                    "back Camera lensFocusRangeStabilization: $lensFocusRangeStabilization"
-                )
-                Log.e(
-                    "TAG",
-                    "back Camera lensFocusRangeStabilizationCalibration: $lensFocusRangeStabilizationCalibration"
-                )
-                Log.e(
-                    "TAG",
-                    "back Camera lensFocusRangeStabilizationCalibrationMode: $lensFocusRangeStabilizationCalibrationMode"
-                )
-                Log.e(
-                    "TAG",
-                    "back Camera lensFocusRangeStabilizationCalibrationModeState: $lensFocusRangeStabilizationCalibrationModeState"
-                )
-
-
-
+                //    miniCameraModelList.add(0, getCameraDetails(backCamera, cameraManager))
             }
+
+            if (!frontCamera.isNullOrEmpty()) {
+                //  miniCameraModelList.add(1, getCameraDetails(frontCamera, cameraManager))
+            }
+
+            getCameraDetails(backCamera!!, cameraManager)
+
+            val cameraData = CameraDataModel(
+                cameraList = miniCameraModelList
+            )
+
+            _cameraDataModel.postValue(cameraData)
 
 
         }
     }
+
+    private fun getCameraDetails(
+        cameraID: String, cameraManager: CameraManager
+    ) {
+
+        val characteristics = cameraManager.getCameraCharacteristics(cameraID)
+        val lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
+        val sensorArraySize =
+            characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
+        val sensorSize = characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE)
+        val aperture = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_APERTURES)
+        val focalLength =
+            characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
+        val lensFocusDistance =
+            characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
+        val lensOpticalStabilization =
+            characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION)
+        val videoStabilization =
+            characteristics.get(CameraCharacteristics.CONTROL_AVAILABLE_VIDEO_STABILIZATION_MODES)
+        val digitalZoom =
+            characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM)
+        val shutterSpeed =
+            characteristics.get(CameraCharacteristics.SENSOR_INFO_EXPOSURE_TIME_RANGE)
+        val iso = characteristics.get(CameraCharacteristics.SENSOR_INFO_SENSITIVITY_RANGE)
+        val highestResolution =
+            characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
+        val antiBanding =
+            characteristics.get(CameraCharacteristics.CONTROL_AE_AVAILABLE_ANTIBANDING_MODES)
+        val exposerModes = characteristics.get(CameraCharacteristics.CONTROL_AE_AVAILABLE_MODES)
+        val focusModes = characteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES)
+        val whiteBalanceModes =
+            characteristics.get(CameraCharacteristics.CONTROL_AWB_AVAILABLE_MODES)
+        val sceneModes = characteristics.get(CameraCharacteristics.CONTROL_AVAILABLE_SCENE_MODES)
+        val flashSupport = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)
+        val orientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)
+        val cropFactor = characteristics.get(CameraCharacteristics.SCALER_CROPPING_TYPE)
+
+
+        val name =
+            if (lensFacing == CameraCharacteristics.LENS_FACING_BACK) "Back Camera" else "Front Camera"
+        val highestResolutionSize = highestResolution?.getOutputSizes(ImageFormat.JPEG)
+            ?.maxByOrNull { it.height * it.width }
+        val highestResolutionSizeFormatted =
+            highestResolutionSize?.width.toString() + " x " + highestResolutionSize?.height.toString()
+        val megaPixels =
+            highestResolutionSize?.width?.times(highestResolutionSize.height)?.div(1000000f)
+        val megaPixelsFormatted = String.format("%.2f", megaPixels)
+        val apertureFormatted = aperture?.max()?.toString()
+        val focalLengthFormatted = focalLength?.max()?.toString()
+        val sensorSizeFormatted =
+            sensorSize?.width.toString() + " x " + sensorSize?.height.toString() + " mm"
+        val shutterSpeedRangeFormatted = getShutterSpeedRange(shutterSpeed)
+        val isoRangeFormatted = iso?.lower.toString() + " - " + iso?.upper.toString()
+        val antiBandingFormatted = getAllAntiBandingModes(antiBanding)
+        val exposerModesFormatted = getAllExposerModes(exposerModes)
+        val focusModesFormatted = getAllFocusModes(focusModes)
+        val whiteBalanceFormatted = getAllWhiteBalanceModes(whiteBalanceModes)
+        val sceneModeFormatted = getAllSceneModes(sceneModes)
+        val flashFormatted = if (flashSupport == true) "Supported" else "Not Supported"
+        val orientationFormatted = orientation.toString() + "°"
+        val cropFactorFormatted = if (cropFactor == CameraCharacteristics.SCALER_CROPPING_TYPE_CENTER_ONLY) "Center Only" else "Freeform"
+
+
+
+        Log.e("TAG", "cameraId: $cameraID")
+        Log.e("TAG", "cameraName: $name")
+        Log.e("TAG", "highestResolutionSizeFormatted: $highestResolutionSizeFormatted")
+        Log.e("TAG", "megaPixelsFormatted: $megaPixelsFormatted")
+        Log.e("TAG", "apertureFormatted: $apertureFormatted")
+        Log.e("TAG", "focalLengthFormatted: $focalLengthFormatted")
+        Log.e("TAG", "sensorSizeFormatted: $sensorSizeFormatted")
+        Log.e("TAG", "shutterSpeedRangeFormatted: $shutterSpeedRangeFormatted")
+        Log.e("TAG", "isoRangeFormatted: $isoRangeFormatted")
+        Log.e("TAG", "antiBandingFormatted: $antiBandingFormatted")
+        Log.e("TAG", "exposerModesFormatted: $exposerModesFormatted")
+        Log.e("TAG", "focusModesFormatted: $focusModesFormatted")
+        Log.e("TAG", "whiteBalanceFormatted: $whiteBalanceFormatted")
+        Log.e("TAG", "sceneModeFormatted: $sceneModeFormatted")
+        Log.e("TAG", "flashFormatted: $flashFormatted")
+        Log.e("TAG", "orientationFormatted: $orientationFormatted")
+        Log.e("TAG", "cropFactorFormatted: $cropFactorFormatted")
+    }
+
+    private fun getAllSceneModes(sceneModes: IntArray?): String {
+        var sceneModeFormatted = ""
+        sceneModes?.forEach {
+            sceneModeFormatted += when (it) {
+                CameraCharacteristics.CONTROL_SCENE_MODE_ACTION -> "Action"
+                CameraCharacteristics.CONTROL_SCENE_MODE_BARCODE -> "Barcode"
+                CameraCharacteristics.CONTROL_SCENE_MODE_BEACH -> "Beach"
+                CameraCharacteristics.CONTROL_SCENE_MODE_CANDLELIGHT -> "Candlelight"
+                CameraCharacteristics.CONTROL_SCENE_MODE_FACE_PRIORITY -> "Face Priority"
+                CameraCharacteristics.CONTROL_SCENE_MODE_FIREWORKS -> "Fireworks"
+                CameraCharacteristics.CONTROL_SCENE_MODE_LANDSCAPE -> "Landscape"
+                CameraCharacteristics.CONTROL_SCENE_MODE_NIGHT -> "Night"
+                CameraCharacteristics.CONTROL_SCENE_MODE_NIGHT_PORTRAIT -> "Night Portrait"
+                CameraCharacteristics.CONTROL_SCENE_MODE_PARTY -> "Party"
+                CameraCharacteristics.CONTROL_SCENE_MODE_PORTRAIT -> "Portrait"
+                CameraCharacteristics.CONTROL_SCENE_MODE_SNOW -> "Snow"
+                CameraCharacteristics.CONTROL_SCENE_MODE_SPORTS -> "Sports"
+                CameraCharacteristics.CONTROL_SCENE_MODE_STEADYPHOTO -> "Steady Photo"
+                CameraCharacteristics.CONTROL_SCENE_MODE_SUNSET -> "Sunset"
+                CameraCharacteristics.CONTROL_SCENE_MODE_THEATRE -> "Theatre"
+                else -> "Unknown"
+            }
+            if (it != sceneModes.last()) {
+                sceneModeFormatted += ", "
+            }
+        }
+        return sceneModeFormatted
+    }
+
+
+
 
 
 }

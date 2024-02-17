@@ -2,13 +2,14 @@ package com.androvine.deviceinfo.detailsMVVM
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.hardware.camera2.CameraCharacteristics
+import android.util.Range
 import android.view.Display
 import com.androvine.deviceinfo.detailsMVVM.dataClass.ProcModel
 import com.google.android.gms.common.GoogleApiAvailability
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
-import java.lang.Math.sqrt
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -40,7 +41,8 @@ class DeviceDetailsUtils {
 
         fun getCpuMaxFrequency(): Long {
             val cpuFreqDir = File("/sys/devices/system/cpu/")
-            val cpuFreqFiles = cpuFreqDir.listFiles { file -> file.isDirectory && file.name.startsWith("cpu") }
+            val cpuFreqFiles =
+                cpuFreqDir.listFiles { file -> file.isDirectory && file.name.startsWith("cpu") }
 
             var maxFrequency = Long.MIN_VALUE
 
@@ -251,7 +253,7 @@ class DeviceDetailsUtils {
             }
         }
 
-         fun getGooglePlayServicesVersion(context: Context): String {
+        fun getGooglePlayServicesVersion(context: Context): String {
             return try {
                 val packageName = GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE
                 val packageInfo = context.packageManager.getPackageInfo(packageName, 0)
@@ -306,7 +308,8 @@ class DeviceDetailsUtils {
             val widthInches = widthPixels / screenDPI.toDouble()
             val heightInches = heightPixels / screenDPI.toDouble()
 
-            val screenSizeInches = kotlin.math.sqrt((widthInches * widthInches) + (heightInches * heightInches))
+            val screenSizeInches =
+                kotlin.math.sqrt((widthInches * widthInches) + (heightInches * heightInches))
 
             // 2 decimal places
             return String.format("%.2f", screenSizeInches)
@@ -347,6 +350,115 @@ class DeviceDetailsUtils {
             // Convert back to bytes
             return roundedMemorySizeGB * (1000 * 1000 * 1000)
         }
+
+        fun getShutterSpeedRange(shutterSpeed: Range<Long>?): String {
+
+            if (shutterSpeed == null) {
+                return "N/A"
+            }
+
+            val minExposureTimeNanoSeconds = shutterSpeed.lower
+            val maxExposureTimeNanoSeconds = shutterSpeed.upper
+
+            val minExposureTimeSeconds =
+                minExposureTimeNanoSeconds.toDouble() / 1_000_000_000.0 // Convert nanoseconds to seconds
+            val maxExposureTimeSeconds =
+                maxExposureTimeNanoSeconds.toDouble() / 1_000_000_000.0 // Convert nanoseconds to seconds
+
+            val minFraction = (1.0 / minExposureTimeSeconds).toInt()
+            val maxFraction = (1.0 / maxExposureTimeSeconds).toInt()
+
+            val formattedMinShutterSpeed = "1/$minFraction sec"
+            val formattedMaxShutterSpeed = "${String.format("%.2f", maxExposureTimeSeconds)} sec"
+
+            return "$formattedMinShutterSpeed - $formattedMaxShutterSpeed"
+
+        }
+
+
+        fun getAllWhiteBalanceModes(whiteBalanceModes: IntArray?): String {
+            var whiteBalanceModesFormatted = ""
+            if (whiteBalanceModes != null) {
+                for (i in whiteBalanceModes) {
+                    whiteBalanceModesFormatted += when (i) {
+                        CameraCharacteristics.CONTROL_AWB_MODE_AUTO -> "Auto"
+                        CameraCharacteristics.CONTROL_AWB_MODE_CLOUDY_DAYLIGHT -> "Cloudy Daylight"
+                        CameraCharacteristics.CONTROL_AWB_MODE_DAYLIGHT -> "Daylight"
+                        CameraCharacteristics.CONTROL_AWB_MODE_FLUORESCENT -> "Fluorescent"
+                        CameraCharacteristics.CONTROL_AWB_MODE_INCANDESCENT -> "Incandescent"
+                        CameraCharacteristics.CONTROL_AWB_MODE_SHADE -> "Shade"
+                        CameraCharacteristics.CONTROL_AWB_MODE_TWILIGHT -> "Twilight"
+                        CameraCharacteristics.CONTROL_AWB_MODE_WARM_FLUORESCENT -> "Warm Fluorescent"
+                        else -> "Unknown"
+                    }
+                    if (i != whiteBalanceModes.last()) {
+                        whiteBalanceModesFormatted += ", "
+                    }
+                }
+            }
+            return whiteBalanceModesFormatted
+        }
+
+        fun getAllFocusModes(focusModes: IntArray?): String {
+            var focusModesFormatted = ""
+            if (focusModes != null) {
+                for (i in focusModes) {
+                    focusModesFormatted += when (i) {
+                        CameraCharacteristics.CONTROL_AF_MODE_AUTO -> "Auto"
+                        CameraCharacteristics.CONTROL_AF_MODE_CONTINUOUS_PICTURE -> "Continuous Picture"
+                        CameraCharacteristics.CONTROL_AF_MODE_CONTINUOUS_VIDEO -> "Continuous Video"
+                        CameraCharacteristics.CONTROL_AF_MODE_EDOF -> "EDOF"
+                        CameraCharacteristics.CONTROL_AF_MODE_MACRO -> "Macro"
+                        CameraCharacteristics.CONTROL_AF_MODE_OFF -> "Off"
+                        else -> "Unknown"
+                    }
+                    if (i != focusModes.last()) {
+                        focusModesFormatted += ", "
+                    }
+                }
+            }
+            return focusModesFormatted
+        }
+
+        fun getAllExposerModes(exposerModes: IntArray?): String {
+            var exposerModesFormatted = ""
+            if (exposerModes != null) {
+                for (i in exposerModes) {
+                    exposerModesFormatted += when (i) {
+                        CameraCharacteristics.CONTROL_AE_MODE_OFF -> "Off"
+                        CameraCharacteristics.CONTROL_AE_MODE_ON -> "On"
+                        CameraCharacteristics.CONTROL_AE_MODE_ON_ALWAYS_FLASH -> "Always Flash"
+                        CameraCharacteristics.CONTROL_AE_MODE_ON_AUTO_FLASH -> "Auto Flash"
+                        CameraCharacteristics.CONTROL_AE_MODE_ON_AUTO_FLASH_REDEYE -> "Redeye"
+                        else -> "Unknown"
+                    }
+                    if (i != exposerModes.last()) {
+                        exposerModesFormatted += ", "
+                    }
+                }
+            }
+            return exposerModesFormatted
+        }
+
+        fun getAllAntiBandingModes(antiBanding: IntArray?): String {
+            var antiBandingModes = ""
+            if (antiBanding != null) {
+                for (i in antiBanding) {
+                    antiBandingModes += when (i) {
+                        CameraCharacteristics.CONTROL_AE_ANTIBANDING_MODE_AUTO -> "Auto"
+                        CameraCharacteristics.CONTROL_AE_ANTIBANDING_MODE_OFF -> "Off"
+                        CameraCharacteristics.CONTROL_AE_ANTIBANDING_MODE_50HZ -> "50Hz"
+                        CameraCharacteristics.CONTROL_AE_ANTIBANDING_MODE_60HZ -> "60Hz"
+                        else -> "Unknown"
+                    }
+                    if (i != antiBanding.last()) {
+                        antiBandingModes += ", "
+                    }
+                }
+            }
+            return antiBandingModes
+        }
+
 
     }
 }
