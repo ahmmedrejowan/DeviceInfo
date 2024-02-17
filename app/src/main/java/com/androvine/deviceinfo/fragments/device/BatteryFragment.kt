@@ -161,11 +161,12 @@ class BatteryFragment : Fragment() {
     }
 
     private fun updateCharging() {
-        binding.currentUsage.text = getAmperage(requireContext()) + " mAh"
 
         if (getAmperage(requireContext()).contains("-")) {
+            binding.currentUsage.text = getAmperage(requireContext()) + " mAh (Discharging)"
             binding.currentUsage.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
         } else {
+            binding.currentUsage.text = getAmperage(requireContext()) + " mAh (Charging)"
             binding.currentUsage.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
