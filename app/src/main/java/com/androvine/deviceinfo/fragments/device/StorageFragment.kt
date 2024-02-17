@@ -1,9 +1,11 @@
 package com.androvine.deviceinfo.fragments.device
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -23,9 +25,18 @@ class StorageFragment : Fragment() {
     private val binding by lazy { FragmentStorageBinding.inflate(layoutInflater) }
     private val deviceDetailsViewModel: DeviceDetailsViewModel by activityViewModel()
 
-    private lateinit var handler: Handler
-    private lateinit var uptimeRunnable: Runnable
+
     private lateinit var storageListAdapter: StorageListAdapter
+
+    private val storageBroadcastReceiver : BroadcastReceiver = object : BroadcastReceiver() {
+        @SuppressLint("SetTextI18n")
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == Intent.ACTION_MEDIA_MOUNTED) {
+                deviceDetailsViewModel.getStorageData()
+            }
+
+        }
+    }
 
 
     override fun onCreateView(
@@ -38,11 +49,7 @@ class StorageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        handler = Handler(Looper.getMainLooper())
-        uptimeRunnable = Runnable {
-            updateUsage()
-            handler.postDelayed(uptimeRunnable, 2000)
-        }
+
         storageListAdapter = StorageListAdapter(mutableListOf())
         binding.storageRecyclerView.adapter = storageListAdapter
         binding.storageRecyclerView.setHasFixedSize(true)
@@ -82,6 +89,18 @@ class StorageFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().registerReceiver(
+            storageBroadcastReceiver, IntentFilter(Intent.ACTION_MEDIA_MOUNTED)
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().unregisterReceiver(storageBroadcastReceiver)
+    }
+
     private fun clearTextSelection(view: View) {
         // Iterate through all TextViews and clear text selection
         clearTextSelectionInView(view)
@@ -97,25 +116,5 @@ class StorageFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacks(uptimeRunnable)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        handler.post(uptimeRunnable)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        handler.removeCallbacks(uptimeRunnable)
-    }
-
-    private fun updateUsage() {
-
-        deviceDetailsViewModel.getMemoryData()
-
-    }
 
 }

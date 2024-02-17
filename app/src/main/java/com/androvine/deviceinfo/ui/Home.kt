@@ -220,7 +220,7 @@ class Home : AppCompatActivity() {
 
         binding.viewPagerDevice.adapter = DeviceFragmentAdapter(supportFragmentManager, lifecycle)
 
-        TabLayoutMediator(binding.tabLayoutDevice, binding.viewPagerDevice) { tab, position ->
+        TabLayoutMediator(binding.tabLayoutDevice, binding.viewPagerDevice, true, false) { tab, position ->
             tab.text = tabList[position]
         }.attach()
 
