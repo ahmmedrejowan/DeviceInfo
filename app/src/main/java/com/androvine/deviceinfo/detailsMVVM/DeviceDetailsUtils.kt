@@ -3,6 +3,7 @@ package com.androvine.deviceinfo.detailsMVVM
 import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.camera2.CameraCharacteristics
+import android.util.Log
 import android.util.Range
 import android.view.Display
 import com.androvine.deviceinfo.detailsMVVM.dataClass.ProcModel
@@ -421,6 +422,11 @@ class DeviceDetailsUtils {
         }
 
         fun getAllExposerModes(exposerModes: IntArray?): String {
+
+            for (i in exposerModes!!) {
+                Log.e("TAG", "getAllExposerModes: " + i)
+            }
+
             var exposerModesFormatted = ""
             if (exposerModes != null) {
                 for (i in exposerModes) {
@@ -459,6 +465,33 @@ class DeviceDetailsUtils {
             return antiBandingModes
         }
 
-
+        fun getAllSceneModes(sceneModes: IntArray?): String {
+            var sceneModeFormatted = ""
+            sceneModes?.forEach {
+                sceneModeFormatted += when (it) {
+                    CameraCharacteristics.CONTROL_SCENE_MODE_ACTION -> "Action"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_BARCODE -> "Barcode"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_BEACH -> "Beach"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_CANDLELIGHT -> "Candlelight"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_FACE_PRIORITY -> "Face Priority"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_FIREWORKS -> "Fireworks"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_LANDSCAPE -> "Landscape"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_NIGHT -> "Night"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_NIGHT_PORTRAIT -> "Night Portrait"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_PARTY -> "Party"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_PORTRAIT -> "Portrait"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_SNOW -> "Snow"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_SPORTS -> "Sports"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_STEADYPHOTO -> "Steady Photo"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_SUNSET -> "Sunset"
+                    CameraCharacteristics.CONTROL_SCENE_MODE_THEATRE -> "Theatre"
+                    else -> "Unknown"
+                }
+                if (it != sceneModes.last()) {
+                    sceneModeFormatted += ", "
+                }
+            }
+            return sceneModeFormatted
+        }
     }
 }

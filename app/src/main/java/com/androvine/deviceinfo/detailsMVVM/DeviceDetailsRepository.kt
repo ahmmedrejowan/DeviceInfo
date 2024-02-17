@@ -24,6 +24,7 @@ import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.calcula
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getAllAntiBandingModes
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getAllExposerModes
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getAllFocusModes
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getAllSceneModes
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getAllWhiteBalanceModes
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getBuildDateFormatted
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsUtils.Companion.getCPUGovernor
@@ -558,14 +559,13 @@ class DeviceDetailsRepository(private val context: Context) {
             }
 
             if (!backCamera.isNullOrEmpty()) {
-                //    miniCameraModelList.add(0, getCameraDetails(backCamera, cameraManager))
+                miniCameraModelList.add(0, getCameraDetails(backCamera, cameraManager))
             }
 
             if (!frontCamera.isNullOrEmpty()) {
-                //  miniCameraModelList.add(1, getCameraDetails(frontCamera, cameraManager))
+                miniCameraModelList.add(1, getCameraDetails(frontCamera, cameraManager))
             }
 
-            getCameraDetails(backCamera!!, cameraManager)
 
             val cameraData = CameraDataModel(
                 cameraList = miniCameraModelList
@@ -579,18 +579,14 @@ class DeviceDetailsRepository(private val context: Context) {
 
     private fun getCameraDetails(
         cameraID: String, cameraManager: CameraManager
-    ) {
+    ): MiniCameraModel {
 
         val characteristics = cameraManager.getCameraCharacteristics(cameraID)
         val lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
-        val sensorArraySize =
-            characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
         val sensorSize = characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE)
         val aperture = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_APERTURES)
         val focalLength =
             characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
-        val lensFocusDistance =
-            characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
         val lensOpticalStabilization =
             characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION)
         val videoStabilization =
@@ -636,60 +632,38 @@ class DeviceDetailsRepository(private val context: Context) {
         val sceneModeFormatted = getAllSceneModes(sceneModes)
         val flashFormatted = if (flashSupport == true) "Supported" else "Not Supported"
         val orientationFormatted = orientation.toString() + "°"
-        val cropFactorFormatted = if (cropFactor == CameraCharacteristics.SCALER_CROPPING_TYPE_CENTER_ONLY) "Center Only" else "Freeform"
+        val cropFactorFormatted =
+            if (cropFactor == CameraCharacteristics.SCALER_CROPPING_TYPE_CENTER_ONLY) "Center Only" else "Freeform"
+        val stabilizationFormatted =
+            if (lensOpticalStabilization?.contains(CameraCharacteristics.LENS_OPTICAL_STABILIZATION_MODE_ON) == true) "Supported" else "Not Supported"
+        val videoStabilizationFormatted =
+            if (videoStabilization?.contains(CameraCharacteristics.CONTROL_VIDEO_STABILIZATION_MODE_ON) == true) "Supported" else "Not Supported"
+        val digitalZoomFormatted = digitalZoom.toString() + "x"
+
+        return MiniCameraModel(
+            cameraName = name,
+            megapixels = "$megaPixelsFormatted MP",
+            aperture = " f$apertureFormatted",
+            focalLength = "$focalLengthFormatted mm",
+            sensorSize = sensorSizeFormatted,
+            shutterSpeed = shutterSpeedRangeFormatted,
+            iso = isoRangeFormatted,
+            highestResolution = highestResolutionSizeFormatted,
+            antiBanding = antiBandingFormatted,
+            autoExposer = exposerModesFormatted,
+            autoFocus = focusModesFormatted,
+            whiteBalance = whiteBalanceFormatted,
+            sceneMode = sceneModeFormatted,
+            flash = flashFormatted,
+            orientation = orientationFormatted,
+            opticalStabilization = stabilizationFormatted,
+            videoStabilization = videoStabilizationFormatted,
+            digitalZoom = digitalZoomFormatted,
+            cropFactor = cropFactorFormatted
+        )
 
 
-
-        Log.e("TAG", "cameraId: $cameraID")
-        Log.e("TAG", "cameraName: $name")
-        Log.e("TAG", "highestResolutionSizeFormatted: $highestResolutionSizeFormatted")
-        Log.e("TAG", "megaPixelsFormatted: $megaPixelsFormatted")
-        Log.e("TAG", "apertureFormatted: $apertureFormatted")
-        Log.e("TAG", "focalLengthFormatted: $focalLengthFormatted")
-        Log.e("TAG", "sensorSizeFormatted: $sensorSizeFormatted")
-        Log.e("TAG", "shutterSpeedRangeFormatted: $shutterSpeedRangeFormatted")
-        Log.e("TAG", "isoRangeFormatted: $isoRangeFormatted")
-        Log.e("TAG", "antiBandingFormatted: $antiBandingFormatted")
-        Log.e("TAG", "exposerModesFormatted: $exposerModesFormatted")
-        Log.e("TAG", "focusModesFormatted: $focusModesFormatted")
-        Log.e("TAG", "whiteBalanceFormatted: $whiteBalanceFormatted")
-        Log.e("TAG", "sceneModeFormatted: $sceneModeFormatted")
-        Log.e("TAG", "flashFormatted: $flashFormatted")
-        Log.e("TAG", "orientationFormatted: $orientationFormatted")
-        Log.e("TAG", "cropFactorFormatted: $cropFactorFormatted")
     }
-
-    private fun getAllSceneModes(sceneModes: IntArray?): String {
-        var sceneModeFormatted = ""
-        sceneModes?.forEach {
-            sceneModeFormatted += when (it) {
-                CameraCharacteristics.CONTROL_SCENE_MODE_ACTION -> "Action"
-                CameraCharacteristics.CONTROL_SCENE_MODE_BARCODE -> "Barcode"
-                CameraCharacteristics.CONTROL_SCENE_MODE_BEACH -> "Beach"
-                CameraCharacteristics.CONTROL_SCENE_MODE_CANDLELIGHT -> "Candlelight"
-                CameraCharacteristics.CONTROL_SCENE_MODE_FACE_PRIORITY -> "Face Priority"
-                CameraCharacteristics.CONTROL_SCENE_MODE_FIREWORKS -> "Fireworks"
-                CameraCharacteristics.CONTROL_SCENE_MODE_LANDSCAPE -> "Landscape"
-                CameraCharacteristics.CONTROL_SCENE_MODE_NIGHT -> "Night"
-                CameraCharacteristics.CONTROL_SCENE_MODE_NIGHT_PORTRAIT -> "Night Portrait"
-                CameraCharacteristics.CONTROL_SCENE_MODE_PARTY -> "Party"
-                CameraCharacteristics.CONTROL_SCENE_MODE_PORTRAIT -> "Portrait"
-                CameraCharacteristics.CONTROL_SCENE_MODE_SNOW -> "Snow"
-                CameraCharacteristics.CONTROL_SCENE_MODE_SPORTS -> "Sports"
-                CameraCharacteristics.CONTROL_SCENE_MODE_STEADYPHOTO -> "Steady Photo"
-                CameraCharacteristics.CONTROL_SCENE_MODE_SUNSET -> "Sunset"
-                CameraCharacteristics.CONTROL_SCENE_MODE_THEATRE -> "Theatre"
-                else -> "Unknown"
-            }
-            if (it != sceneModes.last()) {
-                sceneModeFormatted += ", "
-            }
-        }
-        return sceneModeFormatted
-    }
-
-
-
 
 
 }

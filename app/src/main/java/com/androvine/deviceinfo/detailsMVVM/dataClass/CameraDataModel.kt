@@ -13,7 +13,6 @@ data class MiniCameraModel(
     val shutterSpeed: String,
     val iso: String,
     val highestResolution: String,
-    val pixelSize: String,
     val antiBanding: String,
     val autoExposer: String,
     val autoFocus: String,
@@ -22,4 +21,7 @@ data class MiniCameraModel(
     val flash: String,
     val orientation: String,
     val opticalStabilization: String,
+    val videoStabilization: String,
+    val digitalZoom: String,
+    val cropFactor: String
 )

@@ -11,11 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.androvine.deviceinfo.databinding.FragmentCameraBinding
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 
 class CameraFragment : Fragment() {
 
     private val binding by lazy { FragmentCameraBinding.inflate(layoutInflater) }
+    private val deviceDetailsViewModel: DeviceDetailsViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -27,6 +30,11 @@ class CameraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        deviceDetailsViewModel.cameraDataModel.observe(viewLifecycleOwner) {
+            Log.e("CameraFragment", "CameraDataModel1: ${it!!.cameraList[0]}")
+            Log.e("CameraFragment", "CameraDataModel2: ${it!!.cameraList[1]}")
+
+        }
 
 
     }
