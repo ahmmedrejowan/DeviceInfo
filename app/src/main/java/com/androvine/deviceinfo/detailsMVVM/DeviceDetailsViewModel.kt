@@ -63,4 +63,10 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
             repository.getStorageData()
         }
     }
+
+    fun getCameraData() {
+        viewModelScope.launch {
+            repository.getCameraData()
+        }
+    }
 }

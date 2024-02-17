@@ -41,6 +41,9 @@ class Intro : AppCompatActivity() {
         deviceDetailsViewModel.getSystemData()
         deviceDetailsViewModel.getOsData()
         deviceDetailsViewModel.getCpuData()
+        deviceDetailsViewModel.getMemoryData()
+        deviceDetailsViewModel.getStorageData()
+        deviceDetailsViewModel.getCameraData()
 
         setupWindow()
 

@@ -4,6 +4,8 @@ import android.app.ActivityManager
 import android.app.usage.StorageStatsManager
 import android.content.Context
 import android.content.res.Configuration
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.os.Environment
 import android.os.StatFs
@@ -523,6 +525,104 @@ class DeviceDetailsRepository(private val context: Context) {
 
     }
 
+    suspend fun getCameraData() {
+        withContext(Dispatchers.IO) {
+
+            val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            val cameraIds = cameraManager.cameraIdList
+
+            val backCamera = cameraIds.find {
+                val characteristics = cameraManager.getCameraCharacteristics(it)
+                val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
+                facing == CameraCharacteristics.LENS_FACING_BACK
+            }
+
+            val frontCamera = cameraIds.find {
+                val characteristics = cameraManager.getCameraCharacteristics(it)
+                val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
+                facing == CameraCharacteristics.LENS_FACING_FRONT
+            }
+
+            if (!backCamera.isNullOrEmpty()) {
+                val characteristics = cameraManager.getCameraCharacteristics(backCamera)
+                val sensorOrientation =
+                    characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)
+                val lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
+                val sensorArraySize =
+                    characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
+                val sensorSize =
+                    characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE)
+                val lensInfo =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_APERTURES)
+                val lensFocalLength =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
+                val lensFocusDistance =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
+                val lensOpticalStabilization =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION)
+                val lensIntrinsic =
+                    characteristics.get(CameraCharacteristics.LENS_INTRINSIC_CALIBRATION)
+                val lensPose = characteristics.get(CameraCharacteristics.LENS_POSE_ROTATION)
+                val lensPoseTranslation =
+                    characteristics.get(CameraCharacteristics.LENS_POSE_TRANSLATION)
+                val lensFocusRange =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
+                val lensFocusDistanceCalibration =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
+                val lensFocusRangeCalibration =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_HYPERFOCAL_DISTANCE)
+                val lensFocusRangeStabilization =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
+                val lensFocusRangeStabilizationCalibration =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
+                val lensFocusRangeStabilizationCalibrationMode =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
+                val lensFocusRangeStabilizationCalibrationModeState =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_FOCUS_DISTANCE_CALIBRATION)
+
+                Log.e("TAG", "back Camera sensorOrientation: $sensorOrientation")
+                Log.e("TAG", "back Camera lensFacing: $lensFacing")
+                Log.e("TAG", "back Camera sensorArraySize: $sensorArraySize")
+                Log.e("TAG", "back Camera sensorSize: $sensorSize")
+                for (i in lensInfo!!) {
+                    Log.e("TAG", "back Camera lensInfo: $i")
+                }
+
+                for (i in lensFocalLength!!) {
+                    Log.e("TAG", "back Camera lensFocalLength: $i")
+                }
+                Log.e("TAG", "back Camera lensFocusDistance: $lensFocusDistance")
+                Log.e("TAG", "back Camera lensOpticalStabilization: $lensOpticalStabilization")
+                Log.e("TAG", "back Camera lensIntrinsic: $lensIntrinsic")
+                Log.e("TAG", "back Camera lensPose: $lensPose")
+                Log.e("TAG", "back Camera lensPoseTranslation: $lensPoseTranslation")
+                Log.e("TAG", "back Camera lensFocusRange: $lensFocusRange")
+                Log.e("TAG", "back Camera lensFocusDistanceCalibration: $lensFocusDistanceCalibration")
+                Log.e("TAG", "back Camera lensFocusRangeCalibration: $lensFocusRangeCalibration")
+                Log.e(
+                    "TAG",
+                    "back Camera lensFocusRangeStabilization: $lensFocusRangeStabilization"
+                )
+                Log.e(
+                    "TAG",
+                    "back Camera lensFocusRangeStabilizationCalibration: $lensFocusRangeStabilizationCalibration"
+                )
+                Log.e(
+                    "TAG",
+                    "back Camera lensFocusRangeStabilizationCalibrationMode: $lensFocusRangeStabilizationCalibrationMode"
+                )
+                Log.e(
+                    "TAG",
+                    "back Camera lensFocusRangeStabilizationCalibrationModeState: $lensFocusRangeStabilizationCalibrationModeState"
+                )
+
+
+
+            }
+
+
+        }
+    }
 
 
 }

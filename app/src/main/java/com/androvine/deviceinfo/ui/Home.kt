@@ -226,9 +226,6 @@ class Home : AppCompatActivity() {
 
         binding.viewPagerDevice.adapter = DeviceFragmentAdapter(supportFragmentManager, lifecycle)
 
-//        TabLayoutMediator(binding.tabLayoutDevice, binding.viewPagerDevice, true, false) { tab, position ->
-//            tab.text = tabList[position]
-//        }.attach()
 
         binding.tabLayoutDevice.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -263,9 +260,31 @@ class Home : AppCompatActivity() {
 
         binding.viewPagerApps.adapter = AppsFragmentAdapter(supportFragmentManager, lifecycle)
 
-        TabLayoutMediator(binding.tabLayoutApps, binding.viewPagerApps) { tab, position ->
-            tab.text = tabList[position]
-        }.attach()
+
+        for (i in tabList) {
+            binding.tabLayoutApps.addTab(binding.tabLayoutApps.newTab().setText(i))
+        }
+
+        binding.tabLayoutApps.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                binding.viewPagerApps.setCurrentItem(tab!!.position, false)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
+
+        binding.viewPagerApps.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.tabLayoutApps.selectTab(binding.tabLayoutApps.getTabAt(position))
+            }
+        })
 
     }
 
