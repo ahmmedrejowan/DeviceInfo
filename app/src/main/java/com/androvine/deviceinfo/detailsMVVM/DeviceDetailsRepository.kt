@@ -643,7 +643,7 @@ class DeviceDetailsRepository(private val context: Context) {
         return MiniCameraModel(
             cameraName = name,
             megapixels = "$megaPixelsFormatted MP",
-            aperture = " f$apertureFormatted",
+            aperture = "f $apertureFormatted",
             focalLength = "$focalLengthFormatted mm",
             sensorSize = sensorSizeFormatted,
             shutterSpeed = shutterSpeedRangeFormatted,
