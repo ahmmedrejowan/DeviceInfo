@@ -550,7 +550,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Video Stabilization"
+                        android:text="Digital Video Stabilization"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="14sp" />
 
@@ -1144,7 +1144,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Video Stabilization"
+                        android:text="Digital Video Stabilization"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="14sp" />
 

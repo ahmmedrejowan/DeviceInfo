@@ -155,25 +155,23 @@ class Home : AppCompatActivity() {
             }
 
             2 -> {
-                binding.bottomNavView.selectedItemId = R.id.nav_test
-                binding.viewPagerBottomNav.setCurrentItem(1, false)
+                binding.bottomNavView.selectedItemId = R.id.nav_report
+                binding.viewPagerBottomNav.setCurrentItem(2, false)
                 showHide(bottomNav = true, deviceTab = false, appsTab = false)
-                changeTitle("Testing")
-
+                changeTitle("Monitor")
             }
 
             3 -> {
                 binding.bottomNavView.selectedItemId = R.id.nav_apps
                 showHide(bottomNav = false, deviceTab = false, appsTab = true)
                 changeTitle("Apps")
-
             }
 
             4 -> {
-                binding.bottomNavView.selectedItemId = R.id.nav_report
-                binding.viewPagerBottomNav.setCurrentItem(2, false)
+                binding.bottomNavView.selectedItemId = R.id.nav_test
+                binding.viewPagerBottomNav.setCurrentItem(1, false)
                 showHide(bottomNav = true, deviceTab = false, appsTab = false)
-                changeTitle("Report")
+                changeTitle("Testing")
             }
         }
 
