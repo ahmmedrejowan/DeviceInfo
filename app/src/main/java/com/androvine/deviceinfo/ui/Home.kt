@@ -114,10 +114,10 @@ class Home : AppCompatActivity() {
 
                 }
 
-                R.id.nav_report -> {
+                R.id.nav_monitor -> {
                     binding.viewPagerBottomNav.setCurrentItem(2, false)
                     showHide(bottomNav = true, deviceTab = false, appsTab = false)
-                    changeTitle("Report")
+                    changeTitle("Monitor")
                     currentState = 4
                 }
             }
@@ -155,7 +155,7 @@ class Home : AppCompatActivity() {
             }
 
             2 -> {
-                binding.bottomNavView.selectedItemId = R.id.nav_report
+                binding.bottomNavView.selectedItemId = R.id.nav_monitor
                 binding.viewPagerBottomNav.setCurrentItem(2, false)
                 showHide(bottomNav = true, deviceTab = false, appsTab = false)
                 changeTitle("Monitor")

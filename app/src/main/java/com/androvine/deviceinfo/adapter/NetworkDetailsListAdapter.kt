@@ -1,6 +1,8 @@
 package com.androvine.deviceinfo.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.androvine.deviceinfo.databinding.ItemNetDetailsBinding
@@ -22,6 +24,10 @@ class NetworkDetailsListAdapter(private val listOfDetails: MutableList<Pair<Stri
         holder.binding.valueID.text = item.first
         holder.binding.valueName.text = item.second
 
+        if (position == listOfDetails.size - 1) {
+            holder.binding.divider.visibility = View.GONE
+        }
+
     }
 
 
@@ -30,6 +36,7 @@ class NetworkDetailsListAdapter(private val listOfDetails: MutableList<Pair<Stri
         return listOfDetails.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateList(newList: List<Pair<String, String>>){
         listOfDetails.clear()
         listOfDetails.addAll(newList)

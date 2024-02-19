@@ -12,7 +12,7 @@
         android:title="Details" />
 
     <item
-        android:id="@+id/nav_report"
+        android:id="@+id/nav_monitor"
         android:icon="@drawable/ic_report_nav"
         android:title="Monitor" />
 

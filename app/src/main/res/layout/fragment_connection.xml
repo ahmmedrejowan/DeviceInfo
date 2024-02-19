@@ -140,11 +140,9 @@
                             android:id="@+id/publicIp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="10dp"
                             android:fontFamily="sans-serif-medium"
                             android:text="Show Public IP"
+                            android:padding="10dp"
                             android:textColor="@color/colorPrimary"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
