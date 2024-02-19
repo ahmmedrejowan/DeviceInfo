@@ -4,19 +4,32 @@ import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
-import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.androvine.deviceinfo.R
+import com.androvine.deviceinfo.adapter.NetworkDetailsListAdapter
+import com.androvine.deviceinfo.databinding.BottomSheetPublicIpBinding
 import com.androvine.deviceinfo.databinding.FragmentConnectionBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.net.HttpURLConnection
 import java.net.Inet4Address
+import java.net.Inet6Address
+import java.net.URL
 
 
 class ConnectionFragment : Fragment() {
@@ -25,6 +38,12 @@ class ConnectionFragment : Fragment() {
 
     private lateinit var networkCallback: NetworkCallback
     private lateinit var connectivityManager: ConnectivityManager
+    private val listOfDetailsPairs = mutableListOf<Pair<String, String>>()
+    private val adapter: NetworkDetailsListAdapter by lazy {
+        NetworkDetailsListAdapter(
+            mutableListOf()
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,28 +58,39 @@ class ConnectionFragment : Fragment() {
         connectivityManager =
             requireContext().getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
 
+        if (connectivityManager.activeNetwork != null) {
+            setupConnection()
+        } else {
+            setupNoConnection()
+        }
+
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
 
         registerNetworkCallback()
 
-        setupConnection()
+
     }
 
     private fun registerNetworkCallback() {
 
-        val request = NetworkRequest.Builder()
-            .addTransportType(TRANSPORT_WIFI)
-            .addTransportType(TRANSPORT_CELLULAR)
-            .build()
+        val request = NetworkRequest.Builder().addTransportType(TRANSPORT_WIFI)
+            .addTransportType(TRANSPORT_CELLULAR).build()
 
         networkCallback = object : NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                setupConnection()
+                requireActivity().runOnUiThread {
+                    setupConnection()
+                }
             }
 
             override fun onLost(network: Network) {
                 super.onLost(network)
-                setupNoConnection()
+                requireActivity().runOnUiThread {
+                    setupNoConnection()
+                }
             }
         }
 
@@ -87,109 +117,187 @@ class ConnectionFragment : Fragment() {
     }
 
     private fun setUpMobileData() {
-        val mobileNetwork = connectivityManager.activeNetwork
-        val linkProperties = connectivityManager.getLinkProperties(mobileNetwork)
-        if (linkProperties != null) {
-            val ipAddress = linkProperties.linkAddresses.find { it.address is Inet4Address }?.address?.hostAddress
-            Log.e("ConnectionFragment", "IP Address: $ipAddress")
-            linkProperties.dnsServers.forEach {
-                Log.e("ConnectionFragment", "DNS Server: $it")
-            }
-            linkProperties.linkAddresses.forEach {
-                Log.e("ConnectionFragment", "Link Address: $it")
-            }
-            linkProperties.domains?.forEach {
-                Log.e("ConnectionFragment", "Domain: $it")
-            }
-            linkProperties.routes.forEach {
-                Log.e("ConnectionFragment", "Route: $it")
-            }
-            linkProperties.interfaceName?.let {
-                Log.e("ConnectionFragment", "Interface Name: $it")
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                linkProperties.isPrivateDnsActive.let {
-                    Log.e("ConnectionFragment", "Private DNS Active: $it")
+
+        listOfDetailsPairs.clear()
+        getNetworkData()
+
+        binding.networkImage.setImageResource(R.drawable.ic_mobile_network)
+        binding.top1.text = "Mobile Data"
+
+        binding.parentLayout2.visibility = View.VISIBLE
+
+        adapter.updateList(listOfDetailsPairs)
+
+        binding.publicIp.setOnClickListener {
+            checkPublicIp()
+        }
+
+    }
+
+    private fun checkPublicIp() {
+        val urlString = "http://ip-api.com/json"
+        var json: JSONObject? = null
+
+        Toast.makeText(requireContext(), "Fetching Public IP...", Toast.LENGTH_SHORT).show()
+
+        lifecycleScope.launch {
+
+            withContext(Dispatchers.IO) {
+                try {
+                    val url = URL(urlString)
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
+                    connection.connect()
+
+                    val responseCode = connection.responseCode
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        val inputStream = connection.inputStream
+                        val jsonString = inputStream.bufferedReader().use { it.readText() }
+                        json = JSONObject(jsonString)
+                    }
+                    connection.disconnect()
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                linkProperties.dhcpServerAddress?.let {
-                    Log.e("ConnectionFragment", "DHCP Server Address: $it")
-                }
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                linkProperties.mtu.let {
-                    Log.e("ConnectionFragment", "MTU: $it")
-                }
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                linkProperties.nat64Prefix?.let {
-                    Log.e("ConnectionFragment", "NAT64 Prefix: $it")
-                }
-            }
-            linkProperties.httpProxy?.let {
-                Log.e("ConnectionFragment", "HTTP Proxy: $it")
+
             }
 
+            withContext(Dispatchers.Main) {
+                formatDetails(json)
+            }
 
         }
 
 
     }
+
+    private fun formatDetails(json: JSONObject?) {
+
+        if (json != null) {
+            val ip = json.getString("query")
+            val country = json.getString("country")
+            val timezone = json.getString("timezone")
+            val isp = json.getString("isp")
+            val asName = json.getString("as")
+
+            val bottomSheetDialog = BottomSheetDialog(requireContext())
+            val bottomSheetBinding: BottomSheetPublicIpBinding = BottomSheetPublicIpBinding.inflate(
+                layoutInflater
+            )
+            bottomSheetDialog.setContentView(bottomSheetBinding.root)
+            bottomSheetDialog.setCancelable(true)
+            bottomSheetDialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+            bottomSheetDialog.window!!.setLayout(
+                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT
+                )
+
+
+            bottomSheetBinding.ipAddress.text = ip
+            bottomSheetBinding.country.text = country
+            bottomSheetBinding.timezone.text = timezone
+            bottomSheetBinding.isp.text = "$isp ($asName)"
+
+
+            bottomSheetBinding.btnDismiss.setOnClickListener {
+                bottomSheetDialog.dismiss()
+            }
+
+            bottomSheetDialog.show()
+
+
+        }
+    }
+
 
     private fun setUpWifi() {
-        val wifiNetwork = connectivityManager.activeNetwork
-        val linkProperties = connectivityManager.getLinkProperties(wifiNetwork)
-        if (linkProperties != null) {
-            val ipAddress = linkProperties.linkAddresses.find { it.address is Inet4Address }?.address?.hostAddress
-            Log.e("ConnectionFragment", "IP Address: $ipAddress")
-            linkProperties.dnsServers.forEach {
-                Log.e("ConnectionFragment", "DNS Server: $it")
-            }
-            linkProperties.linkAddresses.forEach {
-                Log.e("ConnectionFragment", "Link Address: $it")
-            }
-            linkProperties.domains?.forEach {
-                Log.e("ConnectionFragment", "Domain: $it")
-            }
-            linkProperties.routes.forEach {
-                Log.e("ConnectionFragment", "Route: $it")
-            }
-            linkProperties.interfaceName?.let {
-                Log.e("ConnectionFragment", "Interface Name: $it")
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                linkProperties.isPrivateDnsActive.let {
-                    Log.e("ConnectionFragment", "Private DNS Active: $it")
-                }
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                linkProperties.dhcpServerAddress?.let {
-                    Log.e("ConnectionFragment", "DHCP Server Address: $it")
-                }
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                linkProperties.mtu.let {
-                    Log.e("ConnectionFragment", "MTU: $it")
-                }
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                linkProperties.nat64Prefix?.let {
-                    Log.e("ConnectionFragment", "NAT64 Prefix: $it")
-                }
-            }
-            linkProperties.httpProxy?.let {
-                Log.e("ConnectionFragment", "HTTP Proxy: $it")
-            }
 
+        listOfDetailsPairs.clear()
+        getNetworkData()
 
+        binding.networkImage.setImageResource(R.drawable.ic_wifi_network)
+        binding.top1.text = "Wi-Fi"
+
+        binding.parentLayout2.visibility = View.VISIBLE
+
+        adapter.updateList(listOfDetailsPairs)
+
+        binding.publicIp.setOnClickListener {
+            checkPublicIp()
         }
 
     }
 
+
+    private fun getNetworkData() {
+        val network = connectivityManager.activeNetwork
+        val linkProperties = connectivityManager.getLinkProperties(network)
+        if (linkProperties != null) {
+
+            val ipAddress =
+                linkProperties.linkAddresses.find { it.address is Inet4Address }?.address?.hostAddress
+            linkProperties.dnsServers.forEach {}
+            linkProperties.linkAddresses.forEach {}
+            linkProperties.routes.forEach {}
+            linkProperties.interfaceName?.let {}
+
+            listOfDetailsPairs.add(Pair("IP Address", ipAddress.toString()))
+            linkProperties.linkAddresses.forEach {
+                val linkAddress = it.address
+                if (linkAddress is Inet4Address) {
+                    listOfDetailsPairs.add(
+                        Pair(
+                            "IPv4 Address", linkAddress.hostAddress?.toString() ?: "No IPv4 Address"
+                        )
+                    )
+                } else if (linkAddress is Inet6Address) {
+                    listOfDetailsPairs.add(
+                        Pair(
+                            "IPv6 Address", linkAddress.hostAddress?.toString() ?: "No IPv6 Address"
+                        )
+                    )
+                }
+            }
+            linkProperties.dnsServers.forEachIndexed { index, inetAddress ->
+                listOfDetailsPairs.add(
+                    Pair(
+                        "DNS Server ${index + 1}",
+                        inetAddress.hostAddress?.toString() ?: "No DNS Server"
+                    )
+                )
+            }
+
+
+            listOfDetailsPairs.add(Pair("Interface Name", linkProperties.interfaceName.toString()))
+            linkProperties.routes.forEach {
+                val route = it
+                if (route.isDefaultRoute) {
+                    listOfDetailsPairs.add(
+                        Pair(
+                            "Gateway", route.gateway?.hostAddress?.toString() ?: "No Gateway"
+                        )
+                    )
+                }
+            }
+
+            listOfDetailsPairs.forEach {
+                Log.e("ConnectionFragment", "Details: ${it.first} - ${it.second}")
+            }
+
+            binding.top2.text = ipAddress.toString()
+
+
+        }
+
+
+    }
+
+
     private fun setupNoConnection() {
+        binding.networkImage.setImageResource(R.drawable.ic_not_available)
+        binding.top1.text = "No Connection"
+        binding.top2.text = "Check your connection and try again"
 
-
+        binding.parentLayout2.visibility = View.GONE
     }
 
     override fun onDestroyView() {
@@ -201,5 +309,13 @@ class ConnectionFragment : Fragment() {
         connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (connectivityManager.activeNetwork != null) {
+            setupConnection()
+        } else {
+            setupNoConnection()
+        }
+    }
 
 }
