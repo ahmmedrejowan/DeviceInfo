@@ -41,7 +41,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Netowrk Information"
+                        android:text="Network Information"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
 
