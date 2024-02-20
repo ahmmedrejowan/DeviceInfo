@@ -279,9 +279,7 @@ class ConnectionFragment : Fragment() {
                 }
             }
 
-            listOfDetailsPairs.forEach {
-                Log.e("ConnectionFragment", "Details: ${it.first} - ${it.second}")
-            }
+
 
             binding.top2.text = ipAddress.toString()
 

@@ -54,7 +54,7 @@ class ThermalFragment : Fragment() {
         handler = Handler(Looper.getMainLooper())
         runnable = Runnable {
             getThermalInfo()
-            handler.postDelayed(runnable, 3000)
+            handler.postDelayed(runnable, 1000)
         }
 
 
@@ -79,7 +79,7 @@ class ThermalFragment : Fragment() {
 
     }
 
-    fun getTemperatureData(): Map<String, String> {
+    private fun getTemperatureData(): Map<String, String> {
 
         val temperatureData = mutableMapOf<String, String>()
 

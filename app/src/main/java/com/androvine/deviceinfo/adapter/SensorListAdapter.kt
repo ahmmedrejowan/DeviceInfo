@@ -1,6 +1,7 @@
 package com.androvine.deviceinfo.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class SensorListAdapter(private val temperatureData: MutableMap<String, String>)
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newTemperatureData: Map<String, String>) {
+        Log.e("SensorListAdapter", "updateList: ${newTemperatureData.size}")
 
         if (temperatureData.isEmpty()) {
             temperatureData.putAll(newTemperatureData)
@@ -45,6 +47,7 @@ class SensorListAdapter(private val temperatureData: MutableMap<String, String>)
         }
 
         for ((key, value) in newTemperatureData) {
+            Log.e("SensorListAdapter", "updateList: $key $value")
             temperatureData[key] = value
             notifyItemChanged(getItemPosition(key))
         }
