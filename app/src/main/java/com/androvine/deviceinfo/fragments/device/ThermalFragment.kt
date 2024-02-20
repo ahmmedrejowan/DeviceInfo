@@ -54,7 +54,7 @@ class ThermalFragment : Fragment() {
         handler = Handler(Looper.getMainLooper())
         runnable = Runnable {
             getThermalInfo()
-            handler.postDelayed(runnable, 4000)
+            handler.postDelayed(runnable, 3000)
         }
 
 
