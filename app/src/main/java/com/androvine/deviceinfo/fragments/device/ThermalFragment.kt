@@ -73,7 +73,7 @@ class ThermalFragment : Fragment() {
 
                     val sortedTemperatureData = temperatureData.toSortedMap()
 
-                    binding.top1.text = sortedTemperatureData.size.toString() + " sensors"
+                    binding.top1.text = sortedTemperatureData.size.toString() + " thermal sensors"
                     adapter.updateList(sortedTemperatureData)
                 }
             }
