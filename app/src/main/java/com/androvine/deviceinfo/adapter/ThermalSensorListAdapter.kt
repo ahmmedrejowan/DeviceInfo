@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.androvine.deviceinfo.databinding.ItemNetDetailsBinding
 
-class SensorListAdapter(private val temperatureData: MutableMap<String, String>) : RecyclerView.Adapter<SensorListAdapter.ViewHolder>(){
+class ThermalSensorListAdapter(private val temperatureData: MutableMap<String, String>) : RecyclerView.Adapter<ThermalSensorListAdapter.ViewHolder>(){
 
 
     override fun onCreateViewHolder(
@@ -38,7 +38,6 @@ class SensorListAdapter(private val temperatureData: MutableMap<String, String>)
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newTemperatureData: Map<String, String>) {
-        Log.e("SensorListAdapter", "updateList: ${newTemperatureData.size}")
 
         if (temperatureData.isEmpty()) {
             temperatureData.putAll(newTemperatureData)
@@ -47,7 +46,6 @@ class SensorListAdapter(private val temperatureData: MutableMap<String, String>)
         }
 
         for ((key, value) in newTemperatureData) {
-            Log.e("SensorListAdapter", "updateList: $key $value")
             temperatureData[key] = value
             notifyItemChanged(getItemPosition(key))
         }

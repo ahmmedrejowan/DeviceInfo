@@ -3,13 +3,14 @@ package com.androvine.deviceinfo.fragments.device
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.androvine.deviceinfo.adapter.SensorListAdapter
+import com.androvine.deviceinfo.adapter.ThermalSensorListAdapter
 import com.androvine.deviceinfo.databinding.FragmentThermalBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,8 +25,8 @@ class ThermalFragment : Fragment() {
         FragmentThermalBinding.inflate(layoutInflater)
     }
 
-    private val adapter: SensorListAdapter by lazy {
-        SensorListAdapter(
+    private val adapter: ThermalSensorListAdapter by lazy {
+        ThermalSensorListAdapter(
             mutableMapOf()
         )
     }
@@ -54,13 +55,15 @@ class ThermalFragment : Fragment() {
         handler = Handler(Looper.getMainLooper())
         runnable = Runnable {
             getThermalInfo()
-            handler.postDelayed(runnable, 1000)
+            handler.postDelayed(runnable, 4000)
         }
+
 
 
     }
 
     private fun getThermalInfo() {
+
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
@@ -115,5 +118,23 @@ class ThermalFragment : Fragment() {
 
         return temperatureData
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        handler.post(runnable)
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(runnable)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(runnable)
+    }
+
 
 }
