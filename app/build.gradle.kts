@@ -70,4 +70,6 @@ dependencies {
     // camera2
     implementation("androidx.camera:camera-camera2:1.3.1")
 
+    // MPAndroidChart
+    implementation("com.github.r3jo1:MPAndroidChart-Reworked:1.0")
 }
