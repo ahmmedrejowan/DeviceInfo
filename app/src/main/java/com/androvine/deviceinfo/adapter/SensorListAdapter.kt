@@ -19,6 +19,7 @@ class SensorListAdapter(private val listOfDetails: MutableList<Sensor>, private 
         return ViewHolder(binding)
     }
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listOfDetails[position]
 
