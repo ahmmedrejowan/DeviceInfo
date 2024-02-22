@@ -214,8 +214,6 @@ class Home : AppCompatActivity() {
             "Sensor",
             "Thermal",
             "Codec",
-            "Feature",
-            "Misc"
         )
 
         for (i in tabList) {

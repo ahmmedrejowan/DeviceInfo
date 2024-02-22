@@ -10,10 +10,8 @@ import com.androvine.deviceinfo.fragments.device.CodecsFragment
 import com.androvine.deviceinfo.fragments.device.ConnectionFragment
 import com.androvine.deviceinfo.fragments.device.CpuFragment
 import com.androvine.deviceinfo.fragments.device.DisplayFragment
-import com.androvine.deviceinfo.fragments.device.FeatureFragment
 import com.androvine.deviceinfo.fragments.device.GpuFragment
 import com.androvine.deviceinfo.fragments.device.GsmFragment
-import com.androvine.deviceinfo.fragments.device.MiscFragment
 import com.androvine.deviceinfo.fragments.device.NetworkFragment
 import com.androvine.deviceinfo.fragments.device.OsFragment
 import com.androvine.deviceinfo.fragments.device.RamFragment
@@ -91,13 +89,6 @@ class DeviceFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
                 return CodecsFragment()
             }
 
-            15 -> {
-                return FeatureFragment()
-            }
-
-            16 -> {
-                return MiscFragment()
-            }
 
             else -> {
                 return CpuFragment()
