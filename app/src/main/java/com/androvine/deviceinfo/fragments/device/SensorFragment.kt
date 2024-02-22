@@ -2,7 +2,10 @@ package com.androvine.deviceinfo.fragments.device
 
 import android.app.Dialog
 import android.content.Context.SENSOR_SERVICE
+import android.graphics.Color
 import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +14,16 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.SensorListAdapter
+import com.androvine.deviceinfo.databinding.DialogSensorAccelerometerBinding
 import com.androvine.deviceinfo.databinding.DialogSensorDefaultBinding
 import com.androvine.deviceinfo.databinding.FragmentSensorBinding
+import com.rejowan.chart.components.XAxis
+import com.rejowan.chart.data.Entry
+import com.rejowan.chart.data.LineData
+import com.rejowan.chart.data.LineDataSet
+import com.rejowan.chart.interfaces.datasets.ILineDataSet
 
 
 class SensorFragment : Fragment() {
@@ -60,8 +70,7 @@ class SensorFragment : Fragment() {
         dialog.setContentView(sensorDefaultBinding.root)
         dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.window!!.setLayout(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.WRAP_CONTENT
+            FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT
         )
         dialog.setCancelable(true)
 
@@ -73,6 +82,9 @@ class SensorFragment : Fragment() {
         sensorDefaultBinding.resolution.text = sensor.resolution.toString()
         sensorDefaultBinding.wakeUp.text = if (sensor.isWakeUpSensor) "Yes" else "No"
 
+        sensorDefaultBinding.dismissButton.setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialog.show()
 
@@ -171,35 +183,409 @@ class SensorFragment : Fragment() {
         sensorManager: SensorManager, sensor: Sensor
     ) {
 
+        binding.accelerometerModel.text = sensor.vendor
+
+        binding.accelerometerLayout.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
+
+        binding.accelerometerModel.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
+
 
     }
 
-    private fun setupMagneticSensor(sensorManager: SensorManager, sensor: Sensor) {
 
+    private fun setupMagneticSensor(sensorManager: SensorManager, sensor: Sensor) {
+        binding.magneticFieldModel.text = sensor.vendor
+
+        binding.magneticFieldLayout.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
+
+        binding.magneticFieldModel.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
     }
 
     private fun setupRotationVectorSensor(sensorManager: SensorManager, sensor: Sensor) {
+        binding.rotationVectorModel.text = sensor.vendor
+
+        binding.rotationVectorLayout.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
+
+        binding.rotationVectorModel.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
 
     }
 
     private fun setupGyroscopeSensor(sensorManager: SensorManager, sensor: Sensor) {
+        binding.gyroscopeModel.text = sensor.vendor
+
+        binding.gyroscopeLayout.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
+
+        binding.gyroscopeModel.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
 
     }
 
     private fun setupProximitySensor(sensorManager: SensorManager, sensor: Sensor) {
+        binding.proximityModel.text = sensor.vendor
+
+        binding.proximityLayout.setOnClickListener {
+            showDialog2(sensorManager, sensor)
+        }
+
+        binding.proximityModel.setOnClickListener {
+            showDialog2(sensorManager, sensor)
+        }
 
     }
 
     private fun setupLightSensor(sensorManager: SensorManager, sensor: Sensor) {
+        binding.lightModel.text = sensor.vendor
+
+        binding.lightLayout.setOnClickListener {
+            showDialog2(sensorManager, sensor)
+        }
+
+        binding.lightModel.setOnClickListener {
+            showDialog2(sensorManager, sensor)
+        }
 
     }
 
     private fun setupGravitySensor(sensorManager: SensorManager, sensor: Sensor) {
+        binding.gravityModel.text = sensor.vendor
+
+        binding.gravityLayout.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
+
+        binding.gravityModel.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
 
     }
 
     private fun setupLinearAccelerationSensor(sensorManager: SensorManager, sensor: Sensor) {
+        binding.linearAccelerationModel.text = sensor.vendor
+
+        binding.linearAccelerationLayout.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
+
+        binding.linearAccelerationModel.setOnClickListener {
+            showDialog(sensorManager, sensor)
+        }
 
     }
+
+    private fun showDialog(sensorManager: SensorManager, sensor: Sensor) {
+
+        val dialog = Dialog(requireContext())
+        val sensorDefaultBinding = DialogSensorAccelerometerBinding.inflate(layoutInflater)
+        dialog.setContentView(sensorDefaultBinding.root)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window!!.setLayout(
+            FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT
+        )
+        dialog.setCancelable(true)
+
+        sensorDefaultBinding.title.text = sensor.name
+        sensorDefaultBinding.type.text = sensor.stringType
+        sensorDefaultBinding.manufacturer.text = sensor.vendor
+        sensorDefaultBinding.power.text = sensor.power.toString()
+        sensorDefaultBinding.maxRange.text = sensor.maximumRange.toString()
+        sensorDefaultBinding.resolution.text = sensor.resolution.toString()
+        sensorDefaultBinding.wakeUp.text = if (sensor.isWakeUpSensor) "Yes" else "No"
+
+
+        sensorDefaultBinding.lineChart.description.isEnabled = false
+        sensorDefaultBinding.lineChart.setPinchZoom(true)
+        sensorDefaultBinding.lineChart.setDrawGridBackground(false)
+        sensorDefaultBinding.lineChart.isDragEnabled = true
+        sensorDefaultBinding.lineChart.setScaleEnabled(true)
+        sensorDefaultBinding.lineChart.setTouchEnabled(true)
+
+        val xAxis: XAxis = sensorDefaultBinding.lineChart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.granularity = 1f
+        xAxis.textColor = requireActivity().getColor(R.color.textColor)
+        xAxis.setDrawAxisLine(false)
+
+        sensorDefaultBinding.lineChart.axisRight.isEnabled = false
+
+        val yAxis = sensorDefaultBinding.lineChart.axisLeft
+        yAxis.textColor = requireActivity().getColor(R.color.textColor)
+
+        sensorDefaultBinding.lineChart.axisLeft.setDrawGridLines(false)
+
+        sensorDefaultBinding.lineChart.animateXY(1500, 1500)
+
+
+        val data = LineData()
+        sensorDefaultBinding.lineChart.data = data
+
+
+        val sensorEventListener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent?) {
+
+                val x = event!!.values[0]
+                val y = event.values[1]
+                val z = event.values[2]
+
+                sensorDefaultBinding.xAxis.text = "$x"
+                sensorDefaultBinding.xAxis.setTextColor(requireActivity().getColor(R.color.colorPrimary))
+                sensorDefaultBinding.yAxis.text = "$y"
+                sensorDefaultBinding.yAxis.setTextColor(requireActivity().getColor(R.color.red))
+                sensorDefaultBinding.zAxis.text = "$z"
+                sensorDefaultBinding.zAxis.setTextColor(requireActivity().getColor(R.color.green))
+
+                val lineData = sensorDefaultBinding.lineChart.data
+
+                if (lineData != null) {
+                    var set: ILineDataSet? = lineData.getDataSetByIndex(0)
+                    var set2: ILineDataSet? = lineData.getDataSetByIndex(1)
+                    var set3: ILineDataSet? = lineData.getDataSetByIndex(2)
+
+                    if (set == null || set2 == null || set3 == null) {
+                        set = createSet()
+                        lineData.addDataSet(set)
+
+                        set2 = createSet2()
+                        lineData.addDataSet(set2)
+
+                        set3 = createSet3()
+                        lineData.addDataSet(set3)
+                    }
+
+
+                    lineData.addEntry(Entry(set.entryCount.toFloat(), x), 0)
+                    lineData.addEntry(Entry(set2.entryCount.toFloat(), y), 1)
+                    lineData.addEntry(Entry(set3.entryCount.toFloat(), z), 2)
+
+                    if (set.entryCount > 25) {
+                        set.removeFirst()
+                        for (i in 0 until set.entryCount) {
+                            val entry = set.getEntryForIndex(i)
+                            entry.x = entry.x - 1
+                        }
+                    }
+
+                    if (set2.entryCount > 25) {
+                        set2.removeFirst()
+                        for (i in 0 until set2.entryCount) {
+                            val entry = set2.getEntryForIndex(i)
+                            entry.x = entry.x - 1
+                        }
+                    }
+
+                    if (set3.entryCount > 25) {
+                        set3.removeFirst()
+                        for (i in 0 until set3.entryCount) {
+                            val entry = set3.getEntryForIndex(i)
+                            entry.x = entry.x - 1
+                        }
+                    }
+
+                    lineData.notifyDataChanged()
+                    sensorDefaultBinding.lineChart.notifyDataSetChanged()
+                    sensorDefaultBinding.lineChart.invalidate()
+                }
+
+
+            }
+
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
+            }
+
+        }
+
+        sensorManager.registerListener(
+            sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL
+        )
+
+        sensorDefaultBinding.dismissButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setOnDismissListener {
+            sensorManager.unregisterListener(sensorEventListener)
+        }
+
+        dialog.show()
+    }
+
+    private fun showDialog2(sensorManager: SensorManager, sensor: Sensor) {
+
+        val dialog = Dialog(requireContext())
+        val sensorDefaultBinding = DialogSensorAccelerometerBinding.inflate(layoutInflater)
+        dialog.setContentView(sensorDefaultBinding.root)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window!!.setLayout(
+            FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT
+        )
+        dialog.setCancelable(true)
+
+        sensorDefaultBinding.title.text = sensor.name
+        sensorDefaultBinding.type.text = sensor.stringType
+        sensorDefaultBinding.manufacturer.text = sensor.vendor
+        sensorDefaultBinding.power.text = sensor.power.toString()
+        sensorDefaultBinding.maxRange.text = sensor.maximumRange.toString()
+        sensorDefaultBinding.resolution.text = sensor.resolution.toString()
+        sensorDefaultBinding.wakeUp.text = if (sensor.isWakeUpSensor) "Yes" else "No"
+
+
+        sensorDefaultBinding.lineChart.description.isEnabled = false
+        sensorDefaultBinding.lineChart.setPinchZoom(true)
+        sensorDefaultBinding.lineChart.setDrawGridBackground(false)
+        sensorDefaultBinding.lineChart.isDragEnabled = true
+        sensorDefaultBinding.lineChart.setScaleEnabled(true)
+        sensorDefaultBinding.lineChart.setTouchEnabled(true)
+
+        val xAxis: XAxis = sensorDefaultBinding.lineChart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.granularity = 1f
+        xAxis.textColor = requireActivity().getColor(R.color.textColor)
+        xAxis.setDrawAxisLine(false)
+
+        sensorDefaultBinding.lineChart.axisRight.isEnabled = false
+
+        val yAxis = sensorDefaultBinding.lineChart.axisLeft
+        yAxis.textColor = requireActivity().getColor(R.color.textColor)
+
+        sensorDefaultBinding.lineChart.axisLeft.setDrawGridLines(false)
+
+        sensorDefaultBinding.lineChart.animateXY(1500, 1500)
+
+
+        val data = LineData()
+        sensorDefaultBinding.lineChart.data = data
+
+
+        val sensorEventListener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent?) {
+
+                val x = event!!.values[0]
+
+                sensorDefaultBinding.xAxis.text = "$x"
+                sensorDefaultBinding.xAxis.setTextColor(requireActivity().getColor(R.color.colorPrimary))
+
+
+                val lineData = sensorDefaultBinding.lineChart.data
+
+                if (lineData != null) {
+                    var set: ILineDataSet? = lineData.getDataSetByIndex(0)
+
+
+                    if (set == null) {
+                        set = createSet()
+                        lineData.addDataSet(set)
+
+
+                    }
+
+
+                    lineData.addEntry(Entry(set.entryCount.toFloat(), x), 0)
+
+                    if (set.entryCount > 25) {
+                        set.removeFirst()
+                        for (i in 0 until set.entryCount) {
+                            val entry = set.getEntryForIndex(i)
+                            entry.x = entry.x - 1
+                        }
+                    }
+
+
+                    lineData.notifyDataChanged()
+                    sensorDefaultBinding.lineChart.notifyDataSetChanged()
+                    sensorDefaultBinding.lineChart.invalidate()
+                }
+
+
+            }
+
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
+            }
+
+        }
+
+        sensorManager.registerListener(
+            sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL
+        )
+
+        sensorDefaultBinding.dismissButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.setOnDismissListener {
+            sensorManager.unregisterListener(sensorEventListener)
+        }
+
+        dialog.show()
+    }
+
+
+    private fun createSet(): LineDataSet {
+        val lineDataSet = LineDataSet(null, "")
+        lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        lineDataSet.cubicIntensity = 0.4f
+        lineDataSet.setDrawFilled(false)
+        lineDataSet.setDrawCircles(false)
+        lineDataSet.lineWidth = 1.8f
+        lineDataSet.circleRadius = 4f
+        lineDataSet.setCircleColor(requireActivity().getColor(R.color.textColor))
+        lineDataSet.highLightColor = Color.rgb(244, 117, 117)
+        lineDataSet.color = requireActivity().getColor(R.color.colorPrimary)
+        lineDataSet.fillAlpha = 100
+        lineDataSet.setDrawHorizontalHighlightIndicator(false)
+        lineDataSet.setDrawValues(false)
+        return lineDataSet
+    }
+
+    private fun createSet2(): LineDataSet {
+        val lineDataSet = LineDataSet(null, "")
+        lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        lineDataSet.cubicIntensity = 0.4f
+        lineDataSet.setDrawFilled(false)
+        lineDataSet.setDrawCircles(false)
+        lineDataSet.lineWidth = 1.8f
+        lineDataSet.circleRadius = 4f
+        lineDataSet.setCircleColor(requireActivity().getColor(R.color.textColor))
+        lineDataSet.highLightColor = Color.rgb(244, 117, 117)
+        lineDataSet.color = requireActivity().getColor(R.color.red)
+        lineDataSet.fillAlpha = 100
+        lineDataSet.setDrawValues(false)
+        lineDataSet.setDrawHorizontalHighlightIndicator(false)
+        return lineDataSet
+    }
+
+    private fun createSet3(): LineDataSet {
+        val lineDataSet = LineDataSet(null, "")
+        lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        lineDataSet.cubicIntensity = 0.4f
+        lineDataSet.setDrawFilled(false)
+        lineDataSet.setDrawCircles(false)
+        lineDataSet.lineWidth = 1.8f
+        lineDataSet.circleRadius = 4f
+        lineDataSet.setCircleColor(requireActivity().getColor(R.color.textColor))
+        lineDataSet.highLightColor = Color.rgb(244, 117, 117)
+        lineDataSet.color = requireActivity().getColor(R.color.green)
+        lineDataSet.fillAlpha = 100
+        lineDataSet.setDrawValues(false)
+        lineDataSet.setDrawHorizontalHighlightIndicator(false)
+        return lineDataSet
+    }
+
 
 }
