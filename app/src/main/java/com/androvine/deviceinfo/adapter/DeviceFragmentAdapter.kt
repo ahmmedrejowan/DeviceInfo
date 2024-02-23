@@ -24,7 +24,7 @@ class DeviceFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount(): Int {
-        return 17
+        return 15
     }
 
     override fun createFragment(position: Int): Fragment {
