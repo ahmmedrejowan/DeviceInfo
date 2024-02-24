@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -192,13 +193,16 @@ public class ArcProgress extends View {
     }
 
     public void setProgress(float progress) {
+//        Log.e("Progress", "progress: " + progress);
+//        Log.e("Progress", "currentProgress: " + currentProgress);
+
         DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
         this.progress = Float.parseFloat(new DecimalFormat("#.##", dfs).format(progress));
 
         if (this.progress > getMax()) {
             this.progress %= getMax();
         }
-        currentProgress =(int) progress;
+        currentProgress = (int) this.progress;
         invalidate();
     }
 

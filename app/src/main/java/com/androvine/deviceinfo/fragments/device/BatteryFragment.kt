@@ -22,6 +22,31 @@ import java.text.DecimalFormat
 
 class BatteryFragment : Fragment() {
 
+    companion object{
+        fun getAmperage(context: Context): String {
+            val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+            var batteryCurrent =
+                -batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW).toFloat()
+
+            //    Log.e("TAG", "getAmperage: " + batteryCurrent);
+            return if (batteryCurrent < 0) {
+                // discharging state
+                if (Math.abs(batteryCurrent / 1000) < 1.0) {
+                    batteryCurrent = batteryCurrent * 1000
+                }
+                val df = DecimalFormat("#.##")
+                df.format((batteryCurrent / 1000).toDouble())
+            } else {
+                // charging state
+                if (Math.abs(batteryCurrent) > 100000.0) {
+                    batteryCurrent = batteryCurrent / 1000
+                }
+                val df = DecimalFormat("#.##")
+                df.format(batteryCurrent.toDouble())
+            }
+        }
+    }
+
     private val binding by lazy { FragmentBatteryBinding.inflate(layoutInflater) }
 
     private lateinit var handler: Handler
@@ -210,28 +235,7 @@ class BatteryFragment : Fragment() {
         handler.removeCallbacks(runnable)
     }
 
-    private fun getAmperage(context: Context): String {
-        val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-        var batteryCurrent =
-            -batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW).toFloat()
 
-        //    Log.e("TAG", "getAmperage: " + batteryCurrent);
-        return if (batteryCurrent < 0) {
-            // discharging state
-            if (Math.abs(batteryCurrent / 1000) < 1.0) {
-                batteryCurrent = batteryCurrent * 1000
-            }
-            val df = DecimalFormat("#.##")
-            df.format((batteryCurrent / 1000).toDouble())
-        } else {
-            // charging state
-            if (Math.abs(batteryCurrent) > 100000.0) {
-                batteryCurrent = batteryCurrent / 1000
-            }
-            val df = DecimalFormat("#.##")
-            df.format(batteryCurrent.toDouble())
-        }
-    }
 
 
 
