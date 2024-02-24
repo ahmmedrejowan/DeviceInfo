@@ -211,12 +211,12 @@ class DeviceDetailsRepository(private val context: Context) {
             val hardwareLine = cpuProcInfo.lines().find { it.trim().startsWith("Hardware") }
             val hardwareText = hardwareLine?.substringAfter(":")?.trim()
 
-            processorModelAll = if (hardwareText!!.contains("Qualcomm Technologies, Inc")) {
+            processorModelAll = if (hardwareText?.contains("Qualcomm Technologies, Inc") == true) {
                 val lastlineTemp = hardwareText.trim().removePrefix("Qualcomm Technologies, Inc")
                 lastlineTemp.trim()
-            } else {
-                hardwareText.trim()
-            }
+            } else ({
+                hardwareText?.trim()
+            }).toString()
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
