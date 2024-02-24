@@ -72,4 +72,8 @@ dependencies {
 
     // MPAndroidChart
     implementation("com.github.r3jo1:MPAndroidChart-Reworked:1.0")
+
+    // Android battery view
+    implementation("com.github.ahmmedrejowan:AndroidBatteryView:0.1")
+
 }

@@ -13,12 +13,17 @@ import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsFragmentAdapter
 import com.androvine.deviceinfo.adapter.BottomNavFragmentAdapter
 import com.androvine.deviceinfo.adapter.DeviceFragmentAdapter
+import com.androvine.deviceinfo.dataClasses.CpuDBModel
+import com.androvine.deviceinfo.databases.CpuDatabaseHelper
 import com.androvine.deviceinfo.databinding.ActivityHomeBinding
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
 import com.androvine.deviceinfo.utils.OpenGLInfoListener
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.InputStreamReader
 
 class Home : AppCompatActivity() {
 
@@ -65,8 +70,23 @@ class Home : AppCompatActivity() {
         deviceDetailsViewModel.getDisplayData(display)
 
 
+//        val cpuDBModels = readCpuDBModels(this)
+//        val cpuDatabaseHelper = CpuDatabaseHelper(this)
+//
+//        cpuDBModels.forEach {
+//            Log.e("TAG", "onCreate: ${it.name}" )
+//            cpuDatabaseHelper.addCpuData(it)
+//
+//        }
 
 
+    }
+
+    fun readCpuDBModels(context: Context): List<CpuDBModel> {
+        val inputStream = context.resources.openRawResource(R.raw.another_cpu_list)
+        val reader = InputStreamReader(inputStream)
+        val listType = object : TypeToken<List<CpuDBModel>>() {}.type
+        return Gson().fromJson(reader, listType)
     }
 
 

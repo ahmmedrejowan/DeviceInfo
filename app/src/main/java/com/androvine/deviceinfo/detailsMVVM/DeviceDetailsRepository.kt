@@ -267,7 +267,12 @@ class DeviceDetailsRepository(private val context: Context) {
 
             if (cpuDBModel == null) {
                 cpuDBModel = CpuDBModel(
-                    model = processorModel, name = "", fab = "", gpu = "", core = "", vendor = ""
+                    model = processorModel,
+                    name = processorModel,
+                    fab = "N/A",
+                    gpu = "N/A",
+                    core = "N/A",
+                    vendor = "N/A"
                 )
             }
 

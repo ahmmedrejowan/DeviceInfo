@@ -66,7 +66,7 @@ class CpuDatabaseHelper(context: Context) :
 
 
     }
-
+//
 //    fun addCpuData(cpuData: CpuDBModel) {
 //        val db = writableDatabase
 //

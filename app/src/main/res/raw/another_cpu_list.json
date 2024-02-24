@@ -1,0 +1,594 @@
+[
+  {
+    "model": "3470",
+    "name": "Exynos 3 Quad",
+    "fab": "28 nm",
+    "core": "Cortex-A7",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "4210",
+    "name": "Exynos 4 Dual",
+    "fab": "45 nm",
+    "core": "Cortex-A9",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "4212",
+    "name": "Exynos 4 Dual",
+    "fab": "32nm",
+    "core": "Cortex-A9",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "4412",
+    "name": "Exynos 4 Quad",
+    "fab": "32nm",
+    "core": "Cortex-A9",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "5250",
+    "name": "Exynos 5 Dual",
+    "fab": "32nm",
+    "core": "Cortex-A15",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "5420",
+    "name": "Exynos 5 Octa",
+    "fab": "28 nm",
+    "core": "Cortex-A7\nCortex-A15",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "5422",
+    "name": "Exynos 5 Octa",
+    "fab": "28 nm",
+    "core": "Cortex-A7\nCortex-A15",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e3830",
+    "name": "Exynos 850",
+    "fab": "8 nm",
+    "core": "8 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos3830",
+    "name": "Exynos 850",
+    "fab": "8 nm",
+    "core": "8 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "universal3830",
+    "name": "Exynos 850",
+    "fab": "8 nm",
+    "core": "8 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos850",
+    "name": "Exynos 850",
+    "fab": "8 nm",
+    "core": "8 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e8805",
+    "name": "Exynos 880",
+    "fab": "8 nm",
+    "core": "2 x Cortex-A77\n6 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos880",
+    "name": "Exynos 880",
+    "fab": "8 nm",
+    "core": "2 x Cortex-A77\n6 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "EXYNOS880",
+    "name": "Exynos 880",
+    "fab": "8 nm",
+    "core": "2 x Cortex-A77\n6 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e9630",
+    "name": "Exynos 980",
+    "fab": "8 nm",
+    "core": "2 x Cortex-A77\n6 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos980",
+    "name": "Exynos 980",
+    "fab": "8 nm",
+    "core": "2 x Cortex-A77\n6 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "universal980",
+    "name": "Exynos 980",
+    "fab": "8 nm",
+    "core": "2 x Cortex-A77\n6 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos990",
+    "name": "Exynos 990",
+    "fab": "7 nm",
+    "core": "2 x Exynos M5\n2 x Cortex-A76\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "universal990",
+    "name": "Exynos 990",
+    "fab": "7 nm",
+    "core": "2 x Exynos M5\n2 x Cortex-A76\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos1080",
+    "name": "Exynos 1080",
+    "fab": "5 nm",
+    "core": "1 x Cortex-A78\n3 x Cortex-A78\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "universal1080",
+    "name": "Exynos 1080",
+    "fab": "5 nm",
+    "core": "1 x Cortex-A78\n3 x Cortex-A78\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "Exynos E1080",
+    "name": "Exynos 1080",
+    "fab": "5 nm",
+    "core": "1 x Cortex-A78\n3 x Cortex-A78\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "S5E8825",
+    "name": "Exynos 1280",
+    "fab": "5 nm",
+    "core": "6 x Cortex-A55\n2 x Cortex-A78",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e8825",
+    "name": "Exynos 1280",
+    "fab": "5 nm",
+    "core": "2 x Cortex-A78\n6 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "S5E9840",
+    "name": "Exynos 2100",
+    "fab": "5 nm",
+    "core": "4 x Cortex-A55\n3 x Cortex-A78\n1 x Cortex-X1",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e9840",
+    "name": "Exynos 2100",
+    "fab": "5 nm LPE",
+    "core": "1 x Cortex-X1\n3 x Cortex-A78\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "S5E9925",
+    "name": "Exynos 2200",
+    "fab": "4 nm",
+    "core": "4 x Cortex-A510\n3 x Cortex-A710\n1 x Cortex-X2",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e9925",
+    "name": "Exynos 2200",
+    "fab": "4 nm",
+    "core": "1 x Cortex-X2\n3 x Cortex-A710\n4 x Cortex-A510",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e9810",
+    "name": "Exynos 9810",
+    "fab": "10 nm",
+    "core": "4 x Exynos M3\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e9820",
+    "name": "Exynos 9820",
+    "fab": "8 nm",
+    "core": "2 x Exynos M4\n2 x Cortex-A75\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e9825",
+    "name": "Exynos 9825",
+    "fab": "7 nm",
+    "core": "2 x Exynos M4\n2 x Cortex-A75\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "S5E9815",
+    "name": "Exynos 1080",
+    "fab": "5 nm",
+    "core": "4 x Cortex-A55\n3 x Cortex-A78\n1 x Cortex-A78",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e9815",
+    "name": "Exynos 1080",
+    "fab": "5 nm",
+    "core": "4 x Cortex-A55\n3 x Cortex-A78\n1 x Cortex-A78",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "S5E8535",
+    "name": "Exynos 1330",
+    "fab": "5 nm",
+    "core": "6 x Cortex-A55\n2 x Cortex-A78",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e8535",
+    "name": "Exynos 1330",
+    "fab": "5 nm",
+    "core": "6 x Cortex-A55\n2 x Cortex-A78",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e8835",
+    "name": "Exynos 1380",
+    "fab": "5 nm",
+    "core": "4 x Cortex-A55\n4 x Cortex-A78",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "S5E8835",
+    "name": "Exynos 1380",
+    "fab": "5 nm",
+    "core": "4 x Cortex-A55\n4 x Cortex-A78",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "S5E9830",
+    "name": "Exynos 990",
+    "fab": "7 nm",
+    "core": "4 x Cortex-A55\n4 x Cortex-A76\n2 x Exynos M5",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e9830",
+    "name": "Exynos 990",
+    "fab": "7 nm",
+    "core": "4 x Cortex-A55\n4 x Cortex-A76\n2 x Exynos M5",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "s5e9945",
+    "name": "Exynos 2400",
+    "fab": "4 nm",
+    "core": "1 x Cortex-X4\n2 x Cortex-A720\n3 x Cortex-A720\n4 x Cortex-A520",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "S5E9945",
+    "name": "Exynos 2400",
+    "fab": "4 nm",
+    "core": "1 x Cortex-X4\n2 x Cortex-A720\n3 x Cortex-A720\n4 x Cortex-A520",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos2200",
+    "name": "Exynos 2200",
+    "fab": "4 nm",
+    "core": "4 x Cortex-A510\n3 x Cortex-A710\n1 x Cortex-X2",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "universal2200",
+    "name": "Exynos 2200",
+    "fab": "4 nm",
+    "core": "4 x Cortex-A510\n3 x Cortex-A710\n1 x Cortex-X2",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "Exynos 5410",
+    "name": "Exynos 5 Octa",
+    "fab": "28 nm",
+    "core": "Cortex-A7\nCortex-A15",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "UNIVERSAL5410",
+    "name": "Exynos 5 Octa",
+    "fab": "28 nm",
+    "core": "Cortex-A7\nCortex-A15",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "universal5410",
+    "name": "Exynos 5 Octa",
+    "fab": "28 nm",
+    "core": "Cortex-A7\nCortex-A15",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos5410",
+    "name": "Exynos 5 Octa",
+    "fab": "28 nm",
+    "core": "Cortex-A7\nCortex-A15",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "5260",
+    "name": "Exynos 5 Hexa",
+    "fab": "28 nm",
+    "core": "Cortex-A7\nCortex-A15",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "5430",
+    "name": "Exynos 5 Octa",
+    "fab": "20 nm",
+    "core": "Cortex-A7\nCortex-A15",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "5433",
+    "name": "Exynos 7 Octa",
+    "fab": "20 nm",
+    "core": "4 x Cortex-A53\n4 x Cortex-A57",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7420",
+    "name": "Exynos 7 Octa",
+    "fab": "14 nm",
+    "core": "4 x Cortex-A53\n4 x Cortex-A57",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7580",
+    "name": "Exynos 7 Octa",
+    "fab": "14 nm",
+    "core": "4 x Cortex-A53\n4 x Cortex-A57",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7870",
+    "name": "Exynos 7 Octa",
+    "fab": "14 nm",
+    "core": "Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "8890",
+    "name": "Exynos 8 Octa",
+    "fab": "14 nm",
+    "core": "4 x Cortex-A53\n4 x Exynos M1",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "8895",
+    "name": "Exynos 9 Octa",
+    "fab": "10 nm",
+    "core": "4 x Cortex-A53\n4 x Exynos M2",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "9810",
+    "name": "Exynos 9 Octa",
+    "fab": "10 nm LPP",
+    "core": "4 x Cortex-A55\n4 x Exynos M3",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7872",
+    "name": "Exynos 5",
+    "fab": "14 nm",
+    "core": "2 x Cortex-A73\n4 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7874",
+    "name": "Exynos 7 Octa",
+    "fab": "14 nm",
+    "core": "2 x Cortex-A73\n6 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7885",
+    "name": "Exynos 7",
+    "fab": "14 nm",
+    "core": "2 x Cortex-A73\n6 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "9610",
+    "name": "Exynos 7 Octa",
+    "fab": "10 nm",
+    "core": "4 x Cortex-A73\n4 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "9820",
+    "name": "Exynos 9",
+    "fab": "8 nm",
+    "core": "2 x M4\n2 x Cortex-A75\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7904",
+    "name": "Exynos",
+    "fab": "14 nm",
+    "core": "Cortex-A73",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7880",
+    "name": "Exynos",
+    "fab": "14 nm",
+    "core": "4 x Cortex-A53\n4 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7570",
+    "name": "Exynos 7 Quad",
+    "fab": "14 nm",
+    "core": "4 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7270",
+    "name": "Exynos 7 Dual",
+    "fab": "14 nm",
+    "core": "2 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "970",
+    "name": "Exynos 9",
+    "fab": "8 nm",
+    "core": "4 x Cortex-A77\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "universal9825",
+    "name": "Exynos 9825",
+    "fab": "7 nm LPP",
+    "core": "2 x M4 Cheetah\n2 x Cortex-A75\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "universal2100",
+    "name": "Exynos 2100",
+    "fab": "5 nm LPE",
+    "core": "1 x Cortex-X1\n3 x Cortex-A78\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos9825",
+    "name": "Exynos 9825",
+    "fab": "7 nm LPP",
+    "core": "2 x M4 Cheetah\n2 x Cortex-A75\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos 9825",
+    "name": "Exynos 9825",
+    "fab": "7 nm LPP",
+    "core": "2 x M4 Cheetah\n2 x Cortex-A75\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "exynos2100",
+    "name": "Exynos 2100",
+    "fab": "5 nm LPE",
+    "core": "1 x Cortex-X1\n3 x Cortex-A78\n4 x Cortex-A55",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "9611",
+    "name": "Exynos 9",
+    "fab": "10 nm",
+    "core": "4 x Cortex-A73\n4 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "9609",
+    "name": "Exynos 7",
+    "fab": "10 nm",
+    "core": "4 x Cortex-A73\n4 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  },
+  {
+    "model": "7884",
+    "name": "Exynos 7",
+    "fab": "14 nm",
+    "core": "2 x Cortex-A73\n6 x Cortex-A53",
+    "gpu": "",
+    "vendor": "Samsung"
+  }
+]
