@@ -70,24 +70,8 @@ class Home : AppCompatActivity() {
         deviceDetailsViewModel.getDisplayData(display)
 
 
-//        val cpuDBModels = readCpuDBModels(this)
-//        val cpuDatabaseHelper = CpuDatabaseHelper(this)
-//
-//        cpuDBModels.forEach {
-//            Log.e("TAG", "onCreate: ${it.name}" )
-//            cpuDatabaseHelper.addCpuData(it)
-//
-//        }
-
-
     }
 
-    fun readCpuDBModels(context: Context): List<CpuDBModel> {
-        val inputStream = context.resources.openRawResource(R.raw.another_cpu_list)
-        val reader = InputStreamReader(inputStream)
-        val listType = object : TypeToken<List<CpuDBModel>>() {}.type
-        return Gson().fromJson(reader, listType)
-    }
 
 
     private fun setOnclickListeners() {
