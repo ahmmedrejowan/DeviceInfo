@@ -168,7 +168,7 @@
                         app:arc_bottom_text="CPU"
                         app:arc_finished_color="@color/colorPrimary"
                         app:arc_max="100"
-                        app:arc_stroke_width="5dp"
+                        app:arc_stroke_width="8dp"
                         app:arc_text_color="@color/textColor"
                         app:arc_unfinished_color="@color/grey" />
 
@@ -212,7 +212,7 @@
                         app:arc_bottom_text="RAM"
                         app:arc_finished_color="@color/colorPrimary"
                         app:arc_max="100"
-                        app:arc_stroke_width="5dp"
+                        app:arc_stroke_width="8dp"
                         app:arc_text_color="@color/textColor"
                         app:arc_unfinished_color="@color/grey" />
 
@@ -281,7 +281,7 @@
                         android:layout_marginBottom="5dp"
                         android:gravity="center"
                         android:textColor="@color/textColorSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
 
 
                     <RelativeLayout
@@ -297,7 +297,7 @@
                             android:fontFamily="sans-serif-medium"
                             android:gravity="center"
                             android:textColor="@color/textColor"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/usage"
@@ -382,11 +382,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="2dp"
                         android:gravity="center"
                         android:text="Internal Storage"
                         android:textColor="@color/textColorSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/storageUsage"
@@ -395,8 +395,9 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="sans-serif-medium"
                         android:gravity="start"
+                        android:lineSpacingExtra="5dp"
                         android:textColor="@color/textColor"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
