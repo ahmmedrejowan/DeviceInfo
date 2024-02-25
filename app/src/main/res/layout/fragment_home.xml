@@ -260,6 +260,8 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
+                        app:abvNormalBgColor="@color/colorSecondary"
+                        app:abvNormalLevelColor="@color/colorPrimary"
                         app:abvBatteryOrientation="portrait"
                         app:abvRadius="10"
                         app:abvSize="40" />

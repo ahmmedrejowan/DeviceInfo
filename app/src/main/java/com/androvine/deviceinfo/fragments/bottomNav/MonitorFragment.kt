@@ -8,14 +8,14 @@ import androidx.fragment.app.Fragment
 import com.androvine.deviceinfo.R
 
 
-class ReportFragment : Fragment() {
+class MonitorFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_report, container, false)
+        return inflater.inflate(R.layout.fragment_monitor, container, false)
     }
 
 

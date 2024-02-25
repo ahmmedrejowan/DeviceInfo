@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundColorSecondary"
+    tools:ignore="HardcodedText,ContentDescription">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorSecondary">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="CPU Frequency"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cpuFreqRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="4"
+                    tools:itemCount="8"
+                    tools:listitem="@layout/item_cpu_freq" />
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorSecondary">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="CPU Load"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.androvine.deviceinfo.utils.ArcProgress
+                            android:id="@+id/arc_progress_cpu"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="5dp"
+                            app:arc_bottom_text="CPU"
+                            app:arc_finished_color="@color/colorPrimary"
+                            app:arc_max="100"
+                            app:arc_stroke_width="8dp"
+                            app:arc_text_color="@color/textColor"
+                            app:arc_unfinished_color="@color/grey" />
+
+                        <TextView
+                            android:id="@+id/cpuUsage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:textColor="@color/textColorSecondary" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+
+                        <com.rejowan.chart.charts.LineChart
+                            android:id="@+id/cpuLoadChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Extra Text"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="13sp" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorSecondary">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="RAM Usage"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.androvine.deviceinfo.utils.ArcProgress
+                            android:id="@+id/arc_progress_ram"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="5dp"
+                            app:arc_bottom_text="RAM"
+                            app:arc_finished_color="@color/colorPrimary"
+                            app:arc_max="100"
+                            app:arc_stroke_width="8dp"
+                            app:arc_text_color="@color/textColor"
+                            app:arc_unfinished_color="@color/grey" />
+
+
+                        <TextView
+                            android:id="@+id/ramUsage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:textColor="@color/textColorSecondary" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+
+                        <com.rejowan.chart.charts.LineChart
+                            android:id="@+id/ramChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Extra Text"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="13sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/backgroundColor"
+            app:cardCornerRadius="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorSecondary">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Battery"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.rejowan.abv.ABV
+                            android:id="@+id/abv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            app:abvBatteryOrientation="portrait"
+                            app:abvNormalBgColor="@color/colorSecondary"
+                            app:abvNormalLevelColor="@color/colorPrimary"
+                            app:abvRadius="10"
+                            app:abvSize="40" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+
+                        <com.rejowan.chart.charts.LineChart
+                            android:id="@+id/batteryChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp" />
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Extra Text"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="13sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

@@ -55,7 +55,13 @@ class Home : AppCompatActivity() {
                 shaderVersion: String?,
                 extensions: String?
             ) {
-                deviceDetailsViewModel.getGpuData(vendor, renderer, version, shaderVersion, extensions)
+                deviceDetailsViewModel.getGpuData(
+                    vendor,
+                    renderer,
+                    version,
+                    shaderVersion,
+                    extensions
+                )
             }
         }
         myGLSurfaceView.setOpenGLInfoListener(openGLInfoListener)
@@ -71,7 +77,6 @@ class Home : AppCompatActivity() {
 
 
     }
-
 
 
     private fun setOnclickListeners() {
@@ -103,12 +108,11 @@ class Home : AppCompatActivity() {
                     currentState = 1
                 }
 
-                R.id.nav_test -> {
+                R.id.nav_monitor -> {
                     binding.viewPagerBottomNav.setCurrentItem(1, false)
                     showHide(bottomNav = true, deviceTab = false, appsTab = false)
-                    changeTitle("Testing")
+                    changeTitle("Monitor")
                     currentState = 2
-
                 }
 
                 R.id.nav_apps -> {
@@ -118,11 +122,12 @@ class Home : AppCompatActivity() {
 
                 }
 
-                R.id.nav_monitor -> {
+                R.id.nav_test -> {
                     binding.viewPagerBottomNav.setCurrentItem(2, false)
                     showHide(bottomNav = true, deviceTab = false, appsTab = false)
-                    changeTitle("Monitor")
+                    changeTitle("Testing")
                     currentState = 4
+
                 }
             }
             true
@@ -160,7 +165,7 @@ class Home : AppCompatActivity() {
 
             2 -> {
                 binding.bottomNavView.selectedItemId = R.id.nav_monitor
-                binding.viewPagerBottomNav.setCurrentItem(2, false)
+                binding.viewPagerBottomNav.setCurrentItem(1, false)
                 showHide(bottomNav = true, deviceTab = false, appsTab = false)
                 changeTitle("Monitor")
             }
@@ -173,7 +178,7 @@ class Home : AppCompatActivity() {
 
             4 -> {
                 binding.bottomNavView.selectedItemId = R.id.nav_test
-                binding.viewPagerBottomNav.setCurrentItem(1, false)
+                binding.viewPagerBottomNav.setCurrentItem(2, false)
                 showHide(bottomNav = true, deviceTab = false, appsTab = false)
                 changeTitle("Testing")
             }
@@ -242,12 +247,12 @@ class Home : AppCompatActivity() {
 
         })
 
-        binding.viewPagerDevice.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPagerDevice.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 binding.tabLayoutDevice.selectTab(binding.tabLayoutDevice.getTabAt(position))
             }
         })
-
 
 
     }
@@ -280,7 +285,8 @@ class Home : AppCompatActivity() {
 
         })
 
-        binding.viewPagerApps.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPagerApps.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 binding.tabLayoutApps.selectTab(binding.tabLayoutApps.getTabAt(position))
             }

@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.androvine.deviceinfo.fragments.bottomNav.HomeFragment
-import com.androvine.deviceinfo.fragments.bottomNav.ReportFragment
+import com.androvine.deviceinfo.fragments.bottomNav.MonitorFragment
 import com.androvine.deviceinfo.fragments.bottomNav.TestFragment
 
 class BottomNavFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
@@ -22,7 +22,7 @@ class BottomNavFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Life
             }
 
             1 -> {
-                return ReportFragment()
+                return MonitorFragment()
             }
 
             2 -> {
