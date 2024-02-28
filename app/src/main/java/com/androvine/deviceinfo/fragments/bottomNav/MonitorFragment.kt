@@ -1,5 +1,8 @@
 package com.androvine.deviceinfo.fragments.bottomNav
 
+import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
@@ -9,7 +12,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.androvine.deviceinfo.R
@@ -36,10 +38,23 @@ class MonitorFragment : Fragment() {
     private val adapter by lazy { CpuCoreUsageListAdapter(mutableMapOf()) }
     private val deviceDetailsViewModel: DeviceDetailsViewModel by activityViewModel()
 
+    private val batteryReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        @SuppressLint("SetTextI18n")
+        override fun onReceive(context: Context?, intent: Intent?) {
+
+            if (intent == null) {
+                return
+            }
+
+            binding.abv.attachBatteryIntent(intent)
+
+
+        }
+    }
+
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         return binding.root
@@ -62,6 +77,8 @@ class MonitorFragment : Fragment() {
         setupCPULoad()
 
         setupRamUsage()
+
+        setupBattery()
 
 
         deviceDetailsViewModel.memoryDataModel.observe(viewLifecycleOwner) {
@@ -107,6 +124,31 @@ class MonitorFragment : Fragment() {
         }
 
 
+    }
+
+    private fun setupBattery() {
+        binding.batteryChart.description.isEnabled = false
+        binding.batteryChart.setPinchZoom(true)
+        binding.batteryChart.setDrawGridBackground(false)
+        binding.batteryChart.isDragEnabled = true
+        binding.batteryChart.setScaleEnabled(true)
+        binding.batteryChart.setTouchEnabled(true)
+
+        val xAxis: XAxis = binding.batteryChart.xAxis
+        xAxis.isEnabled = false
+
+        binding.batteryChart.axisLeft.isEnabled = false
+        binding.batteryChart.axisRight.isEnabled = true
+
+        val yAxis = binding.batteryChart.axisRight
+        yAxis.textColor = requireActivity().getColor(R.color.textColor)
+        binding.batteryChart.axisLeft.setDrawGridLines(false)
+        binding.batteryChart.animateXY(1500, 1500)
+
+        binding.batteryChart.legend.isEnabled = false
+
+        val data = LineData()
+        binding.batteryChart.data = data
 
     }
 
@@ -162,10 +204,7 @@ class MonitorFragment : Fragment() {
         binding.cpuLoadChart.data = data
 
 
-
-
     }
-
 
     private fun updateUsage() {
 
@@ -178,22 +217,47 @@ class MonitorFragment : Fragment() {
     }
 
     private fun updateBattery() {
-//        if (BatteryFragment.getAmperage(requireContext()).contains("-")) {
-//            binding.chargingStatus.text = BatteryFragment.getAmperage(requireContext()) + " mAh (Discharging)"
-//            binding.chargingStatus.setTextColor(
-//                ContextCompat.getColor(
-//                    requireContext(),
-//                    R.color.red
-//                )
-//            )
-//        } else {
-//            binding.chargingStatus.text = BatteryFragment.getAmperage(requireContext()) + " mAh (Charging)"
-//            binding.chargingStatus.setTextColor(
-//                ContextCompat.getColor(
-//                    requireContext(), R.color.green
-//                )
-//            )
-//        }
+
+        val lineData = binding.batteryChart.data
+        if (lineData != null) {
+            var set: ILineDataSet? = lineData.getDataSetByIndex(0)
+
+
+            if (set == null) {
+                set = createSet()
+                lineData.addDataSet(set)
+
+
+            }
+
+            lineData.addEntry(
+                Entry(
+                    set.entryCount.toFloat(),
+                    BatteryFragment.getAmperage(requireContext()).toFloat()
+                ), 0
+            )
+
+            if (set.entryCount > 25) {
+                set.removeFirst()
+                for (i in 0 until set.entryCount) {
+                    val entry = set.getEntryForIndex(i)
+                    entry.x = entry.x - 1
+                }
+            }
+
+
+            lineData.notifyDataChanged()
+            binding.batteryChart.notifyDataSetChanged()
+            binding.batteryChart.invalidate()
+
+
+            if (BatteryFragment.getAmperage(requireContext()).contains("-")) {
+                binding.batteryUsage.text = "Discharging (mah)"
+            } else {
+                binding.batteryUsage.text = "Charging (mah)"
+            }
+        }
+
 
     }
 
@@ -209,7 +273,7 @@ class MonitorFragment : Fragment() {
         val cpuUsage = (totalCpuCurrentFrequency.toFloat() / totalCpuMaxFrequency.toFloat()) * 100
 
 
-        if (binding.arcProgressCpu.progress.toInt() != cpuUsage.toInt()){
+        if (binding.arcProgressCpu.progress.toInt() != cpuUsage.toInt()) {
             binding.arcProgressCpu.progress = cpuUsage
         }
 
@@ -234,7 +298,11 @@ class MonitorFragment : Fragment() {
 
             }
 
-            lineData.addEntry(Entry(set.entryCount.toFloat(), (totalCpuCurrentFrequency/8/1000).toFloat()), 0)
+            lineData.addEntry(
+                Entry(
+                    set.entryCount.toFloat(), (totalCpuCurrentFrequency / 8 / 1000).toFloat()
+                ), 0
+            )
 
             if (set.entryCount > 25) {
                 set.removeFirst()
@@ -252,30 +320,9 @@ class MonitorFragment : Fragment() {
 
     }
 
-
     private fun updateRam() {
 
         deviceDetailsViewModel.getMemoryData()
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacks(uptimeRunnable)
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        requireActivity().registerReceiver(
-//            batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED)
-//        )
-        handler.post(uptimeRunnable)
-    }
-
-    override fun onPause() {
-        super.onPause()
-      //  requireActivity().unregisterReceiver(batteryReceiver)
-        handler.removeCallbacks(uptimeRunnable)
     }
 
     private fun getCurrentFrequencies(): Map<Int, Long> {
@@ -351,4 +398,22 @@ class MonitorFragment : Fragment() {
         return lineDataSet
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(uptimeRunnable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().registerReceiver(
+            batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        )
+        handler.post(uptimeRunnable)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().unregisterReceiver(batteryReceiver)
+        handler.removeCallbacks(uptimeRunnable)
+    }
 }
