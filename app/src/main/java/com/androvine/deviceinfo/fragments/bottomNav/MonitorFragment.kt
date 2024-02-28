@@ -15,12 +15,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.CpuCoreUsageListAdapter
 import com.androvine.deviceinfo.databinding.FragmentMonitorBinding
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
 import com.androvine.deviceinfo.fragments.device.BatteryFragment
 import com.rejowan.chart.components.XAxis
 import com.rejowan.chart.data.Entry
 import com.rejowan.chart.data.LineData
 import com.rejowan.chart.data.LineDataSet
 import com.rejowan.chart.interfaces.datasets.ILineDataSet
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.io.BufferedReader
 import java.io.FileReader
 
@@ -32,6 +34,7 @@ class MonitorFragment : Fragment() {
     private lateinit var handler: Handler
     private lateinit var uptimeRunnable: Runnable
     private val adapter by lazy { CpuCoreUsageListAdapter(mutableMapOf()) }
+    private val deviceDetailsViewModel: DeviceDetailsViewModel by activityViewModel()
 
 
     override fun onCreateView(
@@ -57,6 +60,80 @@ class MonitorFragment : Fragment() {
         binding.cpuFreqRecyclerView.layoutManager = GridLayoutManager(requireContext(), 4)
 
         setupCPULoad()
+
+        setupRamUsage()
+
+
+        deviceDetailsViewModel.memoryDataModel.observe(viewLifecycleOwner) {
+            if (it != null) {
+
+                binding.arcProgressRam.progress = it.usagePercent.toFloat()
+                binding.ramUsage.text = "${it.usedMemory} / ${it.totalMemory}"
+
+
+                val lineData = binding.ramChart.data
+                if (lineData != null) {
+                    var set: ILineDataSet? = lineData.getDataSetByIndex(0)
+
+
+                    if (set == null) {
+                        set = createSet()
+                        lineData.addDataSet(set)
+
+
+                    }
+                    // used memory 2.29 GB
+                    val usedMemory = it.usedMemory.replace("GB", "").trim().toFloat()
+
+                    lineData.addEntry(Entry(set.entryCount.toFloat(), usedMemory), 0)
+
+                    if (set.entryCount > 25) {
+                        set.removeFirst()
+                        for (i in 0 until set.entryCount) {
+                            val entry = set.getEntryForIndex(i)
+                            entry.x = entry.x - 1
+                        }
+                    }
+
+
+                    lineData.notifyDataChanged()
+                    binding.ramChart.notifyDataSetChanged()
+                    binding.ramChart.invalidate()
+                }
+
+
+            }
+
+        }
+
+
+
+    }
+
+    private fun setupRamUsage() {
+        binding.ramChart.description.isEnabled = false
+        binding.ramChart.setPinchZoom(true)
+        binding.ramChart.setDrawGridBackground(false)
+        binding.ramChart.isDragEnabled = true
+        binding.ramChart.setScaleEnabled(true)
+        binding.ramChart.setTouchEnabled(true)
+
+        val xAxis: XAxis = binding.ramChart.xAxis
+        xAxis.isEnabled = false
+
+        binding.ramChart.axisLeft.isEnabled = false
+        binding.ramChart.axisRight.isEnabled = true
+
+        val yAxis = binding.ramChart.axisRight
+        yAxis.textColor = requireActivity().getColor(R.color.textColor)
+        binding.ramChart.axisLeft.setDrawGridLines(false)
+        binding.ramChart.animateXY(1500, 1500)
+
+        binding.ramChart.legend.isEnabled = false
+
+        val data = LineData()
+        binding.ramChart.data = data
+
     }
 
     private fun setupCPULoad() {
@@ -178,7 +255,7 @@ class MonitorFragment : Fragment() {
 
     private fun updateRam() {
 
-       // deviceDetailsViewModel.getMemoryData()
+        deviceDetailsViewModel.getMemoryData()
     }
 
 
