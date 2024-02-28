@@ -15,6 +15,8 @@
     <string name="intro_sub_title_3">Explore the combined essence of hardware and software, defining your device\'s capabilities</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="made_by">Made by</string>
+    <string name="running">Running</string>
 
 
 </resources>

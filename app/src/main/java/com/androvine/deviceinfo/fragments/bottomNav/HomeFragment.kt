@@ -226,7 +226,10 @@ class HomeFragment : Fragment() {
 
         val cpuUsage = (totalCpuCurrentFrequency.toFloat() / totalCpuMaxFrequency.toFloat()) * 100
 
-        binding.arcProgressCpu.progress = cpuUsage
+
+        if (binding.arcProgressCpu.progress.toInt() != cpuUsage.toInt()){
+            binding.arcProgressCpu.progress = cpuUsage
+        }
 
         val currentFreqInGHz = totalCpuCurrentFrequency / numCores / 1000000f
         val maxFreqInGHz = totalCpuMaxFrequency / numCores / 1000000f

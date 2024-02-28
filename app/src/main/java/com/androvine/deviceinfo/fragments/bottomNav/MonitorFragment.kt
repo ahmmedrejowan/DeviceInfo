@@ -2,6 +2,7 @@ package com.androvine.deviceinfo.fragments.bottomNav
 
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,6 +16,11 @@ import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.CpuCoreUsageListAdapter
 import com.androvine.deviceinfo.databinding.FragmentMonitorBinding
 import com.androvine.deviceinfo.fragments.device.BatteryFragment
+import com.rejowan.chart.components.XAxis
+import com.rejowan.chart.data.Entry
+import com.rejowan.chart.data.LineData
+import com.rejowan.chart.data.LineDataSet
+import com.rejowan.chart.interfaces.datasets.ILineDataSet
 import java.io.BufferedReader
 import java.io.FileReader
 
@@ -43,12 +49,43 @@ class MonitorFragment : Fragment() {
         handler = Handler(Looper.getMainLooper())
         uptimeRunnable = Runnable {
             updateUsage()
-            handler.postDelayed(uptimeRunnable, 2500)
+            handler.postDelayed(uptimeRunnable, 1500)
         }
 
 
         binding.cpuFreqRecyclerView.adapter = adapter
         binding.cpuFreqRecyclerView.layoutManager = GridLayoutManager(requireContext(), 4)
+
+        setupCPULoad()
+    }
+
+    private fun setupCPULoad() {
+
+        binding.cpuLoadChart.description.isEnabled = false
+        binding.cpuLoadChart.setPinchZoom(true)
+        binding.cpuLoadChart.setDrawGridBackground(false)
+        binding.cpuLoadChart.isDragEnabled = true
+        binding.cpuLoadChart.setScaleEnabled(true)
+        binding.cpuLoadChart.setTouchEnabled(true)
+
+        val xAxis: XAxis = binding.cpuLoadChart.xAxis
+        xAxis.isEnabled = false
+
+        binding.cpuLoadChart.axisLeft.isEnabled = false
+        binding.cpuLoadChart.axisRight.isEnabled = true
+
+        val yAxis = binding.cpuLoadChart.axisRight
+        yAxis.textColor = requireActivity().getColor(R.color.textColor)
+        binding.cpuLoadChart.axisLeft.setDrawGridLines(false)
+        binding.cpuLoadChart.animateXY(1500, 1500)
+
+        binding.cpuLoadChart.legend.isEnabled = false
+
+        val data = LineData()
+        binding.cpuLoadChart.data = data
+
+
+
 
     }
 
@@ -94,7 +131,11 @@ class MonitorFragment : Fragment() {
 
         val cpuUsage = (totalCpuCurrentFrequency.toFloat() / totalCpuMaxFrequency.toFloat()) * 100
 
-        binding.arcProgressCpu.progress = cpuUsage
+
+        if (binding.arcProgressCpu.progress.toInt() != cpuUsage.toInt()){
+            binding.arcProgressCpu.progress = cpuUsage
+        }
+
 
         val currentFreqInGHz = totalCpuCurrentFrequency / numCores / 1000000f
         val maxFreqInGHz = totalCpuMaxFrequency / numCores / 1000000f
@@ -102,6 +143,35 @@ class MonitorFragment : Fragment() {
         binding.cpuUsage.text = String.format("%.2f / %.2f GHz", currentFreqInGHz, maxFreqInGHz)
 
         adapter.updateList(cpuCurrentFrequency)
+
+
+        val lineData = binding.cpuLoadChart.data
+        if (lineData != null) {
+            var set: ILineDataSet? = lineData.getDataSetByIndex(0)
+
+
+            if (set == null) {
+                set = createSet()
+                lineData.addDataSet(set)
+
+
+            }
+
+            lineData.addEntry(Entry(set.entryCount.toFloat(), (totalCpuCurrentFrequency/8/1000).toFloat()), 0)
+
+            if (set.entryCount > 25) {
+                set.removeFirst()
+                for (i in 0 until set.entryCount) {
+                    val entry = set.getEntryForIndex(i)
+                    entry.x = entry.x - 1
+                }
+            }
+
+
+            lineData.notifyDataChanged()
+            binding.cpuLoadChart.notifyDataSetChanged()
+            binding.cpuLoadChart.invalidate()
+        }
 
     }
 
@@ -187,5 +257,21 @@ class MonitorFragment : Fragment() {
         return maxFrequency
     }
 
+    private fun createSet(): LineDataSet {
+        val lineDataSet = LineDataSet(null, "")
+        lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+        lineDataSet.cubicIntensity = 0.4f
+        lineDataSet.setDrawFilled(false)
+        lineDataSet.setDrawCircles(false)
+        lineDataSet.lineWidth = 1.8f
+        lineDataSet.circleRadius = 4f
+        lineDataSet.setCircleColor(requireActivity().getColor(R.color.textColor))
+        lineDataSet.highLightColor = Color.rgb(244, 117, 117)
+        lineDataSet.color = requireActivity().getColor(R.color.colorPrimary)
+        lineDataSet.fillAlpha = 100
+        lineDataSet.setDrawHorizontalHighlightIndicator(false)
+        lineDataSet.setDrawValues(false)
+        return lineDataSet
+    }
 
 }
