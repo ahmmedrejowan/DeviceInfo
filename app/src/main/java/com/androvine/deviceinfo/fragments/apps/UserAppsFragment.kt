@@ -18,6 +18,7 @@ import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsListAdapter
 import com.androvine.deviceinfo.databinding.FragmentUserAppsBinding
 import java.io.File
+import java.util.concurrent.Executors
 
 
 class UserAppsFragment : Fragment() {
@@ -59,20 +60,26 @@ class UserAppsFragment : Fragment() {
 
 
     private fun getUserApps() {
-        val pm = requireActivity().packageManager
-        val listOfApps = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            pm.getInstalledPackages(PackageManager.PackageInfoFlags.of(0))
-        } else {
-            pm.getInstalledPackages(0)
+
+        Executors.newSingleThreadExecutor().run {
+
+            val pm = requireActivity().packageManager
+            val listOfApps = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                pm.getInstalledPackages(PackageManager.PackageInfoFlags.of(0))
+            } else {
+                pm.getInstalledPackages(0)
+            }
+
+            requireActivity().runOnUiThread {
+                userApps.addAll(listOfApps.filter {
+                    it.applicationInfo.flags and 1 == 0
+                })
+
+                binding.totalApps.text = "Total Apps: ${userApps.size}"
+                changeSortUpdateAdapter(sort = viewSelectedSort)
+            }
+
         }
-
-        userApps.addAll(listOfApps.filter {
-            it.applicationInfo.flags and 1 == 0
-        })
-
-
-        binding.totalApps.text = "Total Apps: ${userApps.size}"
-        changeSortUpdateAdapter(sort = viewSelectedSort)
 
 
     }
