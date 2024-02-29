@@ -15,6 +15,10 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
     val memoryDataModel = repository.memoryDataModel
     val storageDataModel = repository.storageDataModel
     val cameraDataModel = repository.cameraDataModel
+    val allApps = repository.allApps
+    val userApps = repository.userApps
+    val systemApps = repository.systemApps
+
 
     fun copyDatabaseFromAssets() {
         viewModelScope.launch {
@@ -68,6 +72,12 @@ class DeviceDetailsViewModel(private val repository: DeviceDetailsRepository) : 
     fun getCameraData() {
         viewModelScope.launch {
             repository.getCameraData()
+        }
+    }
+
+    fun getAllApps() {
+        viewModelScope.launch {
+            repository.getAllApps()
         }
     }
 }

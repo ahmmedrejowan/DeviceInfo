@@ -3,6 +3,8 @@ package com.androvine.deviceinfo.detailsMVVM
 import android.app.ActivityManager
 import android.app.usage.StorageStatsManager
 import android.content.Context
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.ImageFormat
 import android.hardware.camera2.CameraCharacteristics
@@ -86,6 +88,15 @@ class DeviceDetailsRepository(private val context: Context) {
 
     private val _cameraDataModel = MutableLiveData<CameraDataModel?>()
     val cameraDataModel get() = _cameraDataModel
+
+    private val _allApps = MutableLiveData<MutableList<PackageInfo>>()
+    val allApps get() = _allApps
+
+    private val _userApps = MutableLiveData<MutableList<PackageInfo>>()
+    val userApps get() = _userApps
+
+    private val _systemApps = MutableLiveData<MutableList<PackageInfo>>()
+    val systemApps get() = _systemApps
 
     suspend fun copyDatabaseFromAssets() {
 
@@ -670,5 +681,32 @@ class DeviceDetailsRepository(private val context: Context) {
 
     }
 
+    suspend fun getAllApps() {
+        withContext(Dispatchers.IO) {
+
+            val pm = context.packageManager
+            val listOfApps = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                pm.getInstalledPackages(PackageManager.PackageInfoFlags.of(0))
+            } else {
+                pm.getInstalledPackages(0)
+            }
+
+            val userApps = mutableListOf<PackageInfo>()
+            val systemApps = mutableListOf<PackageInfo>()
+
+            userApps.addAll(listOfApps.filter {
+                it.applicationInfo.flags and 1 == 0
+            })
+
+            systemApps.addAll(listOfApps.filter {
+                it.applicationInfo.flags and 1 != 0
+            })
+
+            _allApps.postValue(listOfApps)
+            _userApps.postValue(userApps)
+            _systemApps.postValue(systemApps)
+
+        }
+    }
 
 }

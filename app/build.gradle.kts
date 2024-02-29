@@ -76,4 +76,7 @@ dependencies {
     // Android battery view
     implementation("com.github.ahmmedrejowan:AndroidBatteryView:0.1")
 
+    // glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
 }

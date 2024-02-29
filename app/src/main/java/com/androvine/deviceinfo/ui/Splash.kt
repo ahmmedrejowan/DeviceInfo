@@ -45,6 +45,7 @@ class Splash : AppCompatActivity() {
             deviceDetailsViewModel.getMemoryData()
             deviceDetailsViewModel.getStorageData()
             deviceDetailsViewModel.getCameraData()
+            deviceDetailsViewModel.getAllApps()
         }
 
         Handler(Looper.getMainLooper()).postDelayed({

@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsListAdapter
 import com.androvine.deviceinfo.databinding.FragmentUserAppsBinding
+import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.io.File
 import java.util.concurrent.Executors
 
@@ -24,6 +26,7 @@ import java.util.concurrent.Executors
 class UserAppsFragment : Fragment() {
 
     private val binding by lazy { FragmentUserAppsBinding.inflate(layoutInflater) }
+    private val deviceDetailsViewModel: DeviceDetailsViewModel by activityViewModel()
 
     val userApps = mutableListOf<PackageInfo>()
     private var viewSelectedSort = "App Name (A-Z)"
@@ -49,41 +52,19 @@ class UserAppsFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
-
         binding.sort.setOnClickListener {
             showSortPopupWindow()
         }
 
-        getUserApps()
 
-    }
-
-
-    private fun getUserApps() {
-
-        Executors.newSingleThreadExecutor().run {
-
-            val pm = requireActivity().packageManager
-            val listOfApps = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                pm.getInstalledPackages(PackageManager.PackageInfoFlags.of(0))
-            } else {
-                pm.getInstalledPackages(0)
-            }
-
-            requireActivity().runOnUiThread {
-                userApps.addAll(listOfApps.filter {
-                    it.applicationInfo.flags and 1 == 0
-                })
-
-                binding.totalApps.text = "Total Apps: ${userApps.size}"
-                changeSortUpdateAdapter(sort = viewSelectedSort)
-            }
-
+        deviceDetailsViewModel.userApps.observe(viewLifecycleOwner) {
+            userApps.clear()
+            userApps.addAll(it)
+            binding.totalApps.text = "Total Apps: ${userApps.size}"
+            changeSortUpdateAdapter(sort = viewSelectedSort)
         }
 
-
     }
-
 
 
     private fun showSortPopupWindow() {
@@ -185,13 +166,13 @@ class UserAppsFragment : Fragment() {
         when (sort) {
             "App Name (A-Z)" -> {
                 userApps.sortBy {
-                    it.applicationInfo.loadLabel(requireActivity().packageManager).toString()
+                    it.applicationInfo.loadLabel(requireActivity().packageManager).toString().lowercase()
                 }
             }
 
             "App Name (Z-A)" -> {
                 userApps.sortByDescending {
-                    it.applicationInfo.loadLabel(requireActivity().packageManager).toString()
+                    it.applicationInfo.loadLabel(requireActivity().packageManager).toString().lowercase()
                 }
             }
 

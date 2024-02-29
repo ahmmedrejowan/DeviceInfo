@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.androvine.deviceinfo.databinding.ItemAppsBinding
 import com.androvine.deviceinfo.ui.AppDetails
+import com.bumptech.glide.Glide
 import java.io.File
 
 class AppsListAdapter(private val listOfApps: MutableList<PackageInfo>) :
@@ -38,7 +39,7 @@ class AppsListAdapter(private val listOfApps: MutableList<PackageInfo>) :
         holder.binding.appPackage.text = packageName
         holder.binding.appVersionName.text = version
         holder.binding.appTargetAPI.text = "API $targetApi"
-        holder.binding.appIcon.setImageDrawable(appIcon)
+        Glide.with(holder.binding.root.context).load(appIcon).into(holder.binding.appIcon)
         holder.binding.appSize.text = String.format("%.2f", appSize) + " MB"
 
         holder.binding.arrow.setOnClickListener {
@@ -50,6 +51,10 @@ class AppsListAdapter(private val listOfApps: MutableList<PackageInfo>) :
         }
 
         holder.binding.appPackage.setOnClickListener {
+            openAppDetails(holder.binding.root.context,item)
+        }
+
+        holder.binding.parentLayout.setOnClickListener {
             openAppDetails(holder.binding.root.context,item)
         }
 
