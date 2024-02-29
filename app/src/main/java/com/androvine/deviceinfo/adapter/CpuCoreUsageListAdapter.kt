@@ -42,6 +42,11 @@ class CpuCoreUsageListAdapter(private val cpuUsageData: MutableMap<Int, Long>) :
         }
 
         for ((key, value) in newTemperatureData) {
+
+            if (cpuUsageData.containsKey(key) && cpuUsageData[key] == value) {
+                continue
+            }
+
             cpuUsageData[key] = value
             notifyItemChanged(getItemPosition(key))
         }
