@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsListAdapter
 import com.androvine.deviceinfo.databinding.FragmentUserAppsBinding
+import java.io.File
 
 
 class UserAppsFragment : Fragment() {
@@ -69,15 +70,14 @@ class UserAppsFragment : Fragment() {
             it.applicationInfo.flags and 1 == 0
         })
 
-        setupList()
+
+        binding.totalApps.text = "Total Apps: ${userApps.size}"
+        changeSortUpdateAdapter(sort = viewSelectedSort)
+
 
     }
 
-    private fun setupList() {
 
-        adapter.updateList(userApps)
-
-    }
 
     private fun showSortPopupWindow() {
         val linearLayout = LinearLayout(requireContext())
@@ -87,8 +87,7 @@ class UserAppsFragment : Fragment() {
         linearLayout.orientation = LinearLayout.VERTICAL
         linearLayout.setBackgroundColor(
             ContextCompat.getColor(
-                requireContext(),
-                R.color.backgroundColor
+                requireContext(), R.color.backgroundColor
             )
         )
 
@@ -175,6 +174,42 @@ class UserAppsFragment : Fragment() {
     }
 
     private fun changeSortUpdateAdapter(sort: String) {
+
+        when (sort) {
+            "App Name (A-Z)" -> {
+                userApps.sortBy {
+                    it.applicationInfo.loadLabel(requireActivity().packageManager).toString()
+                }
+            }
+
+            "App Name (Z-A)" -> {
+                userApps.sortByDescending {
+                    it.applicationInfo.loadLabel(requireActivity().packageManager).toString()
+                }
+            }
+
+            "App Size (DESC)" -> {
+                userApps.sortByDescending {
+                    File(it.applicationInfo.publicSourceDir).length()
+                }
+            }
+
+            "App Size (ASC)" -> {
+                userApps.sortBy {
+                    File(it.applicationInfo.publicSourceDir).length()
+                }
+            }
+
+            "Install Date (DESC)" -> {
+                userApps.sortByDescending { it.firstInstallTime }
+            }
+
+            "Install Date (ASC)" -> {
+                userApps.sortBy { it.firstInstallTime }
+            }
+        }
+
+        adapter.updateList(userApps)
 
 
     }

@@ -13,9 +13,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.androvine.deviceinfo.R
@@ -196,6 +198,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateBattery() {
+
         if (getAmperage(requireContext()).contains("-")) {
             binding.chargingStatus.text = getAmperage(requireContext()) + " mAh (Discharging)"
             binding.chargingStatus.setTextColor(
