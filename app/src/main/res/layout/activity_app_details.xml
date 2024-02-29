@@ -318,6 +318,12 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="2dp"
+                        android:background="@color/grey" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -348,6 +354,12 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="2dp"
+                        android:background="@color/grey" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -377,6 +389,12 @@
 
 
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:layout_margin="2dp"
+                        android:background="@color/grey" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -550,9 +568,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:textSize="13sp"
                     android:text="Services"
                     android:textColor="@color/white"
+                    android:textSize="13sp"
                     app:chipBackgroundColor="@color/colorPrimary" />
 
             </LinearLayout>
@@ -572,9 +590,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:textSize="13sp"
                     android:text="Receivers"
                     android:textColor="@color/white"
+                    android:textSize="13sp"
                     app:chipBackgroundColor="@color/colorPrimary" />
 
 
@@ -585,8 +603,8 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:text="Providers"
-                    android:textSize="13sp"
                     android:textColor="@color/white"
+                    android:textSize="13sp"
                     app:chipBackgroundColor="@color/colorPrimary" />
 
                 <com.google.android.material.chip.Chip
@@ -594,9 +612,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:textSize="13sp"
                     android:text="Native"
                     android:textColor="@color/white"
+                    android:textSize="13sp"
                     app:chipBackgroundColor="@color/colorPrimary" />
 
 
