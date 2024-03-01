@@ -29,7 +29,34 @@
         android:theme="@style/Theme.DeviceInfo"
         tools:targetApi="31">
         <activity
-            android:name=".ui.AppDetails"
+            android:name=".ui.test.VolumeButtons"
+            android:exported="false" />
+        <activity
+            android:name=".ui.test.Vibration"
+            android:exported="false" />
+        <activity
+            android:name=".ui.test.LightSensor"
+            android:exported="false" />
+        <activity
+            android:name=".ui.test.Accelerometer"
+            android:exported="false" />
+        <activity
+            android:name=".ui.test.Proximity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.test.Microphone"
+            android:exported="false" />
+        <activity
+            android:name=".ui.test.Speaker"
+            android:exported="false" />
+        <activity
+            android:name=".ui.test.Flashlight"
+            android:exported="false" />
+        <activity
+            android:name=".ui.test.MultiTouch"
+            android:exported="false" />
+        <activity
+            android:name=".ui.apps.AppDetails"
             android:exported="false" />
         <activity
             android:name=".ui.Settings"

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.androvine.deviceinfo.databinding.ItemAppsBinding
-import com.androvine.deviceinfo.ui.AppDetails
+import com.androvine.deviceinfo.ui.apps.AppDetails
 import com.bumptech.glide.Glide
 import java.io.File
 

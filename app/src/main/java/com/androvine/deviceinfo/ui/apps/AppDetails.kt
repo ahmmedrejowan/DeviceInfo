@@ -1,4 +1,4 @@
-package com.androvine.deviceinfo.ui
+package com.androvine.deviceinfo.ui.apps
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
