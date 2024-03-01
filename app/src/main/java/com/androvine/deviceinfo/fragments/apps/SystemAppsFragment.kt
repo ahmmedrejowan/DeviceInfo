@@ -22,6 +22,7 @@ import com.androvine.deviceinfo.databinding.FragmentUserAppsBinding
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.io.File
+import java.util.concurrent.Executors
 
 
 class SystemAppsFragment : Fragment() {
@@ -165,41 +166,51 @@ class SystemAppsFragment : Fragment() {
 
     private fun changeSortUpdateAdapter(sort: String) {
 
-        when (sort) {
-            "App Name (A-Z)" -> {
-                userApps.sortBy {
-                    it.applicationInfo.loadLabel(requireActivity().packageManager).toString().lowercase()
+
+        binding.progressIndicator.visibility = View.VISIBLE
+
+        Executors.newSingleThreadExecutor().execute {
+            when (sort) {
+                "App Name (A-Z)" -> {
+                    userApps.sortBy {
+                        it.applicationInfo.loadLabel(requireActivity().packageManager).toString().lowercase()
+                    }
+                }
+
+                "App Name (Z-A)" -> {
+                    userApps.sortByDescending {
+                        it.applicationInfo.loadLabel(requireActivity().packageManager).toString().lowercase()
+                    }
+                }
+
+                "App Size (DESC)" -> {
+                    userApps.sortByDescending {
+                        File(it.applicationInfo.publicSourceDir).length()
+                    }
+                }
+
+                "App Size (ASC)" -> {
+                    userApps.sortBy {
+                        File(it.applicationInfo.publicSourceDir).length()
+                    }
+                }
+
+                "Install Date (DESC)" -> {
+                    userApps.sortByDescending { it.firstInstallTime }
+                }
+
+                "Install Date (ASC)" -> {
+                    userApps.sortBy { it.firstInstallTime }
                 }
             }
 
-            "App Name (Z-A)" -> {
-                userApps.sortByDescending {
-                    it.applicationInfo.loadLabel(requireActivity().packageManager).toString().lowercase()
-                }
+            requireActivity().runOnUiThread {
+                binding.progressIndicator.visibility = View.GONE
+                adapter.updateList(userApps)
             }
 
-            "App Size (DESC)" -> {
-                userApps.sortByDescending {
-                    File(it.applicationInfo.publicSourceDir).length()
-                }
-            }
 
-            "App Size (ASC)" -> {
-                userApps.sortBy {
-                    File(it.applicationInfo.publicSourceDir).length()
-                }
-            }
-
-            "Install Date (DESC)" -> {
-                userApps.sortByDescending { it.firstInstallTime }
-            }
-
-            "Install Date (ASC)" -> {
-                userApps.sortBy { it.firstInstallTime }
-            }
         }
-
-        adapter.updateList(userApps)
 
 
     }

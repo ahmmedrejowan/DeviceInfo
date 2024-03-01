@@ -47,9 +47,9 @@
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
                     android:drawablePadding="5dp"
-                    android:padding="10dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
+                    android:padding="10dp"
                     android:text="App Name (A-Z)"
                     android:textColor="@color/white"
                     android:textSize="14sp"
@@ -61,12 +61,21 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorSecondary" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            tools:listitem="@layout/item_apps"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_apps" />
 
     </LinearLayout>
 

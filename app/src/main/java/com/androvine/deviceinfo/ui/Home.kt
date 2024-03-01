@@ -261,7 +261,7 @@ class Home : AppCompatActivity() {
 
         binding.tabLayoutApps.visibility = View.GONE
 
-        val tabList = listOf("User", "System", "Permission", "Analytics")
+        val tabList = listOf("User", "System")
 
         binding.viewPagerApps.adapter = AppsFragmentAdapter(supportFragmentManager, lifecycle)
 

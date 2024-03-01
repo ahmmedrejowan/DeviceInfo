@@ -61,6 +61,15 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorSecondary" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
