@@ -13,8 +13,8 @@ class Flashlight : AppCompatActivity() {
 
     private val testingPrefs by lazy { TestingPrefs(this) }
 
-    lateinit var cameraManager: CameraManager
-    lateinit var cameraId: String
+    private lateinit var cameraManager: CameraManager
+    private lateinit var cameraId: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
