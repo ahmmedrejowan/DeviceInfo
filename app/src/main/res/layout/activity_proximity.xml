@@ -113,6 +113,8 @@
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:text="Cover the top of the phone to see the sensor value change."
         android:textColor="@color/textColor"
         android:textSize="16sp" />
