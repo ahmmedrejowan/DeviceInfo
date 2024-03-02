@@ -65,7 +65,7 @@ dependencies {
     implementation("io.insert-koin:koin-android:3.5.0")
 
     // gson
-    implementation("com.google.code.gson:gson:2.10")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     // camera2
     implementation("androidx.camera:camera-camera2:1.3.1")
