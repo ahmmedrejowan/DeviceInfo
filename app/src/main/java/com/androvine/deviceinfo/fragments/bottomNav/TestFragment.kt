@@ -1,6 +1,8 @@
 package com.androvine.deviceinfo.fragments.bottomNav
 
+import android.content.Context.SENSOR_SERVICE
 import android.content.Intent
+import android.hardware.Sensor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -69,6 +71,23 @@ class TestFragment : Fragment() {
 
         binding.volumeButtonsTextView.setOnClickListener {
             startActivity(Intent(requireContext(), VolumeButtons::class.java))
+        }
+
+        val sensorManager = requireActivity().getSystemService(SENSOR_SERVICE) as android.hardware.SensorManager
+
+        val proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+        if (proximitySensor == null) {
+            binding.proximitySensorLinearLayout.visibility = View.GONE
+        }
+
+        val lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
+        if (lightSensor == null) {
+            binding.lightSensorLinearLayout.visibility = View.GONE
+        }
+
+        val accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        if (accelerometerSensor == null) {
+            binding.accelerometerLinearLayout.visibility = View.GONE
         }
 
 
