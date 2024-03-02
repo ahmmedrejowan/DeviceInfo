@@ -31,14 +31,13 @@
 
 
             <TextView
-                android:id="@+id/appName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/ivBack"
                 android:fontFamily="sans-serif-medium"
-                android:text="Settings"
+                android:text="Multi Touch"
                 android:textColor="@color/textColor"
                 android:textSize="17sp" />
 
@@ -54,490 +53,109 @@
     </LinearLayout>
 
 
-    <ScrollView
+    <TextView
+        android:id="@+id/touchCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Finger Count: 0"
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomCardView"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Touch the screen with multiple fingers."
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomCardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="@color/backgroundColor"
+        app:cardCornerRadius="10dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="5dp"
-                app:cardBackgroundColor="@color/backgroundColor"
-                app:cardCornerRadius="10dp">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/appIcon"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:importantForAccessibility="no"
-                        android:src="@drawable/ic_device_info" />
-
-
-                    <TextView
-                        android:id="@+id/appName2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:text="ABV"
-                        android:textColor="@color/textColor"
-                        android:textSize="18sp" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Package Name"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/appPackage"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/textColor"
-                            android:textSize="15sp" />
-
-
-                    </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="2dp"
-                        android:background="@color/grey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Version Code"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/versionCode"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/textColor"
-                            android:textSize="15sp" />
-
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="2dp"
-                        android:background="@color/grey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Version Name"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/versionName"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/textColor"
-                            android:textSize="15sp" />
-
-
-                    </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="2dp"
-                        android:background="@color/grey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Minimum API"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/minApi"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/textColor"
-                            android:textSize="15sp" />
-
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="2dp"
-                        android:background="@color/grey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Target API"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/targetApi"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/textColor"
-                            android:textSize="15sp" />
-
-
-                    </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="2dp"
-                        android:background="@color/grey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Size"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/appSize"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/textColor"
-                            android:textSize="15sp" />
-
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="2dp"
-                        android:background="@color/grey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Installed at"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/installedAt"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/textColor"
-                            android:textSize="15sp" />
-
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="2dp"
-                        android:background="@color/grey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Updated at"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/updatedAt"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/textColor"
-                            android:textSize="15sp" />
-
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:layout_margin="2dp"
-                        android:background="@color/grey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Installer"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/installer"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/textColor"
-                            android:textSize="15sp" />
-
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/openApp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginBottom="5dp"
-                            app:cardBackgroundColor="@color/backgroundColorSecondary"
-                            app:cardCornerRadius="15dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTint="@color/colorPrimary"
-                                android:gravity="center"
-                                android:maxLength="15"
-                                android:paddingStart="20dp"
-                                android:paddingTop="5dp"
-                                android:paddingEnd="10dp"
-                                android:paddingBottom="5dp"
-                                android:text="Open"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="14sp"
-                                app:drawableEndCompat="@drawable/ic_open" />
-
-                        </com.google.android.material.card.MaterialCardView>
-
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/appInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginBottom="5dp"
-                            app:cardBackgroundColor="@color/backgroundColorSecondary"
-                            app:cardCornerRadius="15dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTint="@color/colorPrimary"
-                                android:gravity="center"
-                                android:maxLength="15"
-                                android:paddingStart="20dp"
-                                android:paddingTop="5dp"
-                                android:paddingEnd="10dp"
-                                android:paddingBottom="5dp"
-                                android:text="Info"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="14sp"
-                                app:drawableEndCompat="@drawable/ic_info" />
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/playStore"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            app:cardBackgroundColor="@color/backgroundColorSecondary"
-                            app:cardCornerRadius="15dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:maxLength="15"
-                                android:paddingStart="20dp"
-                                android:paddingTop="5dp"
-                                android:paddingEnd="10dp"
-                                android:paddingBottom="5dp"
-                                android:text="Store"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="14sp"
-                                app:drawableEndCompat="@drawable/ic_store"
-                                app:drawableTint="@color/colorPrimary" />
-
-                        </com.google.android.material.card.MaterialCardView>
-
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Can you see multiple touches?"
+                android:textColor="@color/textColor"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/noButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="No"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/grey"
+                    app:cornerRadius="10dp"
+                    app:icon="@drawable/ic_error"
+                    app:iconGravity="start"
+                    app:iconPadding="5dp"
+                    app:iconTint="@color/white" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/yesButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="Yes"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:cornerRadius="10dp"
+                    app:icon="@drawable/ic_ok"
+                    app:iconGravity="start"
+                    app:iconPadding="5dp"
+                    app:iconTint="@color/white" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
 
-    </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
 
 
 </RelativeLayout>
