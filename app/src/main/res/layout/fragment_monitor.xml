@@ -161,7 +161,7 @@
                             android:gravity="center"
                             android:layout_gravity="center"
                             android:layout_marginBottom="10dp"
-                            android:text="Current Load (Mhz)"
+                            android:text="Current Load (MHz)"
                             android:textColor="@color/textColorSecondary"
                             android:textSize="13sp" />
 
@@ -356,6 +356,16 @@
                             app:abvRadius="10"
                             app:abvSize="40" />
 
+                        <TextView
+                            android:id="@+id/batteryUsage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:textColor="@color/textColorSecondary" />
+
+
                     </LinearLayout>
 
 
@@ -376,7 +386,7 @@
 
 
                         <TextView
-                            android:id="@+id/batteryUsage"
+                            android:id="@+id/batteryUsageText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"

@@ -1,18 +1,15 @@
 package com.androvine.deviceinfo.fragments.device
 
-import android.content.Context
 import android.media.MediaCodecList
-import android.net.ConnectivityManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.NetworkDetailsListAdapter
 import com.androvine.deviceinfo.databinding.FragmentCodecsBinding
-import com.androvine.deviceinfo.databinding.FragmentConnectionBinding
+import java.util.concurrent.Executors
 
 
 class CodecsFragment : Fragment() {
@@ -41,21 +38,28 @@ class CodecsFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val codecs = MediaCodecList(MediaCodecList.ALL_CODECS)
-        val codecCount = codecs.codecInfos.size
+        Executors.newSingleThreadExecutor().execute {
+            val codecs = MediaCodecList(MediaCodecList.ALL_CODECS)
+            val codecCount = codecs.codecInfos.size
 
-        binding.top1.text = "$codecCount Codecs"
+            for (i in 0 until codecCount) {
+                val codecInfo = codecs.codecInfos[i]
+                val codecName = codecInfo.name
+                val codecSupportedTypes = codecInfo.supportedTypes.joinToString(", ")
+                listOfDetailsPairs.add(Pair(codecName, codecSupportedTypes))
+            }
 
-        for (i in 0 until codecCount) {
-            val codecInfo = codecs.codecInfos[i]
-            val codecName = codecInfo.name
-            val codecSupportedTypes = codecInfo.supportedTypes.joinToString(", ")
-            listOfDetailsPairs.add(Pair(codecName, codecSupportedTypes))
+            val sortedList = listOfDetailsPairs.sortedBy { it.first }
+
+            requireActivity().runOnUiThread {
+                binding.top1.text = "$codecCount Codecs"
+                adapter.updateList(sortedList)
+
+            }
         }
 
-        val sortedList = listOfDetailsPairs.sortedBy { it.first }
-        adapter.updateList(sortedList)
 
     }
+
 
 }

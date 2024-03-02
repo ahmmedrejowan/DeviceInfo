@@ -18,6 +18,42 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="About"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:icon="@drawable/ic_pref_version"
+            android:key="pref_version"
+            android:summary="Version 1.0"
+            android:title="App Version" />
+
+        <Preference
+            android:icon="@drawable/ic_pref_contact"
+            android:key="pref_contact"
+            android:summary="Share your thoughts with us"
+            android:title="Contact Us" />
+
+        <Preference
+            android:icon="@drawable/ic_pref_rate"
+            android:key="pref_rate"
+            android:summary="Rate us on Play Store"
+            android:title="Rate Us" />
+
+        <Preference
+            android:icon="@drawable/ic_pref_privacy"
+            android:key="pref_privacy"
+            android:summary="Read our privacy policy"
+            android:title="Privacy Policy" />
+
+        <Preference
+            android:icon="@drawable/ic_pref_creator"
+            android:key="pref_creator"
+            android:summary="Androvine"
+            android:title="Created by" />
+
+
+    </PreferenceCategory>
 
 
 </PreferenceScreen>

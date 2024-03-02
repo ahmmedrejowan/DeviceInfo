@@ -85,7 +85,7 @@ class MonitorFragment : Fragment() {
             if (it != null) {
 
                 binding.arcProgressRam.progress = it.usagePercent.toFloat()
-                binding.ramUsage.text = "${it.usedMemory} / ${it.totalMemory}"
+                binding.ramUsage.text = "${it.usedMemory.replace("GB","").trim()} / ${it.totalMemory}"
 
 
                 val lineData = binding.ramChart.data
@@ -252,9 +252,11 @@ class MonitorFragment : Fragment() {
 
 
             if (BatteryFragment.getAmperage(requireContext()).contains("-")) {
-                binding.batteryUsage.text = "Discharging (mah)"
+                binding.batteryUsageText.text = "Discharging (mAh)"
+                binding.batteryUsage.text = BatteryFragment.getAmperage(requireContext()) + " mAh"
             } else {
-                binding.batteryUsage.text = "Charging (mah)"
+                binding.batteryUsageText.text = "Charging (mAh)"
+                binding.batteryUsage.text = BatteryFragment.getAmperage(requireContext()) + " mAh"
             }
         }
 

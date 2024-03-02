@@ -7,23 +7,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.androvine.deviceinfo.R
 import com.androvine.deviceinfo.adapter.AppsFragmentAdapter
 import com.androvine.deviceinfo.adapter.BottomNavFragmentAdapter
 import com.androvine.deviceinfo.adapter.DeviceFragmentAdapter
-import com.androvine.deviceinfo.dataClasses.CpuDBModel
-import com.androvine.deviceinfo.databases.CpuDatabaseHelper
 import com.androvine.deviceinfo.databinding.ActivityHomeBinding
 import com.androvine.deviceinfo.detailsMVVM.DeviceDetailsViewModel
 import com.androvine.deviceinfo.utils.OpenGLInfoListener
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.InputStreamReader
 
 class Home : AppCompatActivity() {
 
@@ -74,6 +69,15 @@ class Home : AppCompatActivity() {
         }
 
         deviceDetailsViewModel.getDisplayData(display)
+
+        onBackPressedDispatcher.addCallback(this) {
+            if (binding.bottomNavView.selectedItemId != R.id.nav_home) {
+                switchToState(0)
+                return@addCallback
+            } else {
+                finish()
+            }
+        }
 
 
     }
