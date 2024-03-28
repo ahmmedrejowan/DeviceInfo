@@ -1,0 +1,28 @@
+package com.rejowan.deviceinfo.detailsMVVM.dataClass
+
+data class OsDataModel(
+    val apiLevel: Int,
+    val version: String?,
+    val codeName: String?,
+    val versionName: String?,
+    val bootloader: String?,
+    val securityPatch: String?,
+    val build: String?,
+    val buildDate: String?,
+    val fingerprint: String?,
+    val architecture: String?,
+    val abis: List<String>?,
+    val abis32: List<String>?,
+    val abis64: List<String>?,
+    val kernelVersion: String?,
+    val isRooted: Boolean,
+    val javaVm: String?,
+    val javaVmVersion: String?,
+    val incremental: String?,
+    val googlePlayServicesVersion: String?,
+    val uptime: String?,
+    val timeZone: String?,
+    val openGlVersion: String?,
+    val trebleSupported: Boolean,
+    val seamlessSupported: Boolean,
+)

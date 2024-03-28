@@ -160,7 +160,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <com.androvine.deviceinfo.utils.ArcProgress
+                    <com.rejowan.deviceinfo.utils.ArcProgress
                         android:id="@+id/arc_progress_cpu"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
@@ -204,7 +204,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <com.androvine.deviceinfo.utils.ArcProgress
+                    <com.rejowan.deviceinfo.utils.ArcProgress
                         android:id="@+id/arc_progress_ram"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
@@ -355,7 +355,7 @@
                     android:layout_height="100dp"
                     android:gravity="center">
 
-                    <com.androvine.deviceinfo.utils.DonutProgress
+                    <com.rejowan.deviceinfo.utils.DonutProgress
                         android:id="@+id/storage_progress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

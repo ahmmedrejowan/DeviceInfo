@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.androvine.deviceinfo"
+    namespace = "com.rejowan.deviceinfo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.androvine.deviceinfo"
+        applicationId = "com.rejowan.deviceinfo"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

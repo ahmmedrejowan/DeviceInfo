@@ -114,7 +114,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.androvine.deviceinfo.utils.ArcProgress
+                        <com.rejowan.deviceinfo.utils.ArcProgress
                             android:id="@+id/arc_progress_cpu"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
@@ -230,7 +230,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.androvine.deviceinfo.utils.ArcProgress
+                        <com.rejowan.deviceinfo.utils.ArcProgress
                             android:id="@+id/arc_progress_ram"
                             android:layout_width="100dp"
                             android:layout_height="100dp"

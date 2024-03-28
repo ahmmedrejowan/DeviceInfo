@@ -4,8 +4,8 @@ plugins {
 }
 
 android {
-    namespace = "com.androvine.icons"
-    compileSdk = 33
+    namespace = "com.rejowan.icons"
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
