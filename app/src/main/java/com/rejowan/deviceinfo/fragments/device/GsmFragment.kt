@@ -182,5 +182,9 @@ class GsmFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        checkPermission()
+    }
 
 }
