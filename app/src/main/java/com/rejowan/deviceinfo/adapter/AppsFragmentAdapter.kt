@@ -15,17 +15,17 @@ class AppsFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle
     }
 
     override fun createFragment(position: Int): Fragment {
-        when (position) {
+        return when (position) {
             0 -> {
-                return UserAppsFragment()
+                UserAppsFragment()
             }
 
             1 -> {
-                return SystemAppsFragment()
+                SystemAppsFragment()
             }
 
             else -> {
-                return UserAppsFragment()
+                UserAppsFragment()
             }
 
         }

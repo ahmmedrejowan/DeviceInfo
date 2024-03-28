@@ -23,33 +23,28 @@
         app:iconSpaceReserved="false">
 
         <Preference
-            android:icon="@drawable/ic_pref_version"
+            android:icon="@drawable/ic_pref_info"
             android:key="pref_version"
             android:summary="Version 1.0"
             android:title="App Version" />
 
         <Preference
-            android:icon="@drawable/ic_pref_contact"
-            android:key="pref_contact"
-            android:summary="Share your thoughts with us"
-            android:title="Contact Us" />
-
-        <Preference
-            android:icon="@drawable/ic_pref_rate"
-            android:key="pref_rate"
-            android:summary="Rate us on Play Store"
-            android:title="Rate Us" />
-
-        <Preference
             android:icon="@drawable/ic_pref_privacy"
-            android:key="pref_privacy"
-            android:summary="Read our privacy policy"
-            android:title="Privacy Policy" />
+            android:key="pref_credit"
+            android:summary="Credits to Open Source Libraries"
+            android:title="Credit" />
+
+
+        <Preference
+            android:icon="@drawable/ic_pref_v_c_s"
+            android:key="pref_source"
+            android:summary="View source code on GitHub"
+            android:title="Source Code" />
 
         <Preference
             android:icon="@drawable/ic_pref_creator"
             android:key="pref_creator"
-            android:summary="Androvine"
+            android:summary="K M Rejowan Ahmmed"
             android:title="Created by" />
 
 

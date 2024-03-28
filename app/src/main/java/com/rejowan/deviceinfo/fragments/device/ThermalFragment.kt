@@ -30,8 +30,8 @@ class ThermalFragment : Fragment() {
         )
     }
 
-    private lateinit var handler: Handler
-    private lateinit var runnable: Runnable
+//    private lateinit var handler: Handler
+//    private lateinit var runnable: Runnable
 
 
     override fun onCreateView(
@@ -51,11 +51,11 @@ class ThermalFragment : Fragment() {
 
         getThermalInfo()
 
-        handler = Handler(Looper.getMainLooper())
-        runnable = Runnable {
-            getThermalInfo()
-            handler.postDelayed(runnable, 4000)
-        }
+//        handler = Handler(Looper.getMainLooper())
+//        runnable = Runnable {
+//            getThermalInfo()
+//            handler.postDelayed(runnable, 4000)
+//        }
 
 
 
@@ -119,21 +119,21 @@ class ThermalFragment : Fragment() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        handler.post(runnable)
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        handler.removeCallbacks(runnable)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacks(runnable)
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        handler.post(runnable)
+//
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        handler.removeCallbacks(runnable)
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        handler.removeCallbacks(runnable)
+//    }
 
 
 }

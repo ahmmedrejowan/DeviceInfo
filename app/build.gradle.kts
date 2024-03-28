@@ -61,9 +61,6 @@ dependencies {
     // shared preferences
     implementation("androidx.preference:preference-ktx:1.2.1")
 
-    // koin
-    implementation("io.insert-koin:koin-android:3.5.0")
-
     // gson
     implementation("com.google.code.gson:gson:2.10.1")
 
@@ -78,5 +75,9 @@ dependencies {
 
     // glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // Licensy
+    implementation("com.github.ahmmedrejowan:Licensy:0.2")
+
 
 }

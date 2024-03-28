@@ -16,22 +16,22 @@ class BottomNavFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Life
     }
 
     override fun createFragment(position: Int): Fragment {
-        when (position) {
+        return when (position) {
             0 -> {
-                return HomeFragment()
+                HomeFragment()
             }
 
             1 -> {
-                return MonitorFragment()
+                MonitorFragment()
             }
 
             2 -> {
-                return TestFragment()
+                TestFragment()
             }
 
 
             else -> {
-                return HomeFragment()
+                HomeFragment()
             }
 
         }

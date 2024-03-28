@@ -4,10 +4,10 @@ class Constants {
 
     companion object {
 
-        val contactEmail = "contact@email.com"
-        val privacyPolicyUrl = "https://www.google.com"
+        val sourceCode = "https://github.com/ahmmedrejowan/DeviceInfo"
+        val profileUrl = "https://github.com/ahmmedrejowan"
         val appVersion = "1.0"
-        val companyName = "Androvine"
+        val companyName = "K M Rejowan Ahmmed"
 
     }
 
