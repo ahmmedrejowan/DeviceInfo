@@ -13,7 +13,6 @@ import com.rejowan.deviceinfo.R
 import com.rejowan.deviceinfo.databinding.ActivitySettingsBinding
 import com.rejowan.licensy.LicenseContent
 import com.rejowan.licensy.Licenses
-import com.rejowan.licensy.LicensyBottomSheet
 import com.rejowan.licensy.LicensyCustomization
 import com.rejowan.licensy.LicensyDialog
 import com.rejowan.wachatanalyzer.constants.Constants
@@ -163,18 +162,52 @@ class Settings : AppCompatActivity() {
                 )
             )
 
+            // Circle Progress
+            listOfLicenses.add(
+                LicenseContent(
+                    "Circle Progress",
+                    "lzyzsd",
+                    Licenses.APACHE_2_0,
+                    "2015",
+                    "https://github.com/lzyzsd/CircleProgress"))
+
+
             val dialog = LicensyDialog(requireContext())
             dialog.setAccentColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-            dialog.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.backgroundColor))
-            dialog.setTitle("Open Source Licenses", ContextCompat.getColor(requireContext(), R.color.colorPrimary), 20f, Typeface.BOLD)
-            dialog.setCloseText("Close", ContextCompat.getColor(requireContext(), R.color.white), 14f, Typeface.NORMAL)
+            dialog.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.backgroundColor
+                )
+            )
+            dialog.setTitle(
+                "Open Source Licenses",
+                ContextCompat.getColor(requireContext(), R.color.colorPrimary),
+                20f,
+                Typeface.BOLD
+            )
+            dialog.setCloseText(
+                "Close",
+                ContextCompat.getColor(requireContext(), R.color.white),
+                14f,
+                Typeface.NORMAL
+            )
             dialog.setCustomization(
                 LicensyCustomization(
                     lvPrimaryColor = ContextCompat.getColor(requireContext(), R.color.textColor),
-                    lvSecondaryColor = ContextCompat.getColor(requireContext(), R.color.textColorSecondary),
-                    lvBackgroundColor = ContextCompat.getColor(requireContext(), R.color.backgroundColor),
+                    lvSecondaryColor = ContextCompat.getColor(
+                        requireContext(),
+                        R.color.textColorSecondary
+                    ),
+                    lvBackgroundColor = ContextCompat.getColor(
+                        requireContext(),
+                        R.color.backgroundColor
+                    ),
                     lvDividerColor = ContextCompat.getColor(requireContext(), R.color.grey),
-                    lvBackgroundColorExpand = ContextCompat.getColor(requireContext(), R.color.backgroundColorSecondary),
+                    lvBackgroundColorExpand = ContextCompat.getColor(
+                        requireContext(),
+                        R.color.backgroundColorSecondary
+                    ),
                 )
             )
             dialog.setLicenses(listOfLicenses)
