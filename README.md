@@ -55,7 +55,7 @@ The app is not available on the Play Store yet. You can download the latest vers
 <img src="https://raw.githubusercontent.com/ahmmedrejowan/DeviceInfo/master/files/download.png" width="256px" align="center"/>
 </a>
 
-<br> <br>
+<br>
 
 Check out the [releases](https://github.com/ahmmedrejowan/DeviceInfo/releases) section for more details.
 
