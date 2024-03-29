@@ -51,7 +51,9 @@ The app consists of five main components that work together to provide a seamles
 
 The app is not available on the Play Store yet. You can download the latest version (0.1) APK from here
 
+<a href="https://github.com/ahmmedrejowan/DeviceInfo/releases/download/1.0.0/DeviceInfo.apk">
 <img src="https://raw.githubusercontent.com/ahmmedrejowan/DeviceInfo/master/files/download.png" width="256px" align="center"/>
+</a>
 
 <br>
 
@@ -94,7 +96,7 @@ Check out the [releases](https://github.com/ahmmedrejowan/DeviceInfo/releases) s
 </ul>
 
 ## Releases
-- [v0.1](#download)
+- [Verison 1.0.0](https://github.com/ahmmedrejowan/DeviceInfo/releases/tag/1.0.0)
     - Initial release
     - Basic device information
     - Real-time monitoring
