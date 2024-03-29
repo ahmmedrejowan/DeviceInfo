@@ -21,9 +21,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-#      - name: Build Release AAB
-#        run: ./gradlew bundleRelease
-
       - name: Build Release APK
         run: ./gradlew assembleRelease
 
@@ -31,21 +28,27 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.jks
 
-#      - name: Sign App Bundle
+#      - name: Sign APK
 #        run: |
 #          key_alias=${{ secrets.KEY_ALIAS }}
-#          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore.jks -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} -signedjar app-release-signed.aab app/build/outputs/bundle/release/app-release.aab $key_alias
+#          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore.jks -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} -signedjar app-release-signed.apk app/build/outputs/apk/release/app-release-unsigned.apk $key_alias
+#
+#      - name: Upload APK
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: app-release-signed-apk
+#          path: app-release-signed.apk
+
+      - name: Zipalign APK
+        run: zipalign -v 4 app/build/outputs/apk/release/app-release-unsigned.apk app-release-aligned.apk
 
       - name: Sign APK
         run: |
-          key_alias=${{ secrets.KEY_ALIAS }}
-          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore.jks -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} -signedjar app-release-signed.apk app/build/outputs/apk/release/app-release-unsigned.apk $key_alias
+          apksigner sign --ks keystore.jks --ks-pass pass:${{ secrets.KEYSTORE_PASSWORD }} --key-pass pass:${{ secrets.KEY_PASSWORD }} --out app-release-signed.apk app-release-aligned.apk
 
-#      - name: Upload Bundle
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: app-release-signed
-#          path: app-release-signed.aab
+      - name: Verify APK Signature
+        run: |
+          apksigner verify app-release-signed.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
