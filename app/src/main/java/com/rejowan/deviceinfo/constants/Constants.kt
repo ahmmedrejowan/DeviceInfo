@@ -6,7 +6,7 @@ class Constants {
 
         val sourceCode = "https://github.com/ahmmedrejowan/DeviceInfo"
         val profileUrl = "https://github.com/ahmmedrejowan"
-        val appVersion = "1.0"
+        val appVersion = "1.0.0"
         val companyName = "K M Rejowan Ahmmed"
 
     }
