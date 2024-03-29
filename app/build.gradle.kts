@@ -37,6 +37,17 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("keystore.jks")
+            storePassword = "RELEASE_KEYSTORE_PASSWORD"
+            keyAlias = "RELEASE_KEYSTORE_ALIAS"
+            keyPassword = "RELEASE_KEY_PASSWORD"
+        }
+
+    }
+
 }
 
 dependencies {
