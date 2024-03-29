@@ -15,7 +15,7 @@ import com.rejowan.licensy.LicenseContent
 import com.rejowan.licensy.Licenses
 import com.rejowan.licensy.LicensyCustomization
 import com.rejowan.licensy.LicensyDialog
-import com.rejowan.wachatanalyzer.constants.Constants
+import com.rejowan.deviceinfo.constants.Constants
 
 class Settings : AppCompatActivity() {
     private val binding: ActivitySettingsBinding by lazy {

@@ -1,4 +1,4 @@
-package com.rejowan.wachatanalyzer.constants
+package com.rejowan.deviceinfo.constants
 
 class Constants {
 
