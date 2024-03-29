@@ -1,4 +1,4 @@
-name: Release - Generate App Bundle and APK
+name: Release - Generate APK
 
 on:
   workflow_dispatch:
@@ -21,8 +21,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build Release AAB
-        run: ./gradlew bundleRelease
+#      - name: Build Release AAB
+#        run: ./gradlew bundleRelease
 
       - name: Build Release APK
         run: ./gradlew assembleRelease
@@ -31,21 +31,21 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.jks
 
-      - name: Sign App Bundle
-        run: |
-          key_alias=${{ secrets.KEY_ALIAS }}
-          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore.jks -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} -signedjar app-release-signed.aab app/build/outputs/bundle/release/app-release.aab $key_alias
+#      - name: Sign App Bundle
+#        run: |
+#          key_alias=${{ secrets.KEY_ALIAS }}
+#          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore.jks -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} -signedjar app-release-signed.aab app/build/outputs/bundle/release/app-release.aab $key_alias
 
       - name: Sign APK
         run: |
           key_alias=${{ secrets.KEY_ALIAS }}
           jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore.jks -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} -signedjar app-release-signed.apk app/build/outputs/apk/release/app-release.apk $key_alias
 
-      - name: Upload Bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-signed
-          path: app-release-signed.aab
+#      - name: Upload Bundle
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: app-release-signed
+#          path: app-release-signed.aab
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
