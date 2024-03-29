@@ -1,1 +1,6 @@
-# Device Info
+<p align="center"><img src="https://raw.githubusercontent.com/ahmmedrejowan/DeviceInfo/master/files/cover.svg" width="100%" align="center"/></p>
+<p align="center"> <a href="https://www.android.com"><img src="https://img.shields.io/badge/platform-Android-yellow.svg" alt="platform"></a>
+ <a href="https://android-arsenal.com/api?level=21"><img src="https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat" alt="API"></a> <a href="https://github.com/ahmmedrejowan/DeviceInfo/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ahmmedrejowan/DeviceInfo" alt="GitHub license"></a> </p>
+
+ <p align="center"> <a href="https://github.com/ahmmedrejowan/DeviceInfo/issues"><img src="https://img.shields.io/github/issues/ahmmedrejowan/DeviceInfo" alt="GitHub issues"></a> <a href="https://github.com/ahmmedrejowan/DeviceInfo/network"><img src="https://img.shields.io/github/forks/ahmmedrejowan/DeviceInfo" alt="GitHub forks"></a> <a href="https://github.com/ahmmedrejowan/DeviceInfo/stargazers"><img src="https://img.shields.io/github/stars/ahmmedrejowan/DeviceInfo" alt="GitHub stars"></a> <a href="https://github.com/ahmmedrejowan/DeviceInfo/graphs/contributors"> <img src="https://img.shields.io/github/contributors/ahmmedrejowan/DeviceInfo" alt="GitHub contributors"></a>   </p>
+<hr>
